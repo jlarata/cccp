@@ -1,14 +1,21 @@
 .nuevaFicha {
     
+    position: relative;
+    top: 5px;
     display: flex;
     flex-direction: column;
     border-radius: 10px;
     border-style: groove;
     padding: 1%;
+    margin : 2px 5px;
 }
 
 .nuevaFicha form {
     display: flex;
     flex-direction: column;
     gap: 5px;
+}
+
+.films-list {
+    margin: 2% 5%;
 }

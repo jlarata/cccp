@@ -44,7 +44,8 @@ export function Films(){
     function handleSubmit(e){
         e.preventDefault();
     
-        const allFilmsClone = [...allFilms]
+        const allFilmsClone = [...allFilmsState]
+ 
         allFilmsClone.push({
             title: titleState,
             year: yearState,
@@ -64,13 +65,7 @@ export function Films(){
 
     
 
-    <div className="films-list">
-        {allFilmsState.map((film) => {
-        return <Film film={film}></Film>
-        })}
-    </div>
-
-    <div className='nuevaFicha'>
+        <div className='nuevaFicha'>
         <h3>Nueva ficha</h3>
         <form onSubmit={handleSubmit}>
         <label htmlFor='title'>Título</label>
@@ -79,10 +74,19 @@ export function Films(){
         <input onChange={(e)=>setYearState(e.target.value)} name="year"></input>
         <label htmlFor='origin'>Origen</label>
         <input onChange={(e)=>setOriginState(e.target.value)} name="origin"></input>
+        
         <Button variant="success" type="submit">agregar ficha</Button>
        
         </form>
     </div>
+
+    <div className="films-list">
+        {allFilmsState.map((film) => {
+        return <Film film={film}></Film>
+        })}
+    </div>
+
+    
 
 
     </>

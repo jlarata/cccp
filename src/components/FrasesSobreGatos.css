@@ -1,0 +1,18 @@
+
+
+.cajita {
+    
+    display: flex;
+    
+    border-style: groove;
+    border-width: 5px;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+/*.cajaDeFrases b {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}*/
