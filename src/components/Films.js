@@ -1,7 +1,13 @@
+import './Films.css';
 import { Film } from './Film';
+import { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+
 
 export function Films(){
 
+    
     const allFilms = [
         {
         ccNumber: '066',
@@ -9,7 +15,10 @@ export function Films(){
         title: 'The Brown Bunny',
         year: '2003',
         director: 'Vincent Gallo',
-        score: '8,50'
+        score: '8,50',
+        origin: 'EE.UU.',
+        ccMember: 'J',
+        ccDate: '2015/09/25',
         },
         {
         ccNumber: '067',
@@ -17,17 +26,66 @@ export function Films(){
         title: 'Swiss Army Man',
         year: '2016',
         director: 'Daniel Scheinert, Daniel Kwan',
-        score: '1'
+        score: '1',
+        origin: 'EE.UU.',
+        ccMember: 'Lucía',
+        ccDate: '2015/07/10',
         }
     ]
+
+
+    const [allFilmsState, setAllFilmsState] = useState(allFilms)
+
+    const [titleState, setTitleState] = useState()
+    const [yearState, setYearState] = useState()
+    const [originState, setOriginState] = useState()
+
+
+    function handleSubmit(e){
+        e.preventDefault();
+    
+        const allFilmsClone = [...allFilms]
+        allFilmsClone.push({
+            title: titleState,
+            year: yearState,
+            origin: originState,
+        })
+
+        setAllFilmsState(allFilmsClone)
+    
+    }
+
+    
+
+
+
     return (
-        <>
-        <div className="films-list">
-            {allFilms.map((film) => {
-                return <Film film={film}></Film>
-            })}
-        </div>
-        </>
+    <>
+
+    
+
+    <div className="films-list">
+        {allFilmsState.map((film) => {
+        return <Film film={film}></Film>
+        })}
+    </div>
+
+    <div className='nuevaFicha'>
+        <h3>Nueva ficha</h3>
+        <form onSubmit={handleSubmit}>
+        <label htmlFor='title'>Título</label>
+        <input onChange={(e)=>setTitleState(e.target.value)} name="title"></input>
+        <label htmlFor='year'>Año</label>
+        <input onChange={(e)=>setYearState(e.target.value)} name="year"></input>
+        <label htmlFor='origin'>Origen</label>
+        <input onChange={(e)=>setOriginState(e.target.value)} name="origin"></input>
+        <Button variant="success" type="submit">agregar ficha</Button>
+       
+        </form>
+    </div>
+
+
+    </>
     )
 
 }

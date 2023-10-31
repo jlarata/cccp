@@ -1,7 +1,20 @@
 
 .film {
-    background-color: gray;
+    /*background-color: gray;*/
+    display: flex;
+    
+    border-style: groove;
+    border-width: 5px;
     border-radius: 10px;
     padding: 10px;
     margin: 10px 0;
+}
+
+.filmPoster img {
+    border-style: groove;
+    border-radius: 10px;
+}
+
+.filmInfo {
+    margin-left: 5%;
 }

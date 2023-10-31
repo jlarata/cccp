@@ -1,0 +1,12 @@
+.banner {
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0;
+    height: 200px;
+    background-image: url(https://portfolio-1dac6.web.app/assets/img/defrent.jpg);
+    background-position: center;
+    background-size: cover;
+
+    
+    
+}
