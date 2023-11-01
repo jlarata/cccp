@@ -1,19 +1,42 @@
-.nuevaFicha {
-    
+
+.cajaBotonCrearNuevaFicha {
     position: relative;
+    left: 35%;
+    width: 30%;
     top: 5px;
     display: flex;
     flex-direction: column;
     border-radius: 10px;
     border-style: groove;
+    padding: 0;
+    
+
+}
+
+.nuevaFicha {
+    
+    position: relative;
+    top: 5px;
+    /*visibility: hidden;*/
+    display: none;
+    flex-direction: column;
+    width: 90%;
+    align-items: center;
+    border-radius: 10px;
+    border-style: groove;
     padding: 1%;
-    margin : 2px 5px;
+    margin : 2px 5%;
 }
 
 .nuevaFicha form {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    width: 50%;
+}
+
+.nuevaFicha input {
+    width: 100%;
 }
 
 .films-list {

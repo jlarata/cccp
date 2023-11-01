@@ -53,19 +53,28 @@ export function Films(){
         })
 
         setAllFilmsState(allFilmsClone)
-    
+        document.getElementById("cajaNuevaFicha").style.display = "none";
+        //document.getElementById("cajaNuevaFicha").style.visibility = "hidden";
+
+        
     }
 
-    
+    function displayForm(e){
+        e.preventDefault();
+        document.getElementById("cajaNuevaFicha").style.display = "flex";
+        //document.getElementById("cajaNuevaFicha").style.visibility = "visible";
+    }
 
 
 
     return (
     <>
 
-    
+        <div className='cajaBotonCrearNuevaFicha'>
+            <Button onClick={displayForm} variant="primary">agregar ficha</Button>
+        </div>
 
-        <div className='nuevaFicha'>
+        <div id='cajaNuevaFicha' className='nuevaFicha'>
         <h3>Nueva ficha</h3>
         <form onSubmit={handleSubmit}>
         <label htmlFor='title'>Título</label>
@@ -76,7 +85,7 @@ export function Films(){
         <input onChange={(e)=>setOriginState(e.target.value)} name="origin"></input>
         
         <Button variant="success" type="submit">agregar ficha</Button>
-       
+        
         </form>
     </div>
 
