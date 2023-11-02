@@ -100,3 +100,11 @@ def update_film(id):
 
     db.session.commit()
     return film_schema.jsonify(film)
+
+@app.route('/delete/<id>', methods = ['DELETE'])
+def film_delete(id):
+    film = Films.query.get(id)
+    db.session.delete(film)
+    db.session.commit()
+
+    return film_schema.jsonify(film)
