@@ -48,10 +48,17 @@ films_schema = FilmSchema(many=True)
 
 
 
-
 @app.route('/get', methods = ['GET'])
-def get_articles():
-    return jsonify({"Hello":"World"})
+def get_films():
+    all_films = Films.query.all()
+    results = films_schema.dump(all_films)
+    return jsonify(results)
+
+@app.route('/get/<id>/', methods = ['GET'])
+def post_details(id):
+    film = Films.query.get(id)
+    return film_schema.jsonify(film)
+
 
 @app.route('/add', methods = ['POST'])
 def add_film():
@@ -68,3 +75,28 @@ def add_film():
     db.session.add(films)
     db.session.commit()
     return film_schema.jsonify(films)
+
+@app.route('/update/<id>', methods = ['PUT'])
+def update_film(id):
+    film = Films.query.get(id)
+
+    ccNumber = request.json['ccNumber']
+    imgUrl = request.json['imgUrl']
+    title = request.json['title']
+    year = request.json['year']
+    director = request.json['director']
+    score = request.json['score']
+    host = request.json['host']
+    date = request.json['date']
+
+    film.ccNumber = ccNumber
+    film.imgUrl = imgUrl
+    film.title = title
+    film.year = year
+    film.director = director
+    film.score = score
+    film.host = host
+    film.date = date
+
+    db.session.commit()
+    return film_schema.jsonify(film)
