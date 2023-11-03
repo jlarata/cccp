@@ -1,5 +1,6 @@
 
 body {
     background-color: #cccccc;
-    background-image: linear-gradient(rgb(3, 21, 185), rgb(5, 134, 33));
+    background-image: linear-gradient(#cccccc, #282c34);
+    /*background-image: linear-gradient(rgb(3, 21, 185), rgb(5, 134, 33));*/
     }

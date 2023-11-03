@@ -3,8 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
 
 
-const API_URL = 'https://meowfacts.herokuapp.com/'
-
+const CatAPI_URL = 'https://meowfacts.herokuapp.com/'
 
 
 export function FrasesSobreGatos(){
@@ -13,7 +12,7 @@ export function FrasesSobreGatos(){
 
     async function handleClick(){
 
-        const response = await fetch(API_URL)
+        const response = await fetch(CatAPI_URL)
         if(response.ok){
             const data = await response.json()
 
@@ -21,20 +20,14 @@ export function FrasesSobreGatos(){
         }
     }
 
-
     return (
         
-        
-        <div className="cajita">
-            
-            <Button onClick={handleClick} variant="success" type="submit">generar frase sobre gato</Button>
-            
-            <p>{phraseState}</p>
-
-        </div>
-        
-
+    <div className="cajita">
+        <Button onClick={handleClick} variant="success" type="submit">generar frase sobre gato</Button>
+        <p>{phraseState}</p>
+    </div>
     )
-
 }
+
+
 

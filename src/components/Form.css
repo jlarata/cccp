@@ -1,0 +1,112 @@
+.botoneria {
+    display: flex;
+    justify-content: end;
+    gap: 2%;
+}
+
+.cajita {
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border-style: groove;
+    border-width: 5px;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+
+
+.film {
+    /*background-color: gray;*/
+    display: flex;
+    flex-direction: column;
+    border-style: groove;
+    border-width: 5px;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.filmPoster img {
+    max-width: 200px;
+    border-style: groove;
+    border-radius: 10px;
+    margin-bottom: 2%;
+}
+
+.filmInfo {
+    margin-left: 5%;
+}
+
+.films-list {
+    margin: 2% 5%;
+}
+
+.cajaBotonCrearNuevaFicha {
+    position: relative;
+    left: 35%;
+    width: 30%;
+    top: 5px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    border-style: groove;
+    padding: 0;
+    
+
+}
+
+.nuevaFicha {
+    
+    position: relative;
+    top: 5px;
+    /*visibility: hidden;*/
+    display: none;
+    flex-direction: column;
+    width: 90%;
+    align-items: center;
+    border-radius: 10px;
+    border-style: groove;
+    padding: 1%;
+    margin : 2px 5%;
+}
+
+.nuevaFicha form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 50%;
+}
+
+.nuevaFicha input {
+    width: 100%;
+}
+
+.editarFicha {
+    
+    position: relative;
+    top: 5px;
+    /*visibility: hidden;*/
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    align-items: center;
+    border-radius: 10px;
+    border-style: groove;
+    padding: 1%;
+    margin : 2px 5%;
+}
+
+.editarFicha form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 50%;
+}
+
+.editarFicha input {
+    width: 100%;
+}
