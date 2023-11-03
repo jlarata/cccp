@@ -9,7 +9,7 @@ app = Flask(__name__)
     app.debug = True
     app.run() """
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:87654123@localhost/flask'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:d3ctech@localhost/flask'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
