@@ -1,4 +1,6 @@
 import React from "react";
+import APIService from "./APIService";
+import './FilmList.css'
 
 function FilmList(props) {
 
@@ -7,8 +9,13 @@ function FilmList(props) {
         
       }
 
+      const deleteFilm = (film) => {
+        APIService.DeleteFilm(film.id)
+        .then(() => props.deleteFilm())
+    }
+
     return (
-        <div className="App">
+        <div className="films-list">
             {props.films && props.films.map(film => {
                 return (
                     
@@ -31,7 +38,9 @@ function FilmList(props) {
                                     onClick={() => editFilm(film)}>editar</button>
                             </div>
                             <div className="col-md-1">
-                                <button className='btn btn-danger'>eliminar</button>
+                                <button className='btn btn-danger'
+                                onClick={() => deleteFilm(film)}
+                                >eliminar</button>
                             </div>
                         </div>
                     </div>

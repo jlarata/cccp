@@ -10,8 +10,10 @@
 }
 
 .filmPoster img {
-    width: 200px;
-    height: 300px;
+    max-width: 200px;
+    max-height: 300px;
+    width: auto;
+    height: auto;
     border-style: groove;
     border-radius: 10px;
     margin-bottom: 2%;

@@ -6,9 +6,11 @@ import Form from './components/Form';
 import FilmList from './components/FilmList';
 
 
+
 /* import { Films } from './components/Films';
+import { GetAllFilms } from './components/GetAllFilms';  */
 import { FrasesSobreGatos } from './components/FrasesSobreGatos';
-import { GetAllFilms } from './components/GetAllFilms'; */
+
 
 
 function App() {
@@ -54,15 +56,25 @@ function App() {
     setFilms(new_films)
   }
 
+  const deleteFilm = (film) => {
+    const new_films = films.filter(myfilm => {
+      if(myfilm.id === film.id) {
+        return false;
+      }
+      return true
+    })
+    setFilms(new_films)
+  }
+
 
   return (
 
 
     //react fragment
-    <div className='App'>
+    <div className='films-list'>
       <Header></Header>
       {/* <Examplefunctions></Examplefunctions> */}
-      <div className='row'>
+      <div className='film'>
         <div className='col'>
           <h1>Instertar nueva ficha</h1>
         </div>
@@ -72,17 +84,18 @@ function App() {
           onClick={openForm}>Instertar nueva ficha</button>
         </div>
       </div>
+
       {editedFilm ? <Form film = {editedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm}/> : null }
 
-      <FilmList films = {films} editFilm = {editFilm}/>
+      <FilmList films = {films} editFilm = {editFilm} deleteFilm = {deleteFilm} />
 
       
 
       
     
-     {/*  <GetAllFilms></GetAllFilms>
-      <Films></Films>
-      <FrasesSobreGatos></FrasesSobreGatos> */}
+      {/* <GetAllFilms></GetAllFilms>
+      <Films></Films> */}
+      <FrasesSobreGatos></FrasesSobreGatos>
     </div>
     
   );
