@@ -5,7 +5,8 @@ from flask_marshmallow import Marshmallow
 #import datetime
 
 app = Flask(__name__)
-cors = CORS(app)
+##cors = CORS(app, resources={r"/*/*": {"origins": "*"}})
+CORS(app)
 
 """ if __name__ == '__main__':
     app.debug = True
@@ -16,12 +17,13 @@ cors = CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:d3ctech@localhost/flask'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 """viejo metodo cors app.config['CORS_HEADERS'] = 'Content-Type'"""
+##app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
 class Films(db.Model):
-    
     id = db.Column(db.Integer, primary_key=True)
     ccNumber = db.Column(db.Integer)
     imgUrl = db.Column(db.String(200))
@@ -48,7 +50,7 @@ class Films(db.Model):
 
 class FilmSchema(ma.Schema):
     class Meta:
-        fields = ('ccNumber', 'imgUrl', 'title', 'year', 'origin', 'director', 'score', 'host', 'date')
+        fields = ('id', 'ccNumber', 'imgUrl', 'title', 'year', 'origin', 'director', 'score', 'host', 'date')
 
 film_schema = FilmSchema()
 films_schema = FilmSchema(many=True)
@@ -69,7 +71,7 @@ def get_films():
     results = films_schema.dump(all_films)
     return jsonify(results)
 
-@app.route('/get/<id>/', methods = ['GET'])
+@app.route('/get/<id>', methods = ['GET'])
 def post_details(id):
     film = Films.query.get(id)
     return film_schema.jsonify(film)
@@ -93,31 +95,36 @@ def add_film():
     return film_schema.jsonify(films)
 
 @app.route('/update/<id>', methods = ['PUT'])
+##@cross_origin()
 def update_film(id):
-    film = Films.query.get(id)
+    ##if request.method == "OPTIONS": # CORS preflight
+        ##return _build_cors_preflight_response()
+    ##elif request.method == "PUT":
+        film = Films.query.get(id)
+        ccNumber = request.json['ccNumber']
+        imgUrl = request.json['imgUrl']
+        title = request.json['title']
+        year = request.json['year']
+        origin = request.json['origin']
+        director = request.json['director']
+        score = request.json['score']
+        host = request.json['host']
+        date = request.json['date']
 
-    ccNumber = request.json['ccNumber']
-    imgUrl = request.json['imgUrl']
-    title = request.json['title']
-    year = request.json['year']
-    origin = request.json['origin']
-    director = request.json['director']
-    score = request.json['score']
-    host = request.json['host']
-    date = request.json['date']
+        film.ccNumber = ccNumber
+        film.imgUrl = imgUrl
+        film.title = title
+        film.year = year
+        film.origin = origin
+        film.director = director
+        film.score = score
+        film.host = host
+        film.date = date
 
-    film.ccNumber = ccNumber
-    film.imgUrl = imgUrl
-    film.title = title
-    film.year = year
-    film.origin = origin
-    film.director = director
-    film.score = score
-    film.host = host
-    film.date = date
+        db.session.commit()
+        return film_schema.jsonify(film)
+        ##return _corsify_actual_response(results)
 
-    db.session.commit()
-    return film_schema.jsonify(film)
 
 @app.route('/delete/<id>', methods = ['DELETE'])
 def film_delete(id):
@@ -127,7 +134,7 @@ def film_delete(id):
 
     return film_schema.jsonify(film)
 
-"""viejo metodo cors 
+"""viejo metodo cors
 ##cosas del CORS
 def _build_cors_preflight_response():
     response = make_response()
@@ -136,6 +143,7 @@ def _build_cors_preflight_response():
     response.headers.add('Access-Control-Allow-Methods', "*")
     return response
 
+
 def _corsify_actual_response(response):
     response.headers.add("Access-Control-Allow-Origin", "*")
-    return response """
+    return response """ 

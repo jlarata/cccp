@@ -1,15 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
-import { Films } from './components/Films';
 import { Header } from './components/Header';
-import { FrasesSobreGatos } from './components/FrasesSobreGatos';
-import { GetAllFilms } from './components/GetAllFilms';
 import { Examplefunctions } from './components/ExampleFunctions';
 import { useState, useEffect } from 'react';
 import Form from './components/Form';
 import FilmList from './components/FilmList';
 
 
+/* import { Films } from './components/Films';
+import { FrasesSobreGatos } from './components/FrasesSobreGatos';
+import { GetAllFilms } from './components/GetAllFilms'; */
 
 
 function App() {
@@ -22,7 +21,7 @@ function App() {
     fetch('http://127.0.0.1:5000/get', {
         'method':'GET',
         headers: {
-        'Content-Type':'applications/json'
+        'Content-Type':'application/json'
         }
     })
 
@@ -46,14 +45,38 @@ function App() {
     setFilms(new_film)
   }
 
+  const openForm = () => {
+    setEditedFilm({title:'', imgUrl:'', ccNumber:'', year:'', origin:'', director:'', score:'', host:'', date:''})
+  }
+
+  const insertedFilm = (film) => {
+    const new_films = [...films, film]
+    setFilms(new_films)
+  }
+
+
   return (
+
+
     //react fragment
-    <div>
+    <div className='App'>
       <Header></Header>
-      <Examplefunctions></Examplefunctions>
+      {/* <Examplefunctions></Examplefunctions> */}
+      <div className='row'>
+        <div className='col'>
+          <h1>Instertar nueva ficha</h1>
+        </div>
+        <div className='col'>
+          <button
+          className='btn btn-success'
+          onClick={openForm}>Instertar nueva ficha</button>
+        </div>
+      </div>
+      {editedFilm ? <Form film = {editedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm}/> : null }
+
       <FilmList films = {films} editFilm = {editFilm}/>
 
-      {editedFilm ? <Form film = {editedFilm} updatedData = {updatedData} /> : null }
+      
 
       
     

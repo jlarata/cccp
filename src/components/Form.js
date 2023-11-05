@@ -5,66 +5,125 @@ import APIService from "./APIService";
 
 function Form(props) {
 
+
     const[ccNumber, setCcNumber] = useState('')
     const[title, setTitle] = useState('')
+    const[imgUrl, setImgUrl] = useState('')
+    const[year, setYear] = useState('')
+    const[origin, setOrigin] = useState('')
+    const[director, setDirector] = useState('')
+    const[score, setScore] = useState('')
+    const[host, setHost] = useState('')
+    const[date, setDate] = useState('')
 
     useEffect(() => {
         setCcNumber(props.film.ccNumber)
         setTitle(props.film.title)
-    }, [props.article])
+        setImgUrl(props.film.imgUrl)
+        setYear(props.film.year)
+        setOrigin(props.film.origin)
+        setDirector(props.film.director)
+        setScore(props.film.score)
+        setHost(props.film.host)
+        setDate(props.film.date)
+    }, [props.film])
 
     const updateFilm = () => {
-        APIService.UpdateFilm(props.film.id, {ccNumber, title})
+        APIService.UpdateFilm(props.film.id, {ccNumber, imgUrl, title, year, origin, director, score, host, date})
         .then(resp => props.updatedData(resp))
+        .catch(error => console.log(error))
+    }
+
+    const insertFilm = () => {
+        APIService.InsertFilm({ccNumber, imgUrl, title, year, origin, director, score, host, date})
+        .then(resp=>  props.insertedFilm(resp))
         .catch(error => console.log(error))
     }
 
     return (
         <div>
             {props.film ? (
+                <div /*id='nuevaFicha'*/ className='editarFicha'>
+                
+                {
+                    props.film.id ? 
+                    <h3>editar ficha {props.film.id}</h3>
+                    :
+                    <h3>crear nueva ficha {props.film.id}</h3>
+                }
+                
 
-<div /*id='nuevaFicha'*/ className='editarFicha'>
+                <form>
+                <label htmlFor='ccNumber' className ="form-label">ccNum</label>
+                <input type="number" className="form-control" 
+                value = {ccNumber}
+                placeholder = {"enter ccnum"}
+                onChange={(e) => setCcNumber(e.target.value)}
+                />
 
-<h3>editar ficha</h3>
-<form>
-    <label htmlFor='ccNumber' className = "form-label">ccNum</label>
-    <input type="number" className="form-control" 
-    value = {ccNumber}
-    placeholder = {"enter ccnum"}
-    onChange={(e) => setCcNumber(e.target.value)}></input>
-    <label htmlFor='title'>Título</label>
-    <input /*onChange={(e) => setTitleState(e.target.value)} */ name="title" className="form-control"
-    value = {title}
-    placeholder = {props.film.title}
-    onChange={(e) => setTitle(e.target.value)}></input>
-    <label htmlFor='imgUrl'>imgUrl</label>
-    <input name="imgUrl" className="form-control"
-    placeholder = {props.film.imgUrl}></input>
-    <label htmlFor='year'>Año</label>
-    <input /* onChange={(e) => setYearState(e.target.value)} */ name="year" className="form-control"
-    placeholder = {props.film.year}></input>
-    <label htmlFor='origin'>Origen</label>
-    <input /* onChange={(e) => setOriginState(e.target.value)} */ name="origin" className="form-control"
-    placeholder = {props.film.origin}></input>
-    
-    <label htmlFor='direccion'>dirección</label>
-    <input name="director" className="form-control"
-    placeholder = {props.film.director}></input>
-    <label htmlFor='score'>puntaje final</label>
-    <input name="score" className="form-control"
-    placeholder = {props.film.score}></input>
-    <label htmlFor='host'>invitó</label>
-    <input name="host" className="form-control"
-    placeholder = {props.film.host}></input>
-    <label htmlFor='date'>fecha de visionado</label>
-    <input name="date" className="form-control"
-    placeholder = {props.film.date}></input>
-    
-   
+                <label htmlFor='imgUrl' className="form-label">imgUrl</label>
+                <input type="text" className="form-control"
+                value = {imgUrl}
+                placeholder = {'enter img url'}
+                onChange={(e) => setImgUrl(e.target.value)}>
+                </input>
+                        
 
-    <Button onClick={updateFilm}
-    variant="success" type="submit">actualizar ficha</Button>
+                <label htmlFor='title' className="form-label">Título</label>
+                <input type="text" className="form-control"
+                value = {title}
+                placeholder = {'enter title'}
+                onChange={(e) => setTitle(e.target.value)}></input>
+                
+                <label htmlFor='year' className="form-label">Año</label>
+                <input type="number" className="form-control"
+                value = {year}
+                placeholder = {"enter year"}
+                onChange={(e) => setYear(e.target.value)}></input>
 
+                <label htmlFor='origin' className="form-label">Origen</label>
+                <input type="text" className="form-control"
+                value={origin}
+                placeholder = {"enter film origin"}
+                onChange={(e) => setOrigin(e.target.value)}></input>
+                
+                <label htmlFor='director' className="form-label">dirección</label>
+                <input type="text" className="form-control"
+                value={director}
+                placeholder = {"enter director"}
+                onChange={(e) => setDirector(e.target.value)}></input>
+
+                <label htmlFor='score' className="form-label">puntaje final</label>
+                <input type="number" step={0.01} className="form-control"
+                value={score}
+                placeholder = {"enter final cc score"}
+                onChange={(e) => setScore(e.target.value)}></input>
+
+                <label htmlFor='host' className="form-label">invitó</label>
+                <input type="text" className="form-control"
+                value={host}
+                placeholder = {"enter host"}
+                onChange={(e) => setHost(e.target.value)}></input>
+
+                <label htmlFor='date' className="form-label">fecha de visionado</label>
+                <input type="date" className="form-control"
+                value={date}
+                placeholder = {"enter date"}
+                onChange={(e) => setDate(e.target.value)}></input>
+                
+                {
+                    props.film.id ? <Button
+                     onClick={updateFilm}
+                     className="btn btn-primary mt-3"
+                     >actualizar ficha</Button>
+                     :
+                     <Button
+                     onClick={insertFilm}
+                     className="btn btn-primary mt-3"
+                     >crear nueva ficha</Button>
+                }
+
+                
 
             </form>
         </div>
