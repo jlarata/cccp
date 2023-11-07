@@ -32,4 +32,18 @@ export default class APIService {
     })
     } 
 
+
+/*         Ojo: cuando arme el boton que llame este servicio, imitar el deletefilm o update film pero lo que era BODY como parametro ahora es contains
+        y ademas hay que pasar un primer parametro anterior, field, que el servicio va a usar para armar la route. */
+    static AdvancedSearch(field, contains) {
+        return fetch(`http://127.0.0.1:5000/${field}/${contains}`, {
+        'method':'GET',
+        headers: {
+        'Content-Type':'application/json'
+        },
+        contains: JSON.stringify(contains)
+    })
+    .then(resp => resp.json())
+    }
+
 }

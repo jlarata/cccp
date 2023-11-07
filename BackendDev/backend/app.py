@@ -67,9 +67,51 @@ def helloWorld():
 
 @app.route('/get', methods = ['GET'])
 def get_films():
+    ###all_films = Films.query.all()
+    ###results = films_schema.dump(all_films)
+    ###return jsonify(results)
     all_films = Films.query.all()
-    results = films_schema.dump(all_films)
+    all_films_by_ccNumber = Films.query.order_by(Films.ccNumber).all()
+    results = films_schema.dump(all_films_by_ccNumber)
     return jsonify(results)
+
+
+
+###ESTO DEBERIA FUNCIONAR POR EL LADO DEL BACKEND. PROBAR CON POSTMAN Y LUEGO ARMAR METODO EN FRONT.
+### FUNCIONA
+
+@app.route('/adv-get/<field>/<contains>', methods = ['GET'])
+def get_films_by_field_contains(field, contains):
+    if(field == 'director'):
+        all_films_director_contains = Films.query.filter(Films.director.contains(contains)).order_by(Films.ccNumber).all()
+        results = films_schema.dump(all_films_director_contains)
+        return jsonify(results)
+    if(field == 'title'):
+        all_films_title_contains = Films.query.filter(Films.title.contains(contains)).order_by(Films.ccNumber).all()
+        results = films_schema.dump(all_films_title_contains)
+        return jsonify(results)
+    if(field == 'year'):
+        all_films_year_contains = Films.query.filter(Films.year.contains(contains)).order_by(Films.ccNumber).all()
+        results = films_schema.dump(all_films_year_contains)
+        return jsonify(results)
+    if(field == 'host'):
+        all_films_host_contains = Films.query.filter(Films.host.contains(contains)).order_by(Films.ccNumber).all()
+        results = films_schema.dump(all_films_host_contains)
+        return jsonify(results)
+    if(field == 'date'):
+        all_films_date_contains = Films.query.filter(Films.date.contains(contains)).order_by(Films.ccNumber).all()
+        results = films_schema.dump(all_films_date_contains)
+        return jsonify(results)
+    if(field == 'origin'):
+        all_films_origin_contains = Films.query.filter(Films.origin.contains(contains)).order_by(Films.ccNumber).all()
+        results = films_schema.dump(all_films_origin_contains)
+        return jsonify(results)
+    ###general advanced method:
+    ###if(field == ''):
+    ###    all_films__contains = Films.query.filter(Films..contains(contains)).order_by(Films.ccNumber).all()
+    ###    results = films_schema.dump(all_films__contains)
+    ###    return jsonify(results)
+
 
 @app.route('/get/<id>', methods = ['GET'])
 def post_details(id):
