@@ -30,19 +30,33 @@ class Films(db.Model):
     title = db.Column(db.String(100))
     year = db.Column(db.Integer)
     origin = db.Column(db.String(100))
-    director = db.Column(db.String(100))
+    director1 = db.Column(db.String(100))
+    director1Genre = db.Column(db.String(10))
+    director2 = db.Column(db.String(100))
+    director2Genre = db.Column(db.String(10))
+    director3 = db.Column(db.String(100))
+    director3Genre = db.Column(db.String(10))
+    director4 = db.Column(db.String(100))
+    director4Genre = db.Column(db.String(10))
     score = db.Column(db.Float)
     host = db.Column(db.String(30))
     date = db.Column(db.Date)
     #date = db.Column(db.DateTime, default = datetime.datetime.now)
 
-    def __init__(self, ccNumber, imgUrl, title, year, origin, director, score, host, date):
+    def __init__(self, ccNumber, imgUrl, title, year, origin, director1, director1Genre, director2, director2Genre, director3, director3Genre, director4, director4Genre, score, host, date):
         self.ccNumber = ccNumber
         self.imgUrl = imgUrl
         self.title = title
         self.year = year
         self.origin = origin
-        self.director = director
+        self.director1 = director1
+        self.director1Genre = director1Genre
+        self.director2 = director2
+        self.director2Genre = director2Genre
+        self.director3 = director3
+        self.director3Genre = director3Genre
+        self.director4 = director4
+        self.director4Genre = director4Genre
         self.score = score
         self.host = host
         self.date = date
@@ -50,7 +64,7 @@ class Films(db.Model):
 
 class FilmSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'ccNumber', 'imgUrl', 'title', 'year', 'origin', 'director', 'score', 'host', 'date')
+        fields = ('id', 'ccNumber', 'imgUrl', 'title', 'year', 'origin', 'director1', 'director1Genre', 'director2', 'director2Genre', 'director3', 'director3Genre', 'director4', 'director4Genre', 'score', 'host', 'date')
 
 film_schema = FilmSchema()
 films_schema = FilmSchema(many=True)
@@ -126,12 +140,19 @@ def add_film():
     title = request.json['title']
     year = request.json['year']
     origin = request.json['origin']
-    director = request.json['director']
+    director1 = request.json['director1']
+    director1Genre = request.json['director1Genre']
+    director2 = request.json['director2']
+    director2Genre = request.json['director2Genre']
+    director3 = request.json['director3']
+    director3Genre = request.json['director3Genre']
+    director4 = request.json['director4']
+    director4Genre = request.json['director4Genre']
     score = request.json['score']
     host = request.json['host']
     date = request.json['date']
 
-    films = Films(ccNumber, imgUrl, title, year, origin, director, score, host, date)
+    films = Films(ccNumber, imgUrl, title, year, origin, director1, director1Genre, director2, director2Genre, director3, director3Genre, director4, director4Genre, score, host, date)
     db.session.add(films)
     db.session.commit()
     return film_schema.jsonify(films)
@@ -148,7 +169,14 @@ def update_film(id):
         title = request.json['title']
         year = request.json['year']
         origin = request.json['origin']
-        director = request.json['director']
+        director1 = request.json['director1']
+        director1Genre = request.json['director1Genre']
+        director2 = request.json['director2']
+        director2Genre = request.json['director2Genre']
+        director3 = request.json['director3']
+        director3Genre = request.json['director3Genre']
+        director4 = request.json['director4']
+        director4Genre = request.json['director4Genre']
         score = request.json['score']
         host = request.json['host']
         date = request.json['date']
@@ -158,7 +186,14 @@ def update_film(id):
         film.title = title
         film.year = year
         film.origin = origin
-        film.director = director
+        film.director1 = director1
+        film.director1Genre = director1Genre
+        film.director2 = director2
+        film.director2Genre = director2Genre
+        film.director3 = director3
+        film.director3Genre = director3Genre
+        film.director4 = director4
+        film.director4Genre = director4Genre
         film.score = score
         film.host = host
         film.date = date
