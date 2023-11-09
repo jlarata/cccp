@@ -96,7 +96,11 @@ def get_films():
 
 @app.route('/adv-get/<field>/<contains>', methods = ['GET'])
 def get_films_by_field_contains(field, contains):
-    if(field == 'director'):
+    all_films_contains = Films.query.filter(getattr(Films,field).contains(contains)).order_by(Films.ccNumber).all()
+    results = films_schema.dump(all_films_contains)
+    return jsonify(results)
+
+"""     if(field == 'director'):
         all_films_director_contains = Films.query.filter(Films.director.contains(contains)).order_by(Films.ccNumber).all()
         results = films_schema.dump(all_films_director_contains)
         return jsonify(results)
@@ -119,7 +123,8 @@ def get_films_by_field_contains(field, contains):
     if(field == 'origin'):
         all_films_origin_contains = Films.query.filter(Films.origin.contains(contains)).order_by(Films.ccNumber).all()
         results = films_schema.dump(all_films_origin_contains)
-        return jsonify(results)
+        return jsonify(results) """
+
     ###general advanced method:
     ###if(field == ''):
     ###    all_films__contains = Films.query.filter(Films..contains(contains)).order_by(Films.ccNumber).all()

@@ -47,8 +47,10 @@ function Form(props) {
         setDate(props.film.date)
     }, [props.film])
 
+
+    //presetea los directores adicionales a string vacia, para que de no entrar al input (lo mas probable) igual se envie un POST completo a la db.
+    //estos strings vacios son usados por el metodo condicional hasMoreDirectors() en filmslists.js para decidir cuantos directores mostrar.
     const SetUndeclaredGenders = () => {
-        props.film.director1Genre=''
         props.film.director2=''
         props.film.director2Genre =''
         props.film.director3=''
@@ -68,6 +70,8 @@ function Form(props) {
         .catch(error => console.log(error))
     }
 
+
+    //busca las cajas para agregar directores adicionales y les quita la clase (en las clases esta el display:none)
     var directores = 1
 
     const agregarDirector = () => {
@@ -75,11 +79,8 @@ function Form(props) {
             directores++
             if(directores == 2){
                 var cajaSegundoDirector = document.getElementsByClassName("segundoDirector");
-                //for (let i = 0; i < cajasSegundoDirector.length; i++){
                     cajaSegundoDirector[0].classList.remove('segundoDirector')
-                //}
-            }
-    
+                }
             if(directores == 3){
                 var cajaTercerDirector = document.getElementsByClassName("tercerDirector");
                 cajaTercerDirector[0].classList.remove('tercerDirector')
@@ -89,7 +90,6 @@ function Form(props) {
                 cajaCuartoDirector[0].classList.remove('cuartoDirector')
             }   
         }
-        
     }
 
     return (

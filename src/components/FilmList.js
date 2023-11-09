@@ -32,6 +32,7 @@ function FilmList(props) {
 
             {props.films && props.films.map(film => {
                 
+                //revisar form.js
                 function hasMoreDirectors() {
                     if (film.director4 !=='') {
                         return <span>, {film.director2}, ({film.director2Genre}), {film.director3}, ({film.director3Genre}), {film.director4}, ({film.director4Genre})</span>;
