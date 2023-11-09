@@ -23,19 +23,23 @@ function FilmList(props) {
 
 
     return (
+        <div className="all-films-list">
+            <h4>Ver todas las fichas</h4>
+
         <div className="films-list">
+
+            
+
             {props.films && props.films.map(film => {
                 
                 function hasMoreDirectors() {
-                    if (film.director2 !=='') {
-                        return <span>, {film.director2}, {film.director2Genre}</span>;
-                    } else
-                    if (film.director3 !=='') {
-                        return <span>, {film.director2}, {film.director2Genre}, {film.director3}, {film.director3Genre}, {film.director4}, {film.director4Genre}</span>;
-                    } else
                     if (film.director4 !=='') {
-                        return <span>, {film.director2}, {film.director2Genre}, {film.director3}, {film.director3Genre}, {film.director4}, {film.director4Genre}</span>;
-                    }
+                        return <span>, {film.director2}, ({film.director2Genre}), {film.director3}, ({film.director3Genre}), {film.director4}, ({film.director4Genre})</span>;
+                    } else if (film.director3 !=='') {
+                        return <span>, {film.director2}, ({film.director2Genre}), {film.director3}, ({film.director3Genre})</span>;
+                    } else if (film.director2 !=='') {
+                        return <span>, {film.director2}, ({film.director2Genre})</span>;
+                    } 
                 }
 
                 return (
@@ -49,7 +53,7 @@ function FilmList(props) {
                         <div className='filmPoster'><img src={film.imgUrl}></img></div>
                         <div className='filmInfo'>
                             <h2>{film.title}</h2>   
-                            <p>dirigida por {film.director1}, {film.director1Genre} {hasMoreDirectors()} </p>
+                            <p>dirigida por {film.director1}, ({film.director1Genre}) {hasMoreDirectors()} </p>
                             
                             
 
@@ -58,11 +62,11 @@ function FilmList(props) {
                             <p>invitó {film.host}</p>
                             <p>{film.date}</p></div>
                         <div className='botoneria'>
-                            <div className="col-md-1">
+                            <div className="col">
                                 <button className='btn btn-primary'
                                     onClick={() => editFilm(film)}>editar</button>
                             </div>
-                            <div className="col-md-1">
+                            <div className="col">
                                 <button className='btn btn-danger'
                                 onClick={() => deleteFilm(film)}
                                 >eliminar</button>
@@ -72,6 +76,7 @@ function FilmList(props) {
 
                 );
             })}
+        </div>
         </div>
     )
 }

@@ -3,6 +3,11 @@
     justify-content: end;
     gap: 2%;
 }
+.agregaDirector {
+    display: flex;
+    justify-content: center;
+    gap: 2%;
+}
 
 .cajita {
     
@@ -109,4 +114,8 @@
 
 .editarFicha input {
     width: 100%;
+}
+
+.segundoDirector, .tercerDirector, .cuartoDirector{
+    display: none;
 }

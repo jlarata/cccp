@@ -2,6 +2,7 @@
     /*background-color: gray;*/
     display: flex;
     flex-direction: column;
+    align-items: center;    
     border-style: groove;
     border-width: 5px;
     border-radius: 10px;

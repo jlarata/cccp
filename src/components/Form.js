@@ -1,17 +1,29 @@
 import React, {useState, useEffect} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from "react-bootstrap";
+import './Form.css'
 import APIService from "./APIService";
+
+
+
 
 function Form(props) {
 
+    
 
     const[ccNumber, setCcNumber] = useState('')
     const[title, setTitle] = useState('')
     const[imgUrl, setImgUrl] = useState('')
     const[year, setYear] = useState('')
     const[origin, setOrigin] = useState('')
-    const[director, setDirector] = useState('')
+    const[director1, setDirector1] = useState('')
+    const[director1Genre, setDirector1Genre] = useState('')
+    const[director2, setDirector2] = useState('')
+    const[director2Genre, setDirector2Genre] = useState('')
+    const[director3, setDirector3] = useState('')
+    const[director3Genre, setDirector3Genre] = useState('')
+    const[director4, setDirector4] = useState('')
+    const[director4Genre, setDirector4Genre] = useState('')
     const[score, setScore] = useState('')
     const[host, setHost] = useState('')
     const[date, setDate] = useState('')
@@ -22,25 +34,69 @@ function Form(props) {
         setImgUrl(props.film.imgUrl)
         setYear(props.film.year)
         setOrigin(props.film.origin)
-        setDirector(props.film.director)
+        setDirector1(props.film.director1)
+        setDirector1Genre(props.film.director1Genre)
+        setDirector2(props.film.director2)
+        setDirector2Genre(props.film.director2Genre)
+        setDirector3(props.film.director3)
+        setDirector3Genre(props.film.director3Genre)
+        setDirector4(props.film.director4)
+        setDirector4Genre(props.film.director4Genre)
         setScore(props.film.score)
         setHost(props.film.host)
         setDate(props.film.date)
     }, [props.film])
 
+    const SetUndeclaredGenders = () => {
+        props.film.director1Genre=''
+        props.film.director2=''
+        props.film.director2Genre =''
+        props.film.director3=''
+        props.film.director3Genre =''
+        props.film.director4=''
+        props.film.director4Genre =''} 
+
     const updateFilm = () => {
-        APIService.UpdateFilm(props.film.id, {ccNumber, imgUrl, title, year, origin, director, score, host, date})
+        APIService.UpdateFilm(props.film.id, {ccNumber, imgUrl, title, year, origin, director1, director1Genre, director2, director2Genre, director3, director3Genre, director4, director4Genre, score, host, date})
         .then(resp => props.updatedData(resp))
         .catch(error => console.log(error))
     }
 
     const insertFilm = () => {
-        APIService.InsertFilm({ccNumber, imgUrl, title, year, origin, director, score, host, date})
+        APIService.InsertFilm({ccNumber, imgUrl, title, year, origin, director1, director1Genre, director2, director2Genre, director3, director3Genre, director4, director4Genre, score, host, date})
         .then(resp=>  props.insertedFilm(resp))
         .catch(error => console.log(error))
     }
 
+    var directores = 1
+
+    const agregarDirector = () => {
+        if(directores<4){
+            directores++
+            if(directores == 2){
+                var cajaSegundoDirector = document.getElementsByClassName("segundoDirector");
+                //for (let i = 0; i < cajasSegundoDirector.length; i++){
+                    cajaSegundoDirector[0].classList.remove('segundoDirector')
+                //}
+            }
+    
+            if(directores == 3){
+                var cajaTercerDirector = document.getElementsByClassName("tercerDirector");
+                cajaTercerDirector[0].classList.remove('tercerDirector')
+            }
+            if(directores == 4){
+                var cajaCuartoDirector = document.getElementsByClassName("cuartoDirector");
+                cajaCuartoDirector[0].classList.remove('cuartoDirector')
+            }   
+        }
+        
+    }
+
     return (
+
+    
+        
+
         <div>
             {props.film ? (
                 <div /*id='nuevaFicha'*/ className='editarFicha'>
@@ -52,8 +108,9 @@ function Form(props) {
                     <h3>crear nueva ficha {props.film.id}</h3>
                 }
                 
-
-                <form>
+                {SetUndeclaredGenders()}    
+                
+                <form>            
                 <label htmlFor='ccNumber' className ="form-label">ccNum</label>
                 <input type="number" className="form-control" 
                 value = {ccNumber}
@@ -87,11 +144,83 @@ function Form(props) {
                 placeholder = {"enter film origin"}
                 onChange={(e) => setOrigin(e.target.value)}></input>
                 
-                <label htmlFor='director' className="form-label">dirección</label>
+                <label htmlFor='director1' className="form-label">director</label>
                 <input type="text" className="form-control"
-                value={director}
+                value={director1}
                 placeholder = {"enter director"}
-                onChange={(e) => setDirector(e.target.value)}></input>
+                onChange={(e) => setDirector1(e.target.value)}></input>
+                
+                <label htmlFor='director1Genre' className="form-label">género</label>
+                <select type="submit" className="form-control"
+                value={director1Genre}
+                onChange={(e) => setDirector1Genre(e.target.value)}>
+                    <option value="Q">Q</option>
+                    <option value="M">M</option>
+                    <option value="F">F</option>
+                </select>
+
+                <span className="botoneria agregaDirector">
+                <Button
+                     onClick={agregarDirector}
+                     className="btn btn-primary mt-3">agregar Director</Button>
+                </span>
+                
+                
+                <span className="segundoDirector">
+                <label htmlFor='director2' className="form-label">director</label>
+                <input type="text" className="form-control"
+                value={director2}
+                placeholder = {"enter another director"}
+                onChange={(e) => setDirector2(e.target.value)}></input>
+                
+
+                <label htmlFor='director2Genre' className="form-label">género</label>
+                <select type="submit" className="form-control"
+                value={director2Genre}
+                onChange={(e) => setDirector2Genre(e.target.value)}>
+                    <option value="Q">Q</option>
+                    <option value="M">M</option>
+                    <option value="F">F</option>
+                </select></span>
+                <span className="tercerDirector">
+                <label htmlFor='director3' className="form-label">director</label>
+                <input type="text" className="form-control"
+                value={director3}
+                placeholder = {"enter another director"}
+                onChange={(e) => setDirector3(e.target.value)}></input>
+                
+                <label htmlFor='director3Genre' className="form-label">género</label>
+                <select type="submit" className="form-control"
+                value={director3Genre}
+                onChange={(e) => setDirector3Genre(e.target.value)}>
+                    <option value="Q">Q</option>
+                    <option value="M">M</option>
+                    <option value="F">F</option>
+                </select>
+                </span>
+
+                <span className="cuartoDirector">
+                <label htmlFor='director4' className="form-label">director</label>
+                <input type="text" className="form-control"
+                value={director4}
+                placeholder = {"enter another director"}
+                onChange={(e) => setDirector4(e.target.value)}></input>
+                
+                <label htmlFor='director4Genre' className="form-label">género</label>
+                <select type="submit" className="form-control"
+                value={director4Genre}
+                onChange={(e) => setDirector4Genre(e.target.value)}>
+                    <option value="Q">Q</option>
+                    <option value="M">M</option>
+                    <option value="F">F</option>
+                </select>
+                </span>
+
+                {/*  <input type="submit" className="form-control"
+                value={director1Genre}
+                placeholder = {"enter director"}
+                onChange={(e) => setDirector1Genre(e.target.value)}></input> */}
+                
 
                 <label htmlFor='score' className="form-label">puntaje final</label>
                 <input type="number" step={0.01} className="form-control"
@@ -130,5 +259,7 @@ function Form(props) {
             ) : null
 }
 </div>) }
+
+
 
 export default Form

@@ -76,9 +76,6 @@ function App() {
       {/* <Examplefunctions></Examplefunctions> */}
       <div className='film'>
         <div className='col'>
-          <h1>Instertar nueva ficha</h1>
-        </div>
-        <div className='col'>
           <button
           className='btn btn-success'
           onClick={openForm}>Instertar nueva ficha</button>
