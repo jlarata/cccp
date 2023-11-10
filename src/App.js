@@ -71,11 +71,11 @@ function App() {
   }
 
   const openForm = () => {
-    setEditedFilm({title:'', imgUrl:'', ccNumber:'', year:'', origin:'', director:'', score:'', host:'', date:''})
+    setEditedFilm({title:'', imgUrl:'', ccNumber:'', year:'', origin:'', director1:'', director1Genre:'', director2:'', director2Genre:'', director3:'', director3Genre:'', director4:'', director4Genre:'', score:'', host:'', date:''})
   }
 
   const openAdvancedForm = () => {
-    setAdvancedEditedFilm({title:'', imgUrl:'', ccNumber:'', year:'', origin:'', director:'', score:'', host:'', date:''})
+    setAdvancedEditedFilm({title:'', imgUrl:'', ccNumber:'', year:'', origin:'', director1:'', director1Genre:'', director2:'', director2Genre:'', director3:'', director3Genre:'', director4:'', director4Genre:'', score:'', host:'', date:''})
   }
 
   const insertedFilm = (film) => {

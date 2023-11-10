@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import APIService from "./APIService";
 import './FilmList.css'
 
@@ -7,6 +7,21 @@ import './FilmList.css'
 function FilmList(props) {
 
     
+    const[director2, setDirector2] = useState('')
+    const[director2Genre, setDirector2Genre] = useState('')
+    const[director3, setDirector3] = useState('')
+    const[director3Genre, setDirector3Genre] = useState('')
+    const[director4, setDirector4] = useState('')
+    const[director4Genre, setDirector4Genre] = useState('')
+
+    useEffect(() => {
+        setDirector2('')
+        setDirector2Genre('')
+        setDirector3('')
+        setDirector3Genre('')
+        setDirector4('')
+        setDirector4Genre('')
+    }, [props.film])
 
     const editFilm = (film) => {
         props.editFilm(film)
@@ -20,7 +35,7 @@ function FilmList(props) {
 
     
     //revisar form.js
-    const hasMoreDirectors = (film) => {
+    function hasMoreDirectors(film){
         if (film.director4 !=='') {
             return <span>, {film.director2}, ({film.director2Genre}), {film.director3}, ({film.director3Genre}), {film.director4}, ({film.director4Genre})</span>;
         } else if (film.director3 !=='') {

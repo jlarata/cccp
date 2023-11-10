@@ -47,18 +47,6 @@ function Form(props) {
         setDate(props.film.date)
     }, [props.film])
 
-
-    //presetea los directores adicionales a string vacia, para que de no entrar al input (lo mas probable) igual se envie un POST completo a la db.
-    //estos strings vacios son usados por el metodo condicional hasMoreDirectors() en filmslists.js para decidir cuantos directores mostrar.
-    const SetUndeclaredGenders = () => {
-        props.film.director1Genre=''
-        props.film.director2=''
-        props.film.director2Genre =''
-        props.film.director3=''
-        props.film.director3Genre =''
-        props.film.director4=''
-        props.film.director4Genre =''} 
-
     const updateFilm = () => {
         APIService.UpdateFilm(props.film.id, {ccNumber, imgUrl, title, year, origin, director1, director1Genre, director2, director2Genre, director3, director3Genre, director4, director4Genre, score, host, date})
         .then(resp => props.updatedData(resp))
@@ -105,8 +93,6 @@ function Form(props) {
                     :
                     <h3>crear nueva ficha {props.film.id}</h3>
                 }
-                
-                {SetUndeclaredGenders()}    
                 
                 <form>            
                 <label htmlFor='ccNumber' className ="form-label">ccNum</label>
