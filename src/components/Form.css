@@ -3,6 +3,13 @@
     justify-content: end;
     gap: 2%;
 }
+
+.opcionDeBusqueda {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
 .agregaDirector {
     display: flex;
     justify-content: center;

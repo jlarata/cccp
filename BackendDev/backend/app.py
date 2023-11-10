@@ -14,7 +14,9 @@ CORS(app)
 
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:d3ctech@localhost/flask'
+###localhost app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:d3ctech@localhost/flask'
+###external 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://ukoh6uwy5swel9sd:QYtYernCB75QgVToEtu@hv-par6-007.clvrcld.net:13705/buznb5wbhr1snd09ehtb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 """viejo metodo cors app.config['CORS_HEADERS'] = 'Content-Type'"""
 ##app.config['CORS_HEADERS'] = 'Content-Type'

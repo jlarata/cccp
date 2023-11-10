@@ -4,6 +4,8 @@ import { Examplefunctions } from './components/ExampleFunctions';
 import { useState, useEffect } from 'react';
 import Form from './components/Form';
 import FilmList from './components/FilmList';
+import AdvancedForm from './components/AdvancedForm.js';
+import AdvancedFilmList from './components/AdvancedFilmList';
 
 
 
@@ -13,11 +15,19 @@ import { FrasesSobreGatos } from './components/FrasesSobreGatos';
 
 
 
+
 function App() {
 
+  //let field = 'title'
+  //let contains = 'asdsad'
+
+  
 
   const [films, setFilms] = useState([])
+
   const [editedFilm, setEditedFilm] = useState(null)
+
+  const [advancedEditedFilm, setAdvancedEditedFilm] = useState(null)
 
   useEffect(() => {
     fetch('http://127.0.0.1:5000/get', {
@@ -26,11 +36,24 @@ function App() {
         'Content-Type':'application/json'
         }
     })
-
     .then(resp => resp.json())
     .then(resp => setFilms(resp))
     .catch(error => console.log(error))
 }, [])
+
+
+
+/* useEffect(() => {
+  fetch(`http://127.0.0.1:5000/adv-get/${field}/${contains}`, {
+      'method':'GET',
+      headers: {
+      'Content-Type':'application/json'
+      }
+  })
+  .then(resp => resp.json())
+  .then(resp => setAdvFilms(resp))
+  .catch(error => console.log(error))
+  }, []) */
 
   const editFilm = (film) => {
     setEditedFilm(film)
@@ -49,6 +72,10 @@ function App() {
 
   const openForm = () => {
     setEditedFilm({title:'', imgUrl:'', ccNumber:'', year:'', origin:'', director:'', score:'', host:'', date:''})
+  }
+
+  const openAdvancedForm = () => {
+    setAdvancedEditedFilm({title:'', imgUrl:'', ccNumber:'', year:'', origin:'', director:'', score:'', host:'', date:''})
   }
 
   const insertedFilm = (film) => {
@@ -78,20 +105,26 @@ function App() {
         <div className='col'>
           <button
           className='btn btn-success'
-          onClick={openForm}>Instertar nueva ficha</button>
+          onClick={openForm}>Insertar nueva ficha</button>
         </div>
       </div>
 
       {editedFilm ? <Form film = {editedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm}/> : null }
-
+      
       <FilmList films = {films} editFilm = {editFilm} deleteFilm = {deleteFilm} />
 
       
-
-      
-    
+      {/* <AdvancedFilmList films = {advFilms} editFilm = {editFilm} deleteFilm = {deleteFilm}></AdvancedFilmList> */}
+      <div className='film'>
+        <div className='col'>
+          <button
+          className='btn btn-success'
+          onClick={openAdvancedForm}>búsqueda avanzada</button>
+        </div>
+      </div>
       {/* <GetAllFilms></GetAllFilms>
       <Films></Films> */}
+      {advancedEditedFilm ? <AdvancedForm film = {advancedEditedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm}/> : null }
       <FrasesSobreGatos></FrasesSobreGatos>
     </div>
     

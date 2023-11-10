@@ -3,17 +3,45 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from "react-bootstrap";
 import './Form.css'
 import APIService from "./APIService";
+import App from "../App";
+import AdvancedFilmList from "./AdvancedFilmList";
 
 
 
 
-function Form(props) {
+function AdvancedForm(props) {
+
+ /*    const [films, setFilms] = useState([])
+    let field = 'titulo'
+    let contains = 'contiene' */
+
+    /* useEffect(() => {
+        fetch(`http://127.0.0.1:5000/adv-get/${field}/${contains}`, {
+            'method':'GET',
+            headers: {
+            'Content-Type':'application/json'
+            }
+        })
+        .then(resp => resp.json())
+        .then(resp => setFilms(resp))
+        .catch(error => console.log(error))
+        }, []) */
+
+    const [advFilmsList, setAdvFilmsList] = useState(null)
+    const [field, setField] = useState(null)
+    const [contains, setContains] = useState(null)
 
     
+    const openAdvancedFilmList = () => {
+        setField('ccNumber')
+        setContains(ccNumber)
+        setAdvFilmsList({contains:ccNumber})
+      }
+
+ 
 
     const[ccNumber, setCcNumber] = useState('')
     const[title, setTitle] = useState('')
-    const[imgUrl, setImgUrl] = useState('')
     const[year, setYear] = useState('')
     const[origin, setOrigin] = useState('')
     const[director1, setDirector1] = useState('')
@@ -31,7 +59,6 @@ function Form(props) {
     useEffect(() => {
         setCcNumber(props.film.ccNumber)
         setTitle(props.film.title)
-        setImgUrl(props.film.imgUrl)
         setYear(props.film.year)
         setOrigin(props.film.origin)
         setDirector1(props.film.director1)
@@ -47,82 +74,41 @@ function Form(props) {
         setDate(props.film.date)
     }, [props.film])
 
-
-    //presetea los directores adicionales a string vacia, para que de no entrar al input (lo mas probable) igual se envie un POST completo a la db.
-    //estos strings vacios son usados por el metodo condicional hasMoreDirectors() en filmslists.js para decidir cuantos directores mostrar.
-    const SetUndeclaredGenders = () => {
-        props.film.director1Genre=''
-        props.film.director2=''
-        props.film.director2Genre =''
-        props.film.director3=''
-        props.film.director3Genre =''
-        props.film.director4=''
-        props.film.director4Genre =''} 
-
-    const updateFilm = () => {
-        APIService.UpdateFilm(props.film.id, {ccNumber, imgUrl, title, year, origin, director1, director1Genre, director2, director2Genre, director3, director3Genre, director4, director4Genre, score, host, date})
+    /* const AdvancedSearch = () => {
+        APIService.AdvancedSearch(field, contains)
         .then(resp => props.updatedData(resp))
         .catch(error => console.log(error))
-    }
+    } */
 
-    const insertFilm = () => {
-        APIService.InsertFilm({ccNumber, imgUrl, title, year, origin, director1, director1Genre, director2, director2Genre, director3, director3Genre, director4, director4Genre, score, host, date})
+   /*  const SBCcNumber = () => {
+        APIService.searchByCcNumber({ccNumber})
         .then(resp=>  props.insertedFilm(resp))
         .catch(error => console.log(error))
     }
-
-
-    //busca las cajas para agregar directores adicionales y les quita la clase (en las clases esta el display:none)
-    var directores = 1
-
-    const agregarDirector = () => {
-        if(directores<4){
-            directores++
-            if(directores == 2){
-                var cajaSegundoDirector = document.getElementsByClassName("segundoDirector");
-                    cajaSegundoDirector[0].classList.remove('segundoDirector')
-                }
-            if(directores == 3){
-                var cajaTercerDirector = document.getElementsByClassName("tercerDirector");
-                cajaTercerDirector[0].classList.remove('tercerDirector')
-            }
-            if(directores == 4){
-                var cajaCuartoDirector = document.getElementsByClassName("cuartoDirector");
-                cajaCuartoDirector[0].classList.remove('cuartoDirector')
-            }   
-        }
-    }
+ */
 
     return (
-
         <div>
-            {props.film ? (
                 <div /*id='nuevaFicha'*/ className='editarFicha'>
                 
-                {
-                    props.film.id ? 
-                    <h3>editar ficha {props.film.id}</h3>
-                    :
-                    <h3>crear nueva ficha {props.film.id}</h3>
-                }
                 
-                {SetUndeclaredGenders()}    
-                
-                <form>            
-                <label htmlFor='ccNumber' className ="form-label">ccNum</label>
-                <input type="number" className="form-control" 
-                value = {ccNumber}
-                placeholder = {"enter ccnum"}
-                onChange={(e) => setCcNumber(e.target.value)}
-                />
-
-                <label htmlFor='imgUrl' className="form-label">imgUrl</label>
-                <input type="text" className="form-control"
-                value = {imgUrl}
-                placeholder = {'enter img url'}
-                onChange={(e) => setImgUrl(e.target.value)}>
-                </input>
-                        
+                <form>
+                <div className="opcionDeBusqueda">
+                    <div className="campos">              
+                        <label htmlFor='ccNumber' className ="form-label">ccNum</label>
+                        <input type="number" className="form-control" 
+                        value = {ccNumber}
+                        placeholder = {"enter ccnum"}
+                        onChange={(e) => setCcNumber(e.target.value)}
+                        />
+                    </div>
+                    <div className="botoneria">
+                    <Button
+                    onClick={openAdvancedFilmList}
+                    className="btn btn-primary mt-3"
+                    >buscar por n° de CC</Button>
+                    </div>
+                </div>
 
                 <label htmlFor='title' className="form-label">Título</label>
                 <input type="text" className="form-control"
@@ -155,16 +141,9 @@ function Form(props) {
                     <option value="Q">Q</option>
                     <option value="M">M</option>
                     <option value="F">F</option>
-                </select>
-
-                <span className="botoneria agregaDirector">
-                <Button
-                     onClick={agregarDirector}
-                     className="btn btn-primary mt-3">agregar Director</Button>
-                </span>
+                </select>                
                 
-                
-                <span className="segundoDirector">
+                <span>
                 <label htmlFor='director2' className="form-label">director</label>
                 <input type="text" className="form-control"
                 value={director2}
@@ -180,7 +159,8 @@ function Form(props) {
                     <option value="M">M</option>
                     <option value="F">F</option>
                 </select></span>
-                <span className="tercerDirector">
+
+                <span>
                 <label htmlFor='director3' className="form-label">director</label>
                 <input type="text" className="form-control"
                 value={director3}
@@ -197,7 +177,7 @@ function Form(props) {
                 </select>
                 </span>
 
-                <span className="cuartoDirector">
+                <span>
                 <label htmlFor='director4' className="form-label">director</label>
                 <input type="text" className="form-control"
                 value={director4}
@@ -213,12 +193,6 @@ function Form(props) {
                     <option value="F">F</option>
                 </select>
                 </span>
-
-                {/*  <input type="submit" className="form-control"
-                value={director1Genre}
-                placeholder = {"enter director"}
-                onChange={(e) => setDirector1Genre(e.target.value)}></input> */}
-                
 
                 <label htmlFor='score' className="form-label">puntaje final</label>
                 <input type="number" step={0.01} className="form-control"
@@ -238,7 +212,7 @@ function Form(props) {
                 placeholder = {"enter date"}
                 onChange={(e) => setDate(e.target.value)}></input>
                 
-                {
+                {/* {
                     props.film.id ? <Button
                      onClick={updateFilm}
                      className="btn btn-primary mt-3"
@@ -248,16 +222,24 @@ function Form(props) {
                      onClick={insertFilm}
                      className="btn btn-primary mt-3"
                      >crear nueva ficha</Button>
-                }
+                } */}
 
                 
 
             </form>
         </div>
-            ) : null
-}
-</div>) }
+
+        { advFilmsList ? <AdvancedFilmList contains = {contains} field = {field}/> : null }
+
+</div>
 
 
 
-export default Form
+) }
+
+
+ 
+
+ 
+
+export default AdvancedForm

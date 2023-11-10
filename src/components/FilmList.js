@@ -19,7 +19,16 @@ function FilmList(props) {
     }
 
     
-    
+    //revisar form.js
+    const hasMoreDirectors = (film) => {
+        if (film.director4 !=='') {
+            return <span>, {film.director2}, ({film.director2Genre}), {film.director3}, ({film.director3Genre}), {film.director4}, ({film.director4Genre})</span>;
+        } else if (film.director3 !=='') {
+            return <span>, {film.director2}, ({film.director2Genre}), {film.director3}, ({film.director3Genre})</span>;
+        } else if (film.director2 !=='') {
+            return <span>, {film.director2}, ({film.director2Genre})</span>;
+        } 
+    }
 
 
     return (
@@ -32,16 +41,7 @@ function FilmList(props) {
 
             {props.films && props.films.map(film => {
                 
-                //revisar form.js
-                function hasMoreDirectors() {
-                    if (film.director4 !=='') {
-                        return <span>, {film.director2}, ({film.director2Genre}), {film.director3}, ({film.director3Genre}), {film.director4}, ({film.director4Genre})</span>;
-                    } else if (film.director3 !=='') {
-                        return <span>, {film.director2}, ({film.director2Genre}), {film.director3}, ({film.director3Genre})</span>;
-                    } else if (film.director2 !=='') {
-                        return <span>, {film.director2}, ({film.director2Genre})</span>;
-                    } 
-                }
+                
 
                 return (
                     
@@ -54,7 +54,7 @@ function FilmList(props) {
                         <div className='filmPoster'><img src={film.imgUrl}></img></div>
                         <div className='filmInfo'>
                             <h2>{film.title}</h2>   
-                            <p>dirigida por {film.director1}, ({film.director1Genre}) {hasMoreDirectors()} </p>
+                            <p>dirigida por {film.director1}, ({film.director1Genre}) {hasMoreDirectors(film)} </p>
                             
                             
 
