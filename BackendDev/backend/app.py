@@ -86,7 +86,7 @@ def get_films():
     ###all_films = Films.query.all()
     ###results = films_schema.dump(all_films)
     ###return jsonify(results)
-    all_films = Films.query.all()
+    ###all_films = Films.query.all()
     all_films_by_ccNumber = Films.query.order_by(Films.ccNumber).all()
     results = films_schema.dump(all_films_by_ccNumber)
     return jsonify(results)

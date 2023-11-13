@@ -5,8 +5,6 @@ import './Form.css'
 import APIService from "./APIService";
 
 
-
-
 function Form(props) {
 
     
@@ -47,17 +45,21 @@ function Form(props) {
         setDate(props.film.date)
     }, [props.film])
 
+    const insertFilm = () => {
+        APIService.InsertFilm({ccNumber, imgUrl, title, year, origin, director1, director1Genre, director2, director2Genre, director3, director3Genre, director4, director4Genre, score, host, date})
+        .then(resp => props.insertedFilm(resp))
+        .catch(error => console.log(error))
+    }
+
     const updateFilm = () => {
         APIService.UpdateFilm(props.film.id, {ccNumber, imgUrl, title, year, origin, director1, director1Genre, director2, director2Genre, director3, director3Genre, director4, director4Genre, score, host, date})
         .then(resp => props.updatedData(resp))
         .catch(error => console.log(error))
     }
 
-    const insertFilm = () => {
-        APIService.InsertFilm({ccNumber, imgUrl, title, year, origin, director1, director1Genre, director2, director2Genre, director3, director3Genre, director4, director4Genre, score, host, date})
-        .then(resp=>  props.insertedFilm(resp))
-        .catch(error => console.log(error))
-    }
+    
+
+    
 
 
     //busca las cajas para agregar directores adicionales y les quita la clase (en las clases esta el display:none)
@@ -66,15 +68,15 @@ function Form(props) {
     const agregarDirector = () => {
         if(directores<4){
             directores++
-            if(directores == 2){
+            if(directores === 2){
                 var cajaSegundoDirector = document.getElementsByClassName("segundoDirector");
                     cajaSegundoDirector[0].classList.remove('segundoDirector')
                 }
-            if(directores == 3){
+            if(directores === 3){
                 var cajaTercerDirector = document.getElementsByClassName("tercerDirector");
                 cajaTercerDirector[0].classList.remove('tercerDirector')
             }
-            if(directores == 4){
+            if(directores === 4){
                 var cajaCuartoDirector = document.getElementsByClassName("cuartoDirector");
                 cajaCuartoDirector[0].classList.remove('cuartoDirector')
             }   

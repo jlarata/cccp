@@ -30,7 +30,7 @@ function FilmList(props) {
 
     const deleteFilm = (film) => {
         APIService.DeleteFilm(film.id)
-        //.then(() => props.deleteFilm())
+        .then(() => props.deleteFilm(film))
     }
 
     

@@ -1,11 +1,11 @@
 import './App.css';
 import { Header } from './components/Header';
-import { Examplefunctions } from './components/ExampleFunctions';
+//import { Examplefunctions } from './components/ExampleFunctions';
 import { useState, useEffect } from 'react';
 import Form from './components/Form';
 import FilmList from './components/FilmList';
 import AdvancedForm from './components/AdvancedForm.js';
-import AdvancedFilmList from './components/AdvancedFilmList';
+//import AdvancedFilmList from './components/AdvancedFilmList';
 
 
 
@@ -22,6 +22,7 @@ function App() {
   //let contains = 'asdsad'
 
   
+  //const [a, setA] = useState('abc')
 
   const [films, setFilms] = useState([])
 
@@ -29,26 +30,25 @@ function App() {
 
   const [advancedEditedFilm, setAdvancedEditedFilm] = useState(null)
 
-  useEffect(() => {    
-    fetch(`http://${process.env.REACT_APP_APIURL}/get`, {
+  const { REACT_APP_APIURL } = process.env;
+  
+  useEffect(() => {   
+    fetch(`${REACT_APP_APIURL}`, {
         'method':'GET',
         headers: {
         'Content-Type':'application/json'
         }
     })
-    .then((resp) => {
-      if (!resp.ok) throw new Error(resp.status);
-      else{
-        (console.log('success'))
-        return resp.json()
-      }
+    .then((response) => {
+      if(!response.ok) throw new Error(response.status);
+      else return response.json();
     })
-    //.then(console.log('hola'))
+    //.then((resp) => {if (resp.status.code == 200) {setA('b')}})
+    //.then(console.log(a))
     //.then(resp => resp.json())
     .then(resp => setFilms(resp))
     .catch(error => console.log(error))
 }, [])
-
 
 
 /* useEffect(() => {
