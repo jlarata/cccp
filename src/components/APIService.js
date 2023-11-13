@@ -4,11 +4,18 @@ export default class APIService {
         return fetch(`http://127.0.0.1:5000/update/${id}`, {
         'method':'PUT',
         headers: {
-        'Content-Type':'application/json'
+        'Content-Type':'application/json'    
         },
         body: JSON.stringify(body)
     })
-    .then(resp => resp.json())
+    .then((resp) => {     
+        if (!resp.ok) throw new Error(resp.status);
+        else{
+            this.avisoExito(' ficha editada con eeeeeeexitoooo')
+            (resp => resp.json())
+        }
+      })  
+//    .then(resp => resp.json())
     } 
 
     static InsertFilm(body) {
@@ -19,7 +26,18 @@ export default class APIService {
         },
         body: JSON.stringify(body)
     })
-    .then(resp => resp.json())
+    .then((resp) => {
+        if (!resp.ok) {
+            this.avisoExito('error creando ficha. probablemente haya un campo inválido')
+            throw new Error(resp.status)
+        }
+        else{
+            this.avisoExito('ficha creada con eeeeeeexitoooo')
+            (resp => resp.json())
+          
+        }
+      })
+    //.then(resp => resp.json())
     }
 
     static DeleteFilm(id) {
@@ -32,6 +50,10 @@ export default class APIService {
     })
     } 
 
+    static avisoExito(aviso){
+        return alert(aviso)
+    }
+    
 
 /*         Ojo: cuando arme el boton que llame este servicio, imitar el deletefilm o update film pero lo que era BODY como parametro ahora es contains
         y ademas hay que pasar un primer parametro anterior, field, que el servicio va a usar para armar la route. */

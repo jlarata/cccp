@@ -29,14 +29,22 @@ function App() {
 
   const [advancedEditedFilm, setAdvancedEditedFilm] = useState(null)
 
-  useEffect(() => {
-    fetch('http://127.0.0.1:5000/get', {
+  useEffect(() => {    
+    fetch(`http://${process.env.REACT_APP_APIURL}/get`, {
         'method':'GET',
         headers: {
         'Content-Type':'application/json'
         }
     })
-    .then(resp => resp.json())
+    .then((resp) => {
+      if (!resp.ok) throw new Error(resp.status);
+      else{
+        (console.log('success'))
+        return resp.json()
+      }
+    })
+    //.then(console.log('hola'))
+    //.then(resp => resp.json())
     .then(resp => setFilms(resp))
     .catch(error => console.log(error))
 }, [])
