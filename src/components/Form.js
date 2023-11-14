@@ -53,6 +53,9 @@ function Form(props) {
             } else {alert('error, probablemente llenaste mal un campo, burro')} 
         })
         .catch(error => console.log(error))
+        
+        props.cierraFormsList()
+        
     }
 
     const updateFilm = () => {

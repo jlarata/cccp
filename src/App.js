@@ -1,16 +1,9 @@
 import './App.css';
 import { Header } from './components/Header';
-//import { Examplefunctions } from './components/ExampleFunctions';
 import { useState, useEffect } from 'react';
 import Form from './components/Form';
 import FilmList from './components/FilmList';
 import AdvancedForm from './components/AdvancedForm.js';
-//import AdvancedFilmList from './components/AdvancedFilmList';
-
-
-
-/* import { Films } from './components/Films';
-import { GetAllFilms } from './components/GetAllFilms';  */
 import { FrasesSobreGatos } from './components/FrasesSobreGatos';
 
 
@@ -18,15 +11,11 @@ import { FrasesSobreGatos } from './components/FrasesSobreGatos';
 
 function App() {
 
-  //let field = 'title'
-  //let contains = 'asdsad'
-
-  
-  //const [a, setA] = useState('abc')
-
   const [films, setFilms] = useState([])
 
   const [editedFilm, setEditedFilm] = useState(null)
+
+  const [allFilmsList, setAllFilmsList] = useState(false)
 
   const [advancedEditedFilm, setAdvancedEditedFilm] = useState(null)
 
@@ -54,6 +43,34 @@ function App() {
     fetchData() 
       .catch(console.error);
   }, [])
+
+/* esto que sigue fue mi ultimo intento para hacer el fetch mejor en el useEffect. estoy bastante
+seguro que no está funcionando el .then y por eso no activa el SetFilms de la linea 36
+
+useEffect(() => {
+    
+ 
+    const fetchData = () => {
+      const data = fetch(`${REACT_APP_APIURL}`, {
+        'method':'GET',
+        headers: {
+        'Content-Type':'application/json'
+        }
+      })
+      return data}
+    
+    fetchData((data) => {
+      if(data.ok)
+        {
+          const films = data.json(); 
+          setFilms(films);
+          console.log('ok');
+        } else {console.log('not ok')}
+    })
+       
+}, [])*/
+
+
 
 
     
@@ -121,8 +138,20 @@ function App() {
       return true
     })
     setFilms(new_films)
+  } 
+
+
+  const cierraFormsList = () => {
+    setEditedFilm(null)
   }
 
+  const cierraFilmsList = () => {
+    setAllFilmsList(false)
+    
+  }
+  const abreFilmsList = () => {
+    setAllFilmsList(true)
+  }
 
   return (
 
@@ -131,6 +160,16 @@ function App() {
     <div className='films-list'>
       <Header></Header>
       {/* <Examplefunctions></Examplefunctions> */}
+  
+
+      
+      <div className="all-films-list">
+            <h4
+            onClick={abreFilmsList}
+            >Ver todas las fichas</h4>
+            </div>
+      {allFilmsList? <FilmList films = {films} editFilm = {editFilm} deleteFilm = {deleteFilm} cierraFilmsList = {cierraFilmsList} /> : null}
+      
       <div className='film'>
         <div className='col'>
           <button
@@ -139,10 +178,7 @@ function App() {
         </div>
       </div>
 
-      {editedFilm ? <Form film = {editedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm}/> : null }
-      
-      <FilmList films = {films} editFilm = {editFilm} deleteFilm = {deleteFilm} />
-
+      {editedFilm ? <Form film = {editedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm} cierraFormsList ={cierraFormsList} /> : null }
       
       {/* <AdvancedFilmList films = {advFilms} editFilm = {editFilm} deleteFilm = {deleteFilm}></AdvancedFilmList> */}
       <div className='film'>

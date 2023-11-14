@@ -45,11 +45,13 @@ function FilmList(props) {
         } 
     }
 
+    function cierraFilmsList() {
+        props.cierraFilmsList()
+    }
+
+    
 
     return (
-        <div className="all-films-list">
-            <h4>Ver todas las fichas</h4>
-
         <div className="films-list">
 
             
@@ -92,7 +94,11 @@ function FilmList(props) {
 
                 );
             })}
-        </div>
+        <div className="all-films-list">
+            <h5
+            onClick={cierraFilmsList}
+            >Cerrar todas las fichas</h5>
+            </div>
         </div>
     
     )

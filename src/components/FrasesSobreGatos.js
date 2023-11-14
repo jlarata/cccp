@@ -23,7 +23,7 @@ export function FrasesSobreGatos(){
     return (
         
     <div className="cajita">
-        <Button onClick={handleClick} variant="success" type="submit">generar frase sobre gato</Button>
+        <Button onClick={handleClick} variant="dark" type="submit">generar frase sobre gato</Button>
         <p>{phraseState}</p>
     </div>
     )
