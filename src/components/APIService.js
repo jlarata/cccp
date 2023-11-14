@@ -12,14 +12,8 @@ export default class APIService {
         },
         body: JSON.stringify(body)
     })
-    .then((resp) => {     
-        if (!resp.ok) throw new Error(resp.status);
-        else{
-            this.resultado('ficha editada con eeeeeeexitoooo')
-            (resp => resp.json())
-        }
-      })  
-//    .then(resp => resp.json())
+    .then(resp => resp.json())
+    .catch(error => console.log(error))
     } 
 
     static InsertFilm(body) {
@@ -33,9 +27,11 @@ export default class APIService {
     .then(resp => resp.json())
     //.catch(this.resultado('error creando ficha. probablemente haya un campo inválido'))
     .catch(error => console.log(error))
-    //.then(resp => resp.json())
     }
 
+
+    
+    
     /* static InsertFilm(body) {
         return fetch('http://127.0.0.1:5000/add', {
         'method':'POST',

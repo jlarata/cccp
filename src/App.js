@@ -32,23 +32,45 @@ function App() {
 
   const { REACT_APP_APIURL } = process.env;
   
-  useEffect(() => {   
-    fetch(`${REACT_APP_APIURL}`, {
+  useEffect(() => {
+    
+    const fetchData = async () => {
+      const data = await fetch(`${REACT_APP_APIURL}`, {
         'method':'GET',
         headers: {
         'Content-Type':'application/json'
+          }
         }
-    })
-    .then((response) => {
+      )
+      if(data.ok) {
+        const dataJson = await data.json();
+        setFilms(dataJson);
+        console.log('ok');}
+      else {
+        console.log('not ok')
+      }
+      
+    } 
+    fetchData() 
+      .catch(console.error);
+  }, [])
+
+
+    
+    
+  
+    /* .then((response) => {
       if(!response.ok) throw new Error(response.status);
       else return response.json();
-    })
+    }) */
+
     //.then((resp) => {if (resp.status.code == 200) {setA('b')}})
     //.then(console.log(a))
     //.then(resp => resp.json())
-    .then(resp => setFilms(resp))
+
+/*     .then(resp => setFilms(resp))
     .catch(error => console.log(error))
-}, [])
+}, []) */
 
 
 /* useEffect(() => {

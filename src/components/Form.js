@@ -47,13 +47,17 @@ function Form(props) {
 
     const insertFilm = () => {
         APIService.InsertFilm({ccNumber, imgUrl, title, year, origin, director1, director1Genre, director2, director2Genre, director3, director3Genre, director4, director4Genre, score, host, date})
-        .then(resp => props.insertedFilm(resp))
+        .then((resp) => { if(resp)
+            {
+                props.insertedFilm(resp); alert('ficha creada con eeexito')
+            } else {alert('error, probablemente llenaste mal un campo, burro')} 
+        })
         .catch(error => console.log(error))
     }
 
     const updateFilm = () => {
         APIService.UpdateFilm(props.film.id, {ccNumber, imgUrl, title, year, origin, director1, director1Genre, director2, director2Genre, director3, director3Genre, director4, director4Genre, score, host, date})
-        .then(resp => props.updatedData(resp))
+        .then((resp) => {props.updatedData(resp); console.log('la puta madree')})
         .catch(error => console.log(error))
     }
 
