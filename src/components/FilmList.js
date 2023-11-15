@@ -75,7 +75,7 @@ function FilmList(props) {
                             
                             
 
-                            <p>{film.year}</p>
+                            <p>{film.year}, {film.origin}</p>
                             <p>puntaje final: {film.score}</p>
                             <p>invitó {film.host}</p>
                             <p>{film.date}</p></div>

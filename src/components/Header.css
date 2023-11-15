@@ -7,7 +7,14 @@
     background-image: url(https://portfolio-1dac6.web.app/assets/img/defrent.jpg);
     background-position: center;
     background-size: cover;
+    background-position: center;
+    filter: blur(3px);
+    transition: .5s;
+}
 
-    
-    
+.banner:hover {
+    background-size: auto;
+    background-repeat: no-repeat;
+    filter: blur(1px);
+    border-style: none;
 }

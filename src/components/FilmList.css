@@ -17,10 +17,18 @@
     border-style: groove;
     border-radius: 10px;
     margin-bottom: 2%;
+    resize: horizontal;
+    filter: blur(0  px);
+    transition: .5s, ease;
+}
+.filmPoster img:hover {
+    opacity: 0.6;
+    filter: blur(1px);
 }
 
 .filmInfo {
     margin-left: 5%;
+    max-width: 300px;
 }
 
 .all-films-list {
@@ -32,11 +40,20 @@
 
 .all-films-list > h4 {
     border-top: solid;
+    border-bottom: solid;
     padding-top: 2%;
+    padding-bottom: 2%;
     padding-left: 5%;
     padding-right: 5%;
     border-radius: 10px;
     cursor: pointer;
+    resize: horizontal;
+    filter: blur(0px);
+    transition: .5s, ease;
+}
+
+.all-films-list > h4:hover {
+    opacity: 0.6;
 }
 
 .all-films-list > h5 {
