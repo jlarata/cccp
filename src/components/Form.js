@@ -90,9 +90,20 @@ function Form(props) {
         }
     }
 
+    function cierraFormsList() {
+        props.cierraFormsList()
+    }
+
     return (
 
         <div>
+
+            <div className="all-films-list">
+            <button className="btn btn-danger"
+            onClick={cierraFormsList}
+            >Cancelar</button>
+            </div>
+
             {props.film ? (
                 <div /*id='nuevaFicha'*/ className='editarFicha'>
                 

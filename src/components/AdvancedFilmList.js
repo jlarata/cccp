@@ -40,11 +40,12 @@ function AdvancedFilmList(props) {
     } */
 
     
-    
+    function cierraAdvancedFilmsList() {
+        props.cierraAdvancedFilmsList()
+    }
 
 
     return (
-
         
 
         <div className="all-films-list">
@@ -52,7 +53,11 @@ function AdvancedFilmList(props) {
 
         <div className="films-list">
 
-            
+        <div className="all-films-list">
+            <button className="btn btn-danger"
+            onClick={cierraAdvancedFilmsList}
+            >Cancelar</button>
+            </div>
 
             {films && films.map(film => {
                 

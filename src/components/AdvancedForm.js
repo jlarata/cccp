@@ -86,9 +86,23 @@ function AdvancedForm(props) {
         .catch(error => console.log(error))
     }
  */
+    function cierraAdvancedForm() {
+        props.cierraAdvancedForm()
+    }
+
+    const cierraAdvancedFilmsList = () => {
+        setAdvFilmsList(null)
+      }
 
     return (
+        
         <div>
+             <div className="all-films-list">
+            <button className="btn btn-danger"
+            onClick={cierraAdvancedForm}
+            >Cancelar</button>
+            </div>
+
                 <div /*id='nuevaFicha'*/ className='editarFicha'>
                 
                 
@@ -229,7 +243,7 @@ function AdvancedForm(props) {
             </form>
         </div>
 
-        { advFilmsList ? <AdvancedFilmList contains = {contains} field = {field}/> : null }
+        { advFilmsList ? <AdvancedFilmList contains = {contains} field = {field} cierraAdvancedFilmsList = {cierraAdvancedFilmsList} /> : null }
 
 </div>
 

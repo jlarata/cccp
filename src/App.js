@@ -145,6 +145,10 @@ useEffect(() => {
     setEditedFilm(null)
   }
 
+  const cierraAdvancedForm = () => {
+    setAdvancedEditedFilm(null)
+  }
+
   const cierraFilmsList = () => {
     setAllFilmsList(false)
     
@@ -157,12 +161,13 @@ useEffect(() => {
 
 
     //react fragment
+    <div className='general-container'>
     <div className='films-list'>
       <Header></Header>
       {/* <Examplefunctions></Examplefunctions> */}
   
 
-      
+      <div className='bodyContainer'>
       <div className="all-films-list">
             <h4
             onClick={abreFilmsList}
@@ -170,28 +175,29 @@ useEffect(() => {
             </div>
       {allFilmsList? <FilmList films = {films} editFilm = {editFilm} deleteFilm = {deleteFilm} cierraFilmsList = {cierraFilmsList} /> : null}
       
-      <div className='film'>
-        <div className='col'>
-          <button
-          className='btn btn-success'
-          onClick={openForm}>Insertar nueva ficha</button>
-        </div>
-      </div>
+      <div className="all-films-list">
+            <h4
+            onClick={openForm}
+            >Insertar nueva ficha</h4>
+            </div>
 
       {editedFilm ? <Form film = {editedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm} cierraFormsList ={cierraFormsList} /> : null }
       
       {/* <AdvancedFilmList films = {advFilms} editFilm = {editFilm} deleteFilm = {deleteFilm}></AdvancedFilmList> */}
-      <div className='film'>
-        <div className='col'>
-          <button
-          className='btn btn-success'
-          onClick={openAdvancedForm}>búsqueda avanzada</button>
-        </div>
-      </div>
+      
+      <div className="all-films-list">
+            <h4
+            onClick={openAdvancedForm}
+            >búsqueda avanzada</h4>
+            </div>
+
+     
       {/* <GetAllFilms></GetAllFilms>
       <Films></Films> */}
-      {advancedEditedFilm ? <AdvancedForm film = {advancedEditedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm}/> : null }
-      <FrasesSobreGatos></FrasesSobreGatos>
+      {advancedEditedFilm ? <AdvancedForm film = {advancedEditedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm} cierraAdvancedForm ={cierraAdvancedForm} /> : null }
+      {/* <FrasesSobreGatos></FrasesSobreGatos> */}
+        </div>
+      </div>
     </div>
     
   );
