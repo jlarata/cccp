@@ -12,18 +12,17 @@ import { FrasesSobreGatos } from './components/FrasesSobreGatos';
 function App() {
 
   const [films, setFilms] = useState([])
-
   const [editedFilm, setEditedFilm] = useState(null)
-
   const [allFilmsList, setAllFilmsList] = useState(false)
-
   const [advancedEditedFilm, setAdvancedEditedFilm] = useState(null)
 
-  const { REACT_APP_APIURL } = process.env;
+  // esto  no va mas xq no dejé métodos acá const { REACT_APP_APIURL } = process.env;
   
   useEffect(() => {
     
-    const fetchData = async () => {
+    //saqué todo el fetch de acá y lo mandé al componente filmsList. no solo no tenia sentido
+    //sino que además se arreglaron algunos bugs en la carga.
+    /* const fetchData = async () => {
       const data = await fetch(`${REACT_APP_APIURL}`, {
         'method':'GET',
         headers: {
@@ -41,66 +40,8 @@ function App() {
       
     } 
     fetchData() 
-      .catch(console.error);
+      .catch(console.error); */
   }, [])
-
-/* esto que sigue fue mi ultimo intento para hacer el fetch mejor en el useEffect. estoy bastante
-seguro que no está funcionando el .then y por eso no activa el SetFilms de la linea 36
-
-useEffect(() => {
-    
- 
-    const fetchData = () => {
-      const data = fetch(`${REACT_APP_APIURL}`, {
-        'method':'GET',
-        headers: {
-        'Content-Type':'application/json'
-        }
-      })
-      return data}
-    
-    fetchData((data) => {
-      if(data.ok)
-        {
-          const films = data.json(); 
-          setFilms(films);
-          console.log('ok');
-        } else {console.log('not ok')}
-    })
-       
-}, [])*/
-
-
-
-
-    
-    
-  
-    /* .then((response) => {
-      if(!response.ok) throw new Error(response.status);
-      else return response.json();
-    }) */
-
-    //.then((resp) => {if (resp.status.code == 200) {setA('b')}})
-    //.then(console.log(a))
-    //.then(resp => resp.json())
-
-/*     .then(resp => setFilms(resp))
-    .catch(error => console.log(error))
-}, []) */
-
-
-/* useEffect(() => {
-  fetch(`http://127.0.0.1:5000/adv-get/${field}/${contains}`, {
-      'method':'GET',
-      headers: {
-      'Content-Type':'application/json'
-      }
-  })
-  .then(resp => resp.json())
-  .then(resp => setAdvFilms(resp))
-  .catch(error => console.log(error))
-  }, []) */
 
   const editFilm = (film) => {
     setEditedFilm(film)

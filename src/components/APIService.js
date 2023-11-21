@@ -1,3 +1,5 @@
+const { REACT_APP_APIURL } = process.env;
+
 export default class APIService {
 
     static resultado(aviso){
@@ -5,7 +7,7 @@ export default class APIService {
     }
 
     static UpdateFilm(id, body) {
-        return fetch(`http://127.0.0.1:5000/update/${id}`, {
+        return fetch(`http://${REACT_APP_APIURL}/update/${id}`, {
         'method':'PUT',
         headers: {
         'Content-Type':'application/json'    
@@ -17,7 +19,7 @@ export default class APIService {
     } 
 
     static InsertFilm(body) {
-        return fetch('http://127.0.0.1:5000/add', {
+        return fetch(`${REACT_APP_APIURL}/add`, {
         'method':'POST',
         headers: {
         'Content-Type':'application/json'
@@ -52,7 +54,7 @@ export default class APIService {
     } */
 
     static DeleteFilm(id) {
-        return fetch(`http://127.0.0.1:5000/delete/${id}`, {
+        return fetch(`${REACT_APP_APIURL}/delete/${id}`, {
         'method':'DELETE',
         headers: {
         'Content-Type':'application/json'
