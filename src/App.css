@@ -1,14 +1,14 @@
 .general-container {
     background-color: #cccccc;
     background-image: linear-gradient(#cccccc, #282c34);
-    min-height: 100vh;
+    min-height: 104vh;
     display: block;
     flex-direction: column;
     align-items: center;    
     border-radius: 10px;
 }
 .bodyContainer {
-    margin-top: 10%;
+    margin-top: 1%;
 }
 
 .film {

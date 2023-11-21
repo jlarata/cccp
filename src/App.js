@@ -162,7 +162,7 @@ useEffect(() => {
 
     //react fragment
     <div className='general-container'>
-    <div className='films-list'>
+    <div className=''>
       <Header></Header>
       {/* <Examplefunctions></Examplefunctions> */}
   

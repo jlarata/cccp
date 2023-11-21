@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import APIService from "./APIService";
 import './FilmList.css'
 
@@ -9,10 +9,17 @@ function AdvancedFilmList(props) {
 
     const [field, setField] = useState(null)
     const [contains, setContains] = useState(null)
-    
     const [films, setFilms] = useState([])
-    
+    const DOMRef = useRef(null)
 
+    const focusList = () => {
+        setTimeout(() => {
+        DOMRef.current.scrollIntoView()
+        }
+        ,100)      
+      } 
+
+    
       useEffect(() => {
         
 
@@ -22,12 +29,17 @@ function AdvancedFilmList(props) {
             'Content-Type':'application/json'
             }
         })
+        
+       
         .then(resp => resp.json())
         .then(resp => setFilms(resp))
+        .then(focusList())
+        // .then(document.getElementById("TopOfAdvFilmList").scrollIntoView(true))
         .catch(error => console.log(error))
-        }, [])
+        
+    }, [])
 
-
+    
 
 /*     const editFilm = (film) => {
         props.editFilm(film)
@@ -46,17 +58,18 @@ function AdvancedFilmList(props) {
 
 
     return (
-        
 
         <div className="all-films-list">
+            
             <h5>búsqueda avanzada</h5>
 
-        <div className="films-list">
-
+        <div className="films-list"
+         ref={DOMRef}>
+ 
         <div className="all-films-list">
             <button className="btn btn-danger"
             onClick={cierraAdvancedFilmsList}
-            >Cancelar</button>
+            >Descartar búsqueda</button>
             </div>
 
             {films && films.map(film => {
@@ -107,9 +120,19 @@ function AdvancedFilmList(props) {
 
                 );
             })}
+            <div className="all-films-list" id="TopOfAdvFilmList">
+            <button className="btn btn-danger"
+            onClick={cierraAdvancedFilmsList}
+            >Descartar búsqueda</button>
+            </div>
+            
         </div>
+        
         </div>
+    
+            
     )
+    
 }
 
 

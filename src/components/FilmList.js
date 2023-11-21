@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import APIService from "./APIService";
 import './FilmList.css'
 
@@ -14,6 +14,15 @@ function FilmList(props) {
     const[director4, setDirector4] = useState('')
     const[director4Genre, setDirector4Genre] = useState('')
 
+    const DOMRef = useRef(null)
+
+    const focusList = () => {
+        setTimeout(() => {
+        DOMRef.current.scrollIntoView()
+        }
+        ,100)      
+      } 
+
     useEffect(() => {
         setDirector2('')
         setDirector2Genre('')
@@ -21,6 +30,7 @@ function FilmList(props) {
         setDirector3Genre('')
         setDirector4('')
         setDirector4Genre('')
+        focusList()
     }, [props.film])
 
     const editFilm = (film) => {
@@ -52,10 +62,14 @@ function FilmList(props) {
     
 
     return (
-        <div className="films-list">
+        <div className="films-list" ref={DOMRef}>
             
 
-            
+            <div className="all-films-list">
+            <button className="btn btn-danger"
+            onClick={cierraFilmsList}
+            >cierra la lista</button>
+            </div>
 
             {props.films && props.films.map(film => {
                 
