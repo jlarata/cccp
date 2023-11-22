@@ -16,6 +16,7 @@ function Form(props) {
     const[origin, setOrigin] = useState('')
     const[director1, setDirector1] = useState('')
     const[director1Genre, setDirector1Genre] = useState('')
+    const[cantidadDeDirectores, setCantidadDeDirectores] = useState('')
     const[director2, setDirector2] = useState('')
     const[director2Genre, setDirector2Genre] = useState('')
     const[director3, setDirector3] = useState('')
@@ -34,6 +35,7 @@ function Form(props) {
         setOrigin(props.film.origin)
         setDirector1(props.film.director1)
         setDirector1Genre(props.film.director1Genre)
+        setCantidadDeDirectores(1)
         setDirector2(props.film.director2)
         setDirector2Genre(props.film.director2Genre)
         setDirector3(props.film.director3)
@@ -70,9 +72,29 @@ function Form(props) {
 
 
     //busca las cajas para agregar directores adicionales y les quita la clase (en las clases esta el display:none)
-    var directores = 1
+    // ya no es necesario, parte del viejo método
+    //var directores = 1
 
     const agregarDirector = () => {
+        if(cantidadDeDirectores <= 3){
+            setCantidadDeDirectores(cantidadDeDirectores+1)};
+            console.log('cantidad de directores = '+(cantidadDeDirectores+1));
+            /* if(cantidadDeDirectores === 1){
+                var cajaSegundoDirector = document.getElementsByClassName("segundoDirector");
+                    cajaSegundoDirector[0].classList.remove('segundoDirector')
+                } 
+            if(cantidadDeDirectores === 2){
+                var cajaTercerDirector = document.getElementsByClassName("tercerDirector");
+                cajaTercerDirector[0].classList.remove('tercerDirector')
+            }
+            if(cantidadDeDirectores === 3){
+                var cajaCuartoDirector = document.getElementsByClassName("cuartoDirector");
+                cajaCuartoDirector[0].classList.remove('cuartoDirector')
+            }   antiguo método para mostrar cajas (ahora son renderizadas)*/
+        }
+    
+
+    /* const agregarDirector = () => {
         if(directores<4){
             directores++
             if(directores === 2){
@@ -88,7 +110,7 @@ function Form(props) {
                 cajaCuartoDirector[0].classList.remove('cuartoDirector')
             }   
         }
-    }
+    } */
 
     function cierraFormsList() {
         props.cierraFormsList()
@@ -163,15 +185,16 @@ function Form(props) {
                     <option value="F">F</option>
                 </select>
 
+                {(cantidadDeDirectores < 4)  && 
                 <span className="botoneria agregaDirector">
                 <Button
                      onClick={agregarDirector}
                      className="btn btn-primary mt-3">agregar Director</Button>
-                </span>
+                </span>}
                 
-                
-                <span className="segundoDirector">
-                <label htmlFor='director2' className="form-label">director</label>
+                {(cantidadDeDirectores > 1)  && 
+                <span>
+                <label htmlFor='director2' className="form-label">segundx director</label>
                 <input type="text" className="form-control"
                 value={director2}
                 placeholder = {"enter another director"}
@@ -185,9 +208,11 @@ function Form(props) {
                     <option value="Q">Q</option>
                     <option value="M">M</option>
                     <option value="F">F</option>
-                </select></span>
-                <span className="tercerDirector">
-                <label htmlFor='director3' className="form-label">director</label>
+                </select></span>}
+
+                {(cantidadDeDirectores > 2)  && 
+                <span>
+                <label htmlFor='director3' className="form-label">tercerx director</label>
                 <input type="text" className="form-control"
                 value={director3}
                 placeholder = {"enter another director"}
@@ -201,10 +226,11 @@ function Form(props) {
                     <option value="M">M</option>
                     <option value="F">F</option>
                 </select>
-                </span>
+                </span>}
 
-                <span className="cuartoDirector">
-                <label htmlFor='director4' className="form-label">director</label>
+                {(cantidadDeDirectores === 4)  && 
+                <span>
+                <label htmlFor='director4' className="form-label">cuartx director</label>
                 <input type="text" className="form-control"
                 value={director4}
                 placeholder = {"enter another director"}
@@ -218,7 +244,7 @@ function Form(props) {
                     <option value="M">M</option>
                     <option value="F">F</option>
                 </select>
-                </span>
+                </span>}
 
                 {/*  <input type="submit" className="form-control"
                 value={director1Genre}

@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# el dotenv del backend
+/BackendDev/backend/.env

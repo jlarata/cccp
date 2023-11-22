@@ -2,20 +2,21 @@ import React, {useState, useEffect, useRef} from "react";
 import APIService from "./APIService";
 import './FilmList.css'
 
-
+//asd
 
 function FilmList(props) {
 
     const [films, setFilms] = useState([])
 
-    const[director2, setDirector2] = useState('')
+/*  aparentemente todo esto ya no sería necesario dado que estoy usando props
+   const[director2, setDirector2] = useState('')
     const[director2Genre, setDirector2Genre] = useState('')
     const[director3, setDirector3] = useState('')
     const[director3Genre, setDirector3Genre] = useState('')
     const[director4, setDirector4] = useState('')
-    const[director4Genre, setDirector4Genre] = useState('')
+    const[director4Genre, setDirector4Genre] = useState('') */
 
-    const { REACT_APP_APIURL } = process.env;
+    
     const DOMRef = useRef(null)
 
     const focusList = () => {
@@ -27,7 +28,8 @@ function FilmList(props) {
 
     useEffect(() => {
 
-        setEmptyDirectors();
+        // setEmptyDirectors(); aparentemente todo esto ya no sería necesario dado que estoy usando props
+        const { REACT_APP_APIURL } = process.env;
 
         const fetchData = async () => {
             const data = await fetch(`${REACT_APP_APIURL}/get`, {
@@ -52,14 +54,15 @@ function FilmList(props) {
         }, [])
         
         
-    const setEmptyDirectors = () => {
+    /* aparentemente todo esto ya no sería necesario dado que estoy usando props
+        const setEmptyDirectors = () => {
         setDirector2('')
         setDirector2Genre('')
         setDirector3('')
         setDirector3Genre('')
         setDirector4('')
         setDirector4Genre('')
-    }
+    } */
 
     const editFilm = (film) => {
         props.editFilm(film)
@@ -121,7 +124,10 @@ function FilmList(props) {
                             <h3>cc# {film.ccNumber}, id# {film.id}</h3>
                             
                         </div>
-                        <div className='filmPoster'><img src={film.imgUrl}></img></div>
+                        <div className='filmPoster'>
+                            <img src={film.imgUrl}
+                            alt="poster de la peli"></img>
+                            </div>
                         <div className='filmInfo'>
                             <h2>{film.title}</h2>   
                             <p>dirigida por {film.director1}, ({film.director1Genre}) {hasMoreDirectors(film)} </p>

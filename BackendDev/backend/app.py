@@ -2,6 +2,12 @@ from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from dotenv import load_dotenv
+load_dotenv
+
+import os
+SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI")
+
 #import datetime
 
 app = Flask(__name__)
@@ -16,7 +22,7 @@ CORS(app)
 
 ###localhost app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:d3ctech@localhost/flask'
 ###external 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://ukoh6uwy5swel9sd:QYtYernCB75QgVToEtu@hv-par6-007.clvrcld.net:13705/buznb5wbhr1snd09ehtb'
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 """viejo metodo cors app.config['CORS_HEADERS'] = 'Content-Type'"""
 ##app.config['CORS_HEADERS'] = 'Content-Type'

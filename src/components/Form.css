@@ -7,6 +7,8 @@
 .opcionDeBusqueda {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    width: auto;
     gap: 10px;
 }
 
@@ -116,7 +118,7 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
-    width: 50%;
+    width: 100%;
 }
 
 .editarFicha input {
@@ -126,3 +128,4 @@
 .segundoDirector, .tercerDirector, .cuartoDirector{
     display: none;
 }
+
