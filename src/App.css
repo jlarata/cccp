@@ -42,6 +42,39 @@
 .films-list {
     margin: 2% 5%;
 }
-.all-films-list {
-    
+.goTopContainer {
+    border-radius: 13%;
+    max-width: 4%;
+    position: fixed;
+    right: 0%;
+    top: 50%;
+    text-align: center;
+    z-index: 1;
+}
+.goTop {
+    border-radius: 13%;
+    background-color: rgba(220, 53, 69, .7);
+    background-image: url("./img/upArrow.png");
+    opacity: 0.8;
+    background-size: contain;
+    background-repeat: repeat;
+    height: 48px;
+    width: 40px;
+}
+
+.goTopContainer:hover {
+    cursor: pointer;
+}
+
+@media (max-width: 768px)
+{
+    .goTopContainer {
+        right: 30px;
+        
+    }
+    .goTop {
+        background-size: 80%;
+        height: 47px;
+        background-size: 98%;
+    }
 }

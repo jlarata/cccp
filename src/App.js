@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Form from './components/Form';
 import FilmList from './components/FilmList';
 import AdvancedForm from './components/AdvancedForm.js';
-import { FrasesSobreGatos } from './components/FrasesSobreGatos';
+// import { FrasesSobreGatos } from './components/FrasesSobreGatos';
 
 
 
@@ -98,11 +98,20 @@ function App() {
     setAllFilmsList(true)
   }
 
+  const scrollToTop = () => {
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+  }
+
   return (
 
-
     //react fragment
+    
     <div className='general-container'>
+
+      <div className='goTopContainer'>
+        <div className='goTop'
+        onClick={scrollToTop}></div>
+      </div>
     <div className=''>
       <Header></Header>
       {/* <Examplefunctions></Examplefunctions> */}
