@@ -1,9 +1,11 @@
 import './App.css';
 import { Header } from './components/Header';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import Form from './components/Form';
 import FilmList from './components/FilmList';
 import AdvancedForm from './components/AdvancedForm.js';
+import ButtonGoTop from './components/ButtonGoTop';
+import _ from 'lodash';
 // import { FrasesSobreGatos } from './components/FrasesSobreGatos';
 
 
@@ -41,7 +43,15 @@ function App() {
     } 
     fetchData() 
       .catch(console.error); */
+    window.addEventListener('scroll', hideButtonGoTop)
+ 
   }, [])
+
+  const handleEndScroll = useMemo(
+    () =>
+    _.debounce(() => setIsScrolling(false), 1000),
+    []
+  );
 
   const editFilm = (film) => {
     setEditedFilm(film)
@@ -98,23 +108,31 @@ function App() {
     setAllFilmsList(true)
   }
 
-  const scrollToTop = () => {
-    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+  const [isScrolling, setIsScrolling] = useState(false);
+ /*  const [scrollTop, setScrollTop] = useState(0);
+  
+  const handleScroll = (e) => {
+    setScrollTop(e.currentTarget.scrollTop);
+  } */
+  const hideButtonGoTop = () => {
+    console.log("scroll scroll scroll");
+      setIsScrolling(true);
+      handleEndScroll();
   }
-
+  const buttonTopRef = useRef(null);
+ 
   return (
 
     //react fragment
     
     <div className='general-container'>
-
-      <div className='goTopContainer'>
-        <div className='goTop'
-        onClick={scrollToTop}></div>
-      </div>
     <div className=''>
       <Header></Header>
-      {/* <Examplefunctions></Examplefunctions> */}
+      <div ref={buttonTopRef}>
+        {isScrolling ? null : <ButtonGoTop/>}
+      </div>
+      
+            {/* <Examplefunctions></Examplefunctions> */}
   
 
       <div className='bodyContainer'>
