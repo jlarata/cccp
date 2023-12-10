@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import Form from './components/Form';
 import FilmList from './components/FilmList';
 import AdvancedForm from './components/AdvancedForm.js';
+import AdvancedFilmList from './components/AdvancedFilmList.js';
 import ButtonGoTop from './components/ButtonGoTop';
 import _ from 'lodash';
 // import { FrasesSobreGatos } from './components/FrasesSobreGatos';
@@ -18,8 +19,20 @@ function App() {
   const [allFilmsList, setAllFilmsList] = useState(false)
   const [advancedEditedFilm, setAdvancedEditedFilm] = useState(null)
 
+  const [field, setField] = useState(null)
+  const [contains, setContains] = useState(null)
+
+  const [advFilmsList, setAdvFilmsList] = useState(false)
+
+
   // esto  no va mas xq no dejé métodos acá const { REACT_APP_APIURL } = process.env;
   
+  const handleEndScroll = useMemo(
+    () =>
+    _.debounce(() => setIsScrolling(false), 1000),
+    []
+  );
+
   useEffect(() => {
     
     //saqué todo el fetch de acá y lo mandé al componente filmsList. no solo no tenia sentido
@@ -43,15 +56,17 @@ function App() {
     } 
     fetchData() 
       .catch(console.error); */
+    const hideButtonGoTop = () => {
+        //console.log("scroll scroll scroll");
+          setIsScrolling(true);
+          handleEndScroll();
+      }
+    
     window.addEventListener('scroll', hideButtonGoTop)
  
   }, [])
 
-  const handleEndScroll = useMemo(
-    () =>
-    _.debounce(() => setIsScrolling(false), 1000),
-    []
-  );
+  
 
   const editFilm = (film) => {
     setEditedFilm(film)
@@ -104,6 +119,21 @@ function App() {
     setAllFilmsList(false)
     
   }
+
+  const cierraAdvancedFilmsList = () => {
+    setAdvFilmsList(false)
+  }
+  
+  function abreAdvancedFilmsList(field, contains) {
+    console.log(field)
+    setField(field)
+    setContains(contains)
+    console.log(contains)
+    setAdvFilmsList({contains:contains}, {field:field})
+  }
+
+  
+
   const abreFilmsList = () => {
     setAllFilmsList(true)
   }
@@ -114,11 +144,7 @@ function App() {
   const handleScroll = (e) => {
     setScrollTop(e.currentTarget.scrollTop);
   } */
-  const hideButtonGoTop = () => {
-    console.log("scroll scroll scroll");
-      setIsScrolling(true);
-      handleEndScroll();
-  }
+
   const buttonTopRef = useRef(null);
  
   return (
@@ -141,7 +167,7 @@ function App() {
             onClick={abreFilmsList}
             >Ver todas las fichas</h4>
             </div>
-      {allFilmsList? <FilmList films = {films} editFilm = {editFilm} deleteFilm = {deleteFilm} cierraFilmsList = {cierraFilmsList} /> : null}
+      {allFilmsList ? <FilmList films = {films} editFilm = {editFilm} deleteFilm = {deleteFilm} cierraFilmsList = {cierraFilmsList} /> : null}
       
       <div className="all-films-list">
             <h4
@@ -150,19 +176,21 @@ function App() {
             </div>
 
       {editedFilm ? <Form film = {editedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm} cierraFormsList ={cierraFormsList} /> : null }
-      
-      {/* <AdvancedFilmList films = {advFilms} editFilm = {editFilm} deleteFilm = {deleteFilm}></AdvancedFilmList> */}
-      
+            
       <div className="all-films-list">
             <h4
             onClick={openAdvancedForm}
             >búsqueda avanzada</h4>
             </div>
 
-     
-      {/* <GetAllFilms></GetAllFilms>
-      <Films></Films> */}
-      {advancedEditedFilm ? <AdvancedForm film = {advancedEditedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm} cierraAdvancedForm ={cierraAdvancedForm} /> : null }
+      
+      {advancedEditedFilm ? <AdvancedForm /*film = {advancedEditedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm}*/ cierraAdvancedForm = {cierraAdvancedForm} abreAdvancedFilmsList={abreAdvancedFilmsList}  /> : null }
+      { advFilmsList ? <AdvancedFilmList contains = {contains} field = {field} cierraAdvancedFilmsList = {cierraAdvancedFilmsList} /> : null }
+
+      
+
+      
+      
       {/* <FrasesSobreGatos></FrasesSobreGatos> */}
         </div>
       </div>

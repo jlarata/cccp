@@ -1,9 +1,9 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect, useRef, MouseEvent} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from "react-bootstrap";
 import './Form.css'
-import APIService from "./APIService";
-import App from "../App";
+//import APIService from "./APIService";
+//import App from "../App";
 import AdvancedFilmList from "./AdvancedFilmList";
 
 
@@ -39,16 +39,17 @@ function AdvancedForm(props) {
 
     
     const openAdvancedFilmListByCCNumber = () => {
-        setField('ccNumber')
-        setContains(ccNumber)
-        setAdvFilmsList({contains:ccNumber})
-
+        /*setAdvFilmsList({contains:ccNumber})*/
+        props.abreAdvancedFilmsList('ccNumber', ccNumber)
+        props.cierraAdvancedForm() 
       }
 
     const openAdvancedFilmListByTitle = () => {
         setField('title')
         setContains(title)
         setAdvFilmsList({contains:title})
+        props.abreAdvancedFilmsList()
+        props.cierraAdvancedForm()
       }
 
  
@@ -70,7 +71,7 @@ function AdvancedForm(props) {
     const[date, setDate] = useState('')
 
     useEffect(() => {
-        setCcNumber(props.film.ccNumber)
+        /* setCcNumber(props.film.ccNumber)
         setTitle(props.film.title)
         setYear(props.film.year)
         setOrigin(props.film.origin)
@@ -84,9 +85,9 @@ function AdvancedForm(props) {
         setDirector4Genre(props.film.director4Genre)
         setScore(props.film.score)
         setHost(props.film.host)
-        setDate(props.film.date)
+        setDate(props.film.date) */
         focusForm()
-    }, [props.film])
+    }, [/*props.film*/])
 
     /* const AdvancedSearch = () => {
         APIService.AdvancedSearch(field, contains)
@@ -107,6 +108,7 @@ function AdvancedForm(props) {
     const cierraAdvancedFilmsList = () => {
         setAdvFilmsList(null)
       }
+
 
     return (
         
@@ -279,7 +281,8 @@ function AdvancedForm(props) {
             >Cerrar formulario</button>
             </div>
         </div>
-        { advFilmsList ? <AdvancedFilmList contains = {contains} field = {field} cierraAdvancedFilmsList = {cierraAdvancedFilmsList} /> : null }
+        
+        {/* { advFilmsList ? <AdvancedFilmList contains = {contains} field = {field} cierraAdvancedForm = {cierraAdvancedForm} cierraAdvancedFilmsList = {cierraAdvancedFilmsList} /> : null } */}
 
 </div>
 

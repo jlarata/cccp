@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from "react";
-import APIService from "./APIService";
+//import APIService from "./APIService";
 import './FilmList.css'
 
 
@@ -7,8 +7,8 @@ import './FilmList.css'
 function AdvancedFilmList(props) {
 
 
-    const [field, setField] = useState(null)
-    const [contains, setContains] = useState(null)
+    //const [field, setField] = useState(null)
+    //const [contains, setContains] = useState(null)
     const [films, setFilms] = useState([])
     const DOMRef = useRef(null)
 
@@ -18,12 +18,15 @@ function AdvancedFilmList(props) {
         }
         ,100)      
       } 
-
     
+      const { REACT_APP_APIURL } = process.env;
+
+//const data = await fetch(`${REACT_APP_APIURL}/adv-get`, {
+
+
       useEffect(() => {
         
-
-        fetch(`http://127.0.0.1:5000/adv-get/${props.field}/${props.contains}`, {
+        fetch(`${REACT_APP_APIURL}/adv-get/${props.field}/${props.contains}`, {
             'method':'GET',
             headers: {
             'Content-Type':'application/json'
