@@ -99,13 +99,26 @@ def get_films():
 
 
 
-###ESTO DEBERIA FUNCIONAR POR EL LADO DEL BACKEND. PROBAR CON POSTMAN Y LUEGO ARMAR METODO EN FRONT.
-### FUNCIONA
-
 @app.route('/adv-get/<field>/<contains>', methods = ['GET'])
 def get_films_by_field_contains(field, contains):
     all_films_contains = Films.query.filter(getattr(Films,field).contains(contains)).order_by(Films.ccNumber).all()
     results = films_schema.dump(all_films_contains)
+    return jsonify(results)
+
+@app.route('/adv-get/<field1>/<contains1>/<field2>/<contains2>/', methods = ['GET'])
+def get_films_by_multiple_field_contains(field1, contains1, field2, contains2):
+    if (contains1 == ' '):
+        contains1 = '%'
+    if (contains2 == ' '):
+        contains2 = '%'
+
+    all_films_contains1 = Films.query.filter(getattr(Films,field1).contains(contains1), getattr(Films,field2).contains(contains2)).order_by(Films.ccNumber).all()
+    ###all_films_contains2 = Films.filter()
+    """ for film in all_films_contains1:
+        if film(getattr(Films,field2).contains(contains2)):
+            all_films_contains2.append(film) """
+    ###all_films_contains2 = all_films_contains1.filter(getattr(all_films_contains1, field2).contains(contains2)).all()
+    results = films_schema.dump(all_films_contains1)
     return jsonify(results)
 
 """     if(field == 'director'):
