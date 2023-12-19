@@ -162,9 +162,16 @@ def post_details(id):
 @app.route('/add', methods = ['POST'])
 def add_film():
     ccNumber = request.json['ccNumber']
+    """ if (request.json['imgUrl'] != ''):
+        imgUrl = request.json['imgUrl']
+    else:
+        imgUrl = ' ' """
     imgUrl = request.json['imgUrl']
     title = request.json['title']
-    year = request.json['year']
+    if (request.json['year'] != ''):
+        year = request.json['year']
+    else:
+        year= '0'
     origin = request.json['origin']
     director1 = request.json['director1']
     director1Genre = request.json['director1Genre']
@@ -174,9 +181,16 @@ def add_film():
     director3Genre = request.json['director3Genre']
     director4 = request.json['director4']
     director4Genre = request.json['director4Genre']
-    score = request.json['score']
+    if (request.json['score'] != ''):
+        score = request.json['score']
+    else:
+        score= '1'
     host = request.json['host']
-    date = request.json['date']
+    if (request.json['date'] != ''):
+        date = request.json['date']
+    else:
+        date = '1989-12-13'
+    
 
     films = Films(ccNumber, imgUrl, title, year, origin, director1, director1Genre, director2, director2Genre, director3, director3Genre, director4, director4Genre, score, host, date)
     db.session.add(films)
