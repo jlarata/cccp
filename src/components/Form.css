@@ -6,9 +6,8 @@
 
 .opcionDeBusqueda {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    width: auto;
+    
     gap: 10px;
 }
 
@@ -106,6 +105,21 @@
     /*visibility: hidden;*/
     display: flex;
     flex-direction: column;
+    width: 90%;
+    align-items: center;
+    border-radius: 10px;
+    border-style: groove;
+    padding: 1%;
+    margin : 2px 5%;
+}
+
+.busquedaAvanzada {
+    
+    position: relative;
+    top: 5px;
+    /*visibility: hidden;*/
+    /*display: flex;*/
+    /*flex-direction: column;*/
     width: 90%;
     align-items: center;
     border-radius: 10px;

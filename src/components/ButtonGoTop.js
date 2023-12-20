@@ -1,5 +1,4 @@
 import './ButtonGoTop.css';
-import { useState, useEffect } from 'react';
 
 function ButtonGoTop() {
 

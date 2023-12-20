@@ -1,10 +1,9 @@
-import React, {useState, useEffect, useRef, MouseEvent} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from "react-bootstrap";
 import './Form.css'
 //import APIService from "./APIService";
 //import App from "../App";
-import AdvancedFilmList from "./AdvancedFilmList";
 
 
 
@@ -45,11 +44,14 @@ function AdvancedForm(props) {
       }
 
     const openAdvancedFilmListByTitle = () => {
-        setField('title')
-        setContains(title)
-        setAdvFilmsList({contains:title})
-        props.abreAdvancedFilmsList()
-        props.cierraAdvancedForm()
+        props.abreAdvancedFilmsList('title', title)
+        props.cierraAdvancedForm() 
+      }
+
+
+    const openAdvancedFilmListByMultiple = () => {
+        props.abreAdvancedFilmsListMultiple('ccNumber', ccNumber, 'title', title)
+        props.cierraAdvancedForm() 
       }
 
  
@@ -71,6 +73,21 @@ function AdvancedForm(props) {
     const[date, setDate] = useState('')
 
     useEffect(() => {
+        setCcNumber(' ')
+        setTitle(' ')
+        setYear(' ')
+        setOrigin(' ')
+        setDirector1(' ')
+        setDirector1Genre(' ')
+        setDirector2(' ')
+        setDirector2Genre(' ')
+        setDirector3(' ')
+        setDirector3Genre(' ')
+        setDirector4(' ')
+        setDirector4Genre(' ')
+        setScore(' ')
+        setHost(' ')
+        setDate(' ')
         /* setCcNumber(props.film.ccNumber)
         setTitle(props.film.title)
         setYear(props.film.year)
@@ -116,45 +133,54 @@ function AdvancedForm(props) {
              <div className="all-films-list">
             <button className="btn btn-danger"
             onClick={cierraAdvancedForm}
-            >Cerrar formulario</button>
+            >cerrar formulario</button>
             </div>
 
-                <div /*id='nuevaFicha'*/ className='editarFicha'>
+                <div /*id='nuevaFicha'*/ className='busquedaAvanzada'>
                 
                 
-                <form>
+                
                 <div className="opcionDeBusqueda">
                     <div className="campos">              
                         <label htmlFor='ccNumber' className ="form-label">ccNum</label>
-                        <input type="number" className="form-control" 
-                        value = {ccNumber}
-                        placeholder = {"enter ccnum"}
-                        onChange={(e) => setCcNumber(e.target.value)}
-                        />
-                    </div>
-                    <div className="botoneria">
-                    <Button
-                    onClick={openAdvancedFilmListByCCNumber}
-                    className="btn btn-primary mt-3"
-                    >buscar por n° de CC</Button>
+                            <div className="opcionDeBusqueda">    
+                                <input type="number" className="form-control" 
+                            
+                                placeholder = {"enter ccnum"}
+                                onChange={(e) => setCcNumber(e.target.value)}
+                                />
+                                <Button type="button"
+                                onClick={openAdvancedFilmListByCCNumber}
+                                className="btn btn-secondary btn-outline-dark btn-sm"
+                                >buscar por n° de CC</Button> 
+                            </div>
                     </div>
                 </div>
 
                 <div className="opcionDeBusqueda">
                     <div className="campos">              
                         <label htmlFor='title' className ="form-label">Título</label>
-                        <input type="text" className="form-control" 
-                        value = {title}
-                        placeholder = {"enter title"}
-                        onChange={(e) => setTitle(e.target.value)}
-                        />
+                        <div className="opcionDeBusqueda">
+                            <input type="text" className="form-control" 
+                            // value = {title}
+                            placeholder = {"enter title"}
+                            onChange={(e) => setTitle(e.target.value)}
+                            />
+                            <Button
+                            onClick={openAdvancedFilmListByTitle}
+                            className="btn btn-secondary btn-outline-dark btn-sm"
+                            >buscar por título</Button> 
+                        </div>
                     </div>
                     <div className="botoneria">
-                    <Button
-                    onClick={openAdvancedFilmListByTitle}
-                    className="btn btn-primary mt-3"
-                    >buscar por título</Button>
+                    {/* */}
                     </div>
+                </div>
+                <div className="botoneria">
+                    <Button
+                    onClick={openAdvancedFilmListByMultiple}
+                    className="btn btn-primary mt-3"
+                    >búsqueda avanzada combinada</Button>
                 </div>
 
 
@@ -274,11 +300,11 @@ function AdvancedForm(props) {
 
                 
 
-            </form>
+            
             <div className="all-films-list">
             <button className="btn btn-danger"
             onClick={cierraAdvancedForm}
-            >Cerrar formulario</button>
+            >cerrar formulario</button>
             </div>
         </div>
         

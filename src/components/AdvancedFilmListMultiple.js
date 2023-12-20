@@ -26,7 +26,7 @@ function AdvancedFilmList(props) {
 
       useEffect(() => {
         
-        fetch(`${REACT_APP_APIURL}/adv-get/${props.field}/${props.contains}`, {
+        fetch(`${REACT_APP_APIURL}/adv-get/${props.field1}/${props.contains1}/${props.field2}/${props.contains2}/`, {
             'method':'GET',
             headers: {
             'Content-Type':'application/json'
@@ -55,8 +55,8 @@ function AdvancedFilmList(props) {
     } */
 
     
-    function cierraAdvancedFilmsList() {
-        props.cierraAdvancedFilmsList()
+    function cierraAdvancedFilmsListMultiple() {
+        props.cierraAdvancedFilmsListMultiple()
     }
 
 
@@ -71,7 +71,7 @@ function AdvancedFilmList(props) {
  
         <div className="all-films-list">
             <button className="btn btn-danger"
-            onClick={cierraAdvancedFilmsList}
+            onClick={cierraAdvancedFilmsListMultiple}
             >Descartar búsqueda</button>
             </div>
 
@@ -125,7 +125,7 @@ function AdvancedFilmList(props) {
             })}
             <div className="all-films-list" id="TopOfAdvFilmList">
             <button className="btn btn-danger"
-            onClick={cierraAdvancedFilmsList}
+            onClick={cierraAdvancedFilmsListMultiple}
             >Descartar búsqueda</button>
             </div>
             

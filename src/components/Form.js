@@ -124,7 +124,7 @@ function Form(props) {
             <div className="all-films-list">
                 <button className="btn btn-danger"
                     onClick={cierraFormsList}
-                >Cancelar</button>
+                >cancelar</button>
             </div>
 
             {props.film ? (

@@ -156,7 +156,7 @@ function FilmList(props) {
         <div className="all-films-list">
             <h5
             onClick={cierraFilmsList}
-            >Cerrar todas las fichas</h5>
+            >cerrar todas las fichas</h5>
             </div>
         </div>
     

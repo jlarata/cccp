@@ -5,6 +5,7 @@ import Form from './components/Form';
 import FilmList from './components/FilmList';
 import AdvancedForm from './components/AdvancedForm.js';
 import AdvancedFilmList from './components/AdvancedFilmList.js';
+import AdvancedFilmListMultiple from './components/AdvancedFilmListMultiple.js';
 import ButtonGoTop from './components/ButtonGoTop';
 import _ from 'lodash';
 // import { FrasesSobreGatos } from './components/FrasesSobreGatos';
@@ -22,7 +23,14 @@ function App() {
   const [field, setField] = useState(null)
   const [contains, setContains] = useState(null)
 
+  const [field1, setField1] = useState(null)
+  const [contains1, setContains1] = useState(null)
+  const [field2, setField2] = useState(null)
+  const [contains2, setContains2] = useState(null)
+
   const [advFilmsList, setAdvFilmsList] = useState(false)
+  const [advFilmsListMultiple, setAdvFilmsListMultiple] = useState(false)
+
 
 
   // esto  no va mas xq no dejé métodos acá const { REACT_APP_APIURL } = process.env;
@@ -123,6 +131,10 @@ function App() {
   const cierraAdvancedFilmsList = () => {
     setAdvFilmsList(false)
   }
+
+  const cierraAdvancedFilmsListMultiple = () => {
+    setAdvFilmsListMultiple(false)
+  }
   
   function abreAdvancedFilmsList(field, contains) {
     console.log(field)
@@ -130,6 +142,19 @@ function App() {
     setContains(contains)
     console.log(contains)
     setAdvFilmsList({contains:contains}, {field:field})
+  }
+
+  function abreAdvancedFilmsListMultiple(field1, contains1, field2, contains2) {
+    console.log("campos: "+field1+", "+field2)
+    /* if(contains1 === null) {
+      contains = ''
+    } */
+    setField1(field1)
+    setField2(field2)
+    setContains1(contains1)
+    setContains2(contains2)
+    console.log("valores: "+contains1+", "+contains2)
+    setAdvFilmsListMultiple({contains1:contains1}, {field1:field1}, {contains2:contains2}, {field2:field2})
   }
 
   
@@ -165,14 +190,14 @@ function App() {
       <div className="all-films-list">
             <h4
             onClick={abreFilmsList}
-            >Ver todas las fichas</h4>
+            >ver todas las fichas</h4>
             </div>
       {allFilmsList ? <FilmList films = {films} editFilm = {editFilm} deleteFilm = {deleteFilm} cierraFilmsList = {cierraFilmsList} /> : null}
       
       <div className="all-films-list">
             <h4
             onClick={openForm}
-            >Insertar nueva ficha</h4>
+            >insertar nueva ficha</h4>
             </div>
 
       {editedFilm ? <Form film = {editedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm} cierraFormsList ={cierraFormsList} /> : null }
@@ -180,12 +205,14 @@ function App() {
       <div className="all-films-list">
             <h4
             onClick={openAdvancedForm}
-            >búsqueda avanzada</h4>
+            >buscar ficha</h4>
             </div>
 
       
-      {advancedEditedFilm ? <AdvancedForm /*film = {advancedEditedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm}*/ cierraAdvancedForm = {cierraAdvancedForm} abreAdvancedFilmsList={abreAdvancedFilmsList}  /> : null }
+      {advancedEditedFilm ? <AdvancedForm /*film = {advancedEditedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm}*/ cierraAdvancedForm = {cierraAdvancedForm} abreAdvancedFilmsList={abreAdvancedFilmsList} abreAdvancedFilmsListMultiple={abreAdvancedFilmsListMultiple} /> : null }
+      
       { advFilmsList ? <AdvancedFilmList contains = {contains} field = {field} cierraAdvancedFilmsList = {cierraAdvancedFilmsList} /> : null }
+      { advFilmsListMultiple ? <AdvancedFilmListMultiple contains1 = {contains1} contains2 = {contains2} field1 = {field1} field2 = {field2} cierraAdvancedFilmsListMultiple = {cierraAdvancedFilmsListMultiple} /> : null }
 
       
 
