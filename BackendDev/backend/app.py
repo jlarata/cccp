@@ -7,6 +7,7 @@ load_dotenv
 
 import os
 SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI")
+delete_key = os.getenv("delete_key")
 
 #import datetime
 
@@ -245,11 +246,13 @@ def update_film(id):
 
 @app.route('/delete/<id>', methods = ['DELETE'])
 def film_delete(id):
-    film = Films.query.get(id)
-    db.session.delete(film)
-    db.session.commit()
-
-    return film_schema.jsonify(film)
+    if(request.json['deleteKey'] == delete_key):
+        film = Films.query.get(id)
+        db.session.delete(film)
+        db.session.commit()
+        return film_schema.jsonify(film)
+    else:
+        print('contraseña incorrecta')
 
 """viejo metodo cors
 ##cosas del CORS

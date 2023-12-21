@@ -6,8 +6,9 @@ export default class APIService {
         return alert(aviso)
     }
 
+
     static UpdateFilm(id, body) {
-        return fetch(`http://${REACT_APP_APIURL}/update/${id}`, {
+        return fetch(`${REACT_APP_APIURL}/update/${id}`, {
         'method':'PUT',
         headers: {
         'Content-Type':'application/json'    
@@ -53,12 +54,13 @@ export default class APIService {
     //.then(resp => resp.json())
     } */
 
-    static DeleteFilm(id) {
+    static DeleteFilm(id, deleteKey) {
         return fetch(`${REACT_APP_APIURL}/delete/${id}`, {
         'method':'DELETE',
         headers: {
         'Content-Type':'application/json'
         },
+        body: JSON.stringify(deleteKey)
         
     })
     } 

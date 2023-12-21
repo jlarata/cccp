@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from "react";
-//import APIService from "./APIService";
+import APIService from "./APIService";
 import './FilmList.css'
 
 
@@ -11,6 +11,8 @@ function AdvancedFilmList(props) {
     //const [contains, setContains] = useState(null)
     const [films, setFilms] = useState([])
     const DOMRef = useRef(null)
+    const [deleteConfirm, setDeleteConfirm] = useState('a')
+    const [deleteKey, setDeleteKey] = useState('')
 
     const focusList = () => {
         setTimeout(() => {
@@ -42,7 +44,14 @@ function AdvancedFilmList(props) {
         
     }, [])
 
-    
+    const confirmarEliminar = () => {
+        setDeleteConfirm('b')
+        console.log(deleteConfirm)
+    };
+
+    const deleteFilm = (film, deleteKey) => {
+        APIService.DeleteFilm(film.id, deleteKey)
+    }
 
 /*     const editFilm = (film) => {
         props.editFilm(film)
@@ -54,6 +63,7 @@ function AdvancedFilmList(props) {
         .then(() => props.deleteFilm())
     } */
 
+    
     
     function cierraAdvancedFilmsListMultiple() {
         props.cierraAdvancedFilmsListMultiple()
@@ -115,9 +125,23 @@ function AdvancedFilmList(props) {
                             </div>
                             <div className="col">
                                 <button className='btn btn-danger'
+                                onClick={() => confirmarEliminar(film)}
                                 // onClick={() => deleteFilm(film)}
                                 >eliminar</button>
                             </div>
+
+                            {deleteConfirm ?
+                            <span>
+                                <label htmlFor='confirmar' className="form-label">¿qué vehículo participa en el cc?</label>
+                                <input type="text" className="form-control"
+                                    onChange={(e) => setDeleteKey(e.target.value)}>
+                                <div className="col">
+                                <button className='btn btn-danger'
+                                onClick={() => deleteFilm(film)}
+                                >eliminar</button>
+                            </div>
+                                </input>
+                            </span> : null }
                         </div>
                     </div>
 
