@@ -11,8 +11,9 @@ function AdvancedFilmList(props) {
     //const [contains, setContains] = useState(null)
     const [films, setFilms] = useState([])
     const DOMRef = useRef(null)
-    const [deleteConfirm, setDeleteConfirm] = useState('a')
+    const [deleteConfirm, setDeleteConfirm] = useState(false)
     const [deleteKey, setDeleteKey] = useState('')
+    const [filmToDelete, setFilmToDelete] = useState('')
 
     const focusList = () => {
         setTimeout(() => {
@@ -44,14 +45,34 @@ function AdvancedFilmList(props) {
         
     }, [])
 
-    const confirmarEliminar = () => {
-        setDeleteConfirm('b')
-        console.log(deleteConfirm)
+    const confirmarEliminar = (film) => {
+        setFilmToDelete(film.id)
+        setDeleteConfirm(true)
+        
     };
 
-    const deleteFilm = (film, deleteKey) => {
-        APIService.DeleteFilm(film.id, deleteKey)
+    const deleteFilm = (filmToDelete, deleteKey) => {
+        APIService.DeleteFilm(filmToDelete, deleteKey)
+        .then((resp) => {
+            if (resp) {
+            alert('ficha eliminada con eeexito')
+            deleteFilmFromList(filmToDelete)
+            } else { alert('no, cualquiera') }
+        })
+        .catch(error => console.log(error))
+        setDeleteConfirm(false)
     }
+
+    const deleteFilmFromList = (filmToDelete) => {
+        const new_films = films.filter(myfilm => {
+          if(myfilm.id === filmToDelete) {
+            return false;
+          }
+          return true
+        })
+        setFilms(new_films)
+      } 
+
 
 /*     const editFilm = (film) => {
         props.editFilm(film)
@@ -129,24 +150,25 @@ function AdvancedFilmList(props) {
                                 // onClick={() => deleteFilm(film)}
                                 >eliminar</button>
                             </div>
+                        </div>
+                    
+                        
 
-                            {deleteConfirm ?
-                            <span>
+                    </div>
+                );
+            })}
+
+            {deleteConfirm ? <div className="confirmBox">
                                 <label htmlFor='confirmar' className="form-label">¿qué vehículo participa en el cc?</label>
                                 <input type="text" className="form-control"
                                     onChange={(e) => setDeleteKey(e.target.value)}>
-                                <div className="col">
-                                <button className='btn btn-danger'
-                                onClick={() => deleteFilm(film)}
-                                >eliminar</button>
-                            </div>
                                 </input>
-                            </span> : null }
-                        </div>
-                    </div>
+                                <button className='btn btn-outline-danger'
+                                onClick={() => deleteFilm(filmToDelete, deleteKey)}
+                                >confirmar eliminar</button>
+                                
+                        </div> :null }
 
-                );
-            })}
             <div className="all-films-list" id="TopOfAdvFilmList">
             <button className="btn btn-danger"
             onClick={cierraAdvancedFilmsListMultiple}

@@ -1,6 +1,6 @@
 .general-container {
     background-color: #cccccc;
-    background-image: linear-gradient(#cccccc, #282c34);
+    background-image: linear-gradient(#dd8b8b, #0a3180);
     min-height: 104vh;
     display: block;
     flex-direction: column;

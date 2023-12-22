@@ -244,9 +244,9 @@ def update_film(id):
         ##return _corsify_actual_response(results)
 
 
-@app.route('/delete/<id>', methods = ['DELETE'])
-def film_delete(id):
-    if(request.json['deleteKey'] == delete_key):
+@app.route('/delete/<id>/<deleteKey>', methods = ['DELETE'])
+def film_delete(id, deleteKey):
+    if(deleteKey == delete_key):
         film = Films.query.get(id)
         db.session.delete(film)
         db.session.commit()

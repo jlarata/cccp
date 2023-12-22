@@ -55,14 +55,14 @@ export default class APIService {
     } */
 
     static DeleteFilm(id, deleteKey) {
-        return fetch(`${REACT_APP_APIURL}/delete/${id}`, {
+        return fetch(`${REACT_APP_APIURL}/delete/${id}/${deleteKey}`, {
         'method':'DELETE',
         headers: {
         'Content-Type':'application/json'
         },
-        body: JSON.stringify(deleteKey)
-        
     })
+    .then(resp => resp.json())
+    .catch(error => console.log(error))
     } 
 
     

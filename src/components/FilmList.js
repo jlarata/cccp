@@ -7,8 +7,9 @@ import './FilmList.css'
 function FilmList(props) {
 
     const [films, setFilms] = useState([])
-    const [deleteConfirm, setDeleteConfirm] = useState('a')
+    const [deleteConfirm, setDeleteConfirm] = useState(false)
     const [deleteKey, setDeleteKey] = useState('')
+    const [filmToDelete, setFilmToDelete] = useState('')
     // const [cantidadDeDirectores, setCantidadDeDirectores] = useState('')
 
 /*  aparentemente todo esto ya no sería necesario dado que estoy usando props
@@ -19,10 +20,34 @@ function FilmList(props) {
     const[director4, setDirector4] = useState('')
     const[director4Genre, setDirector4Genre] = useState('') */
 
-    const confirmarEliminar = () => {
-        setDeleteConfirm('b')
-        console.log(deleteConfirm)
+    const confirmarEliminar = (film) => {
+        setFilmToDelete(film.id)
+        setDeleteConfirm(true)
+        
     };
+
+    const deleteFilm = (filmToDelete, deleteKey) => {
+        APIService.DeleteFilm(filmToDelete, deleteKey)
+        .then((resp) => {
+            if (resp) {
+            alert('ficha eliminada con eeexito')
+            deleteFilmFromList(filmToDelete)
+            } else { alert('no, cualquiera') }
+        })
+        .catch(error => console.log(error))
+        setDeleteConfirm(false)
+    }
+
+
+    const deleteFilmFromList = (filmToDelete) => {
+        const new_films = films.filter(myfilm => {
+          if(myfilm.id === filmToDelete) {
+            return false;
+          }
+          return true
+        })
+        setFilms(new_films)
+      } 
 
     const DOMRef = useRef(null)
 
@@ -77,20 +102,7 @@ function FilmList(props) {
         
       }
 
-    const deleteFilm = (film, deleteKey) => {
-        APIService.DeleteFilm(film.id, deleteKey)
-        .then(() => deleteFilmFromList(film))
-    }
-
-    const deleteFilmFromList = (film) => {
-        const new_films = films.filter(myfilm => {
-          if(myfilm.id === film.id) {
-            return false;
-          }
-          return true
-        })
-        setFilms(new_films)
-      } 
+    
 
     
     //revisar form.js
@@ -177,23 +189,25 @@ function FilmList(props) {
                                 >eliminar</button>
                             </div>
 
-                            {deleteConfirm ?
-                            <span>
-                                <label htmlFor='confirmar' className="form-label">¿qué vehículo participa en el cc?</label>
-                                <input type="text" className="form-control"
-                                    onChange={(e) => setDeleteKey(e.target.value)}>
-                                <div className="col">
-                                <button className='btn btn-danger'
-                                onClick={() => deleteFilm(film)}
-                                >eliminar</button>
-                            </div>
-                                </input>
-                            </span> : null}
+                            
                         </div>
                     </div>
+                    
 
                 );
             })}
+
+            {deleteConfirm ? <div className="confirmBox">
+                                <label htmlFor='confirmar' className="form-label">¿qué vehículo participa en el cc?</label>
+                                <input type="text" className="form-control"
+                                    onChange={(e) => setDeleteKey(e.target.value)}>
+                                </input>
+                                <button className='btn btn-outline-danger'
+                                onClick={() => deleteFilm(filmToDelete, deleteKey)}
+                                >confirmar eliminar</button>
+                                
+                        </div> :null }
+
         <div className="all-films-list">
             <h5
             onClick={cierraFilmsList}
