@@ -101,6 +101,9 @@ function AdvancedFilmList(props) {
 
         <div className="films-list"
          ref={DOMRef}>
+        
+        <div className="infoBusqueda"><p>se buscaron films que en el campo {props.field} contengan total o parcialmente el valor {props.contains}</p>
+        <p>se encontraron {films.length} resultados</p></div>
  
         <div className="all-films-list">
             <button className="btn btn-danger"

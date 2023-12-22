@@ -48,6 +48,16 @@ function AdvancedForm(props) {
         props.cierraAdvancedForm() 
       }
 
+    const openAdvancedFilmListByYear = () => {
+        props.abreAdvancedFilmsList('year', year)
+        props.cierraAdvancedForm() 
+    }
+    
+    const openAdvancedFilmListByOrigin = () => {
+        props.abreAdvancedFilmsList('origin', origin)
+        props.cierraAdvancedForm() 
+    }
+
 
     const openAdvancedFilmListByMultiple = () => {
         props.abreAdvancedFilmsListMultiple('ccNumber', ccNumber, 'title', title)
@@ -146,7 +156,7 @@ function AdvancedForm(props) {
                             <div className="opcionDeBusqueda">    
                                 <input type="number" className="form-control" 
                             
-                                placeholder = {"enter ccnum"}
+                                placeholder = {"número de cc"}
                                 onChange={(e) => setCcNumber(e.target.value)}
                                 />
                                 <Button type="button"
@@ -159,11 +169,11 @@ function AdvancedForm(props) {
 
                 <div className="opcionDeBusqueda">
                     <div className="campos">              
-                        <label htmlFor='title' className ="form-label">Título</label>
+                        <label htmlFor='title' className ="form-label">título</label>
                         <div className="opcionDeBusqueda">
                             <input type="text" className="form-control" 
                             // value = {title}
-                            placeholder = {"enter title"}
+                            placeholder = {"título"}
                             onChange={(e) => setTitle(e.target.value)}
                             />
                             <Button
@@ -172,10 +182,45 @@ function AdvancedForm(props) {
                             >buscar por título</Button> 
                         </div>
                     </div>
-                    <div className="botoneria">
-                    {/* */}
-                    </div>
+                   
                 </div>
+
+                <div className="opcionDeBusqueda">
+                    <div className="campos">              
+                        <label htmlFor='year' className ="form-label">año</label>
+                        <div className="opcionDeBusqueda">
+                            <input type="number" className="form-control" 
+                            // value = {title}
+                            placeholder = {"año de estreno"}
+                            onChange={(e) => setYear(e.target.value)}
+                            />
+                            <Button
+                            onClick={openAdvancedFilmListByYear}
+                            className="btn btn-secondary btn-outline-dark btn-sm"
+                            >buscar por año de estreno</Button> 
+                        </div>
+                    </div>
+                   
+                </div>
+
+                <div className="opcionDeBusqueda">
+                    <div className="campos">              
+                        <label htmlFor='origin' className ="form-label">origen</label>
+                        <div className="opcionDeBusqueda">
+                            <input type="text" className="form-control" 
+                            // value = {title}
+                            placeholder = {"origen"}
+                            onChange={(e) => setOrigin(e.target.value)}
+                            />
+                            <Button
+                            onClick={openAdvancedFilmListByOrigin}
+                            className="btn btn-secondary btn-outline-dark btn-sm"
+                            >buscar por origen</Button> 
+                        </div>
+                    </div>
+                   
+                </div>
+
                 <div className="botoneria">
                     <Button
                     onClick={openAdvancedFilmListByMultiple}
@@ -183,24 +228,6 @@ function AdvancedForm(props) {
                     >búsqueda avanzada combinada</Button>
                 </div>
 
-
-                {/* <label htmlFor='title' className="form-label">Título</label>
-                <input type="text" className="form-control"
-                value = {title}
-                placeholder = {'enter title'}
-                onChange={(e) => setTitle(e.target.value)}></input> */}
-                
-                <label htmlFor='year' className="form-label">Año</label>
-                <input type="number" className="form-control"
-                value = {year}
-                placeholder = {"enter year"}
-                onChange={(e) => setYear(e.target.value)}></input>
-
-                <label htmlFor='origin' className="form-label">Origen</label>
-                <input type="text" className="form-control"
-                value={origin}
-                placeholder = {"enter film origin"}
-                onChange={(e) => setOrigin(e.target.value)}></input>
                 
                 <label htmlFor='director1' className="form-label">director</label>
                 <input type="text" className="form-control"
