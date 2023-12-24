@@ -102,8 +102,14 @@ def get_films():
 
 @app.route('/adv-get/<field>/<contains>', methods = ['GET'])
 def get_films_by_field_contains(field, contains):
-    all_films_contains = Films.query.filter(getattr(Films,field).contains(contains)).order_by(Films.ccNumber).all()
-    results = films_schema.dump(all_films_contains)
+    ###only if searching by director, so it searches all columns director1, director2, etc.
+    if (field == 'director1'):
+        all_films_contains_director_case = Films.query.filter(getattr(Films,('director1')).contains(contains) | getattr(Films,('director2')).contains(contains) | getattr(Films,('director3')).contains(contains) | getattr(Films,('director4')).contains(contains)).order_by(Films.ccNumber).all()
+        results = films_schema.dump(all_films_contains_director_case)
+    else:
+        ###general case
+        all_films_contains = Films.query.filter(getattr(Films,field).contains(contains)).order_by(Films.ccNumber).all()
+        results = films_schema.dump(all_films_contains)
     return jsonify(results)
 
 @app.route('/adv-get/<field1>/<contains1>/<field2>/<contains2>/', methods = ['GET'])
