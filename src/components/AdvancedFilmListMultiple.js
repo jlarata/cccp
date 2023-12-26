@@ -43,7 +43,7 @@ function AdvancedFilmList(props) {
         // .then(document.getElementById("TopOfAdvFilmList").scrollIntoView(true))
         .catch(error => console.log(error))
         
-    }, [])
+    }, [REACT_APP_APIURL, props.contains1, props.contains2, props.contains3, props.contains4, props.contains5, props.contains6, props.contains7, props.contains8, props.field1, props.field2, props.field3, props.field4, props.field5, props.field6, props.field7, props.field8])
 
     const confirmarEliminar = (film) => {
         setFilmToDelete(film.id)
@@ -74,10 +74,11 @@ function AdvancedFilmList(props) {
       } 
 
 
-/*     const editFilm = (film) => {
+     const editFilm = (film) => {
         props.editFilm(film)
+        cierraAdvancedFilmsListMultiple()
         
-      } */
+      } 
 
 /*     const deleteFilm = (film) => {
         APIService.DeleteFilm(film.id)
@@ -100,11 +101,11 @@ function AdvancedFilmList(props) {
         <div className="films-list"
          ref={DOMRef}>
 
-        <div className="infoBusqueda"><p>se buscaron films con los siguientes criterios </p>
+        <div className="infoBusqueda"><p>Se buscaron films con los siguientes criterios </p>
             
             <table className="table">
                 <tbody>
-                {(props.contains1 != ' ') ? 
+                {(props.contains1 !== ' ') ? 
                     <tr>
                         <th> cc # </th>
                         <td> {props.contains1} </td> 
@@ -113,52 +114,52 @@ function AdvancedFilmList(props) {
                         <th> cc # </th>
                         <td> cualquiera </td> 
                     </tr>}
-                {(props.contains2 != ' ') ? 
+                {(props.contains2 !== ' ') ? 
                     <tr>
-                        <th> título </th>
+                        <th> Título </th>
                         <td> {props.contains2} </td> 
                     </tr>
                 :   <tr>
-                        <th> título </th>
+                        <th> Título </th>
                         <td> cualquiera </td> 
                     </tr>}
-                {(props.contains3 != ' ') ? 
+                {(props.contains3 !== ' ') ? 
                     <tr>
-                        <th> año </th>
+                        <th> Año </th>
                         <td> {props.contains3} </td> 
                     </tr>
                 :   <tr>
-                        <th> año </th>
+                        <th> Año </th>
                         <td> cualquiera </td> 
                     </tr>}
-                {(props.contains4 != ' ') ? 
+                {(props.contains4 !== ' ') ? 
                     <tr>
-                        <th> origen </th>
+                        <th> Origen </th>
                         <td> {props.contains4} </td> 
                     </tr>
                 :   <tr>
-                        <th> origen </th>
+                        <th> Origen </th>
                         <td> cualquiera </td> 
                     </tr>}
-                {(props.contains5 != ' ') ? 
+                {(props.contains5 !== ' ') ? 
                     <tr>
-                        <th> dirección </th>
+                        <th> Dirección </th>
                         <td> {props.contains5} </td> 
                     </tr>
                 :   <tr>
-                        <th> dirección </th>
+                        <th> Dirección </th>
                         <td> cualquiera </td> 
                     </tr>}
-                {(props.contains6 != ' ') ? 
+                {(props.contains6 !== ' ') ? 
                     <tr>
-                        <th> género </th>
+                        <th> Género </th>
                         <td> {props.contains6} </td> 
                     </tr>
                 :   <tr>
-                        <th> género </th>
+                        <th> Género </th>
                         <td> cualquiera </td> 
                     </tr>}
-                {(props.contains7 != ' ') ? 
+                {(props.contains7 !== ' ') ? 
                     <tr>
                         <th> Anfitrión </th>
                         <td> {props.contains7} </td> 
@@ -167,13 +168,13 @@ function AdvancedFilmList(props) {
                         <th> Anfitrión </th>
                         <td> cualquiera </td> 
                     </tr>}
-                {(props.contains8 != ' ') ? 
+                {(props.contains8 !== ' ') ? 
                     <tr>
-                        <th> fecha </th>
+                        <th> Fecha </th>
                         <td> {props.contains8} </td> 
                     </tr>
                 :   <tr>
-                        <th> fecha </th>
+                        <th> Fecha </th>
                         <td> cualquiera </td> 
                     </tr>}
                 
@@ -181,7 +182,7 @@ function AdvancedFilmList(props) {
             </table>
             
             
-        <p>se encontraron {films.length} resultados</p></div>
+        <p>Se encontraron {films.length} resultados</p></div>
  
         <div className="all-films-list">
             <button className="btn btn-danger"
@@ -224,7 +225,7 @@ function AdvancedFilmList(props) {
                         <div className='botoneria'>
                             <div className="col">
                                 <button className='btn btn-primary'
-                                    // onClick={() => editFilm(film)}
+                                    onClick={() => editFilm(film)}
                                     >editar</button>
                             </div>
                             <div className="col">

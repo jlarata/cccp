@@ -62,10 +62,14 @@ function Form(props) {
 
     const updateFilm = () => {
         APIService.UpdateFilm(props.film.id, { ccNumber, imgUrl, title, year, origin, director1, director1Genre, director2, director2Genre, director3, director3Genre, director4, director4Genre, score, host, date })
-            .then((resp) => { props.updatedData(resp) })
+            .then((resp) => {
+                if (resp) {
+                    props.updatedData(resp); alert('Ficha editada con éeexito')
+                    props.cierraFormsList()
+                } else { alert('error, probablemente llenaste mal un campo, burro') }
+                })
             .catch(error => console.log(error))
     }
-
 
 
 

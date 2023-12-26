@@ -238,8 +238,8 @@ function App() {
       
       {advancedEditedFilm ? <AdvancedForm /*film = {advancedEditedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm}*/ cierraAdvancedForm = {cierraAdvancedForm} abreAdvancedFilmsList={abreAdvancedFilmsList} abreAdvancedFilmsListMultiple={abreAdvancedFilmsListMultiple} /> : null }
       
-      { advFilmsList ? <AdvancedFilmList contains = {contains} field = {field} cierraAdvancedFilmsList = {cierraAdvancedFilmsList} /> : null }
-      { advFilmsListMultiple ? <AdvancedFilmListMultiple contains1 = {contains1} contains2 = {contains2} contains3 = {contains3} contains4 = {contains4} contains5 = {contains5} contains6 = {contains6} contains7 = {contains7} contains8 = {contains8} field1 = {field1} field2 = {field2} field3 = {field3} field4 = {field4} field5 = {field5} field6 = {field6} field7 = {field7} field8 = {field8} cierraAdvancedFilmsListMultiple = {cierraAdvancedFilmsListMultiple} /> : null }
+      { advFilmsList ? <AdvancedFilmList contains = {contains} field = {field} editFilm = {editFilm} cierraAdvancedFilmsList = {cierraAdvancedFilmsList} /> : null }
+      { advFilmsListMultiple ? <AdvancedFilmListMultiple editFilm = {editFilm} contains1 = {contains1} contains2 = {contains2} contains3 = {contains3} contains4 = {contains4} contains5 = {contains5} contains6 = {contains6} contains7 = {contains7} contains8 = {contains8} field1 = {field1} field2 = {field2} field3 = {field3} field4 = {field4} field5 = {field5} field6 = {field6} field7 = {field7} field8 = {field8} cierraAdvancedFilmsListMultiple = {cierraAdvancedFilmsListMultiple} /> : null }
 
       
 

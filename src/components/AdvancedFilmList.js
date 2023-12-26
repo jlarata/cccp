@@ -23,8 +23,8 @@ function AdvancedFilmList(props) {
         }
         ,100)      
       } 
-    
-      
+
+
 
 //const data = await fetch(`${REACT_APP_APIURL}/adv-get`, {
 
@@ -37,22 +37,21 @@ function AdvancedFilmList(props) {
             'Content-Type':'application/json'
             }
         })
-        
-       
         .then(resp => resp.json())
         .then(resp => setFilms(resp))
         .then(focusList())
         // .then(document.getElementById("TopOfAdvFilmList").scrollIntoView(true))
         .catch(error => console.log(error))
         
-    }, [])
+    }, [REACT_APP_APIURL, props.contains, props.field])
 
     
 
-/*     const editFilm = (film) => {
+     const editFilm = (film) => {
         props.editFilm(film)
+        cierraAdvancedFilmsList()
         
-      } */
+      }
 
 /*     const deleteFilm = (film) => {
         APIService.DeleteFilm(film.id)
@@ -97,12 +96,13 @@ function AdvancedFilmList(props) {
 
     return (
 
+        
         <div className="all-films-list">
             
-            <h5>búsqueda avanzada</h5>
+            {/* <h5>búsqueda avanzada</h5> */}
 
         <div className="films-list"
-         ref={DOMRef}>
+        ref={DOMRef}>
         
         <div className="infoBusqueda"><p>se buscaron films que en el campo {props.field} contengan total o parcialmente el valor {props.contains}</p>
         <p>se encontraron {films.length} resultados</p></div>
@@ -148,7 +148,7 @@ function AdvancedFilmList(props) {
                         <div className='botoneria'>
                             <div className="col">
                                 <button className='btn btn-primary'
-                                    // onClick={() => editFilm(film)}
+                                    onClick={() => editFilm(film)}
                                     >editar</button>
                             </div>
                             <div className="col">
