@@ -15,6 +15,8 @@ function AdvancedFilmList(props) {
     const [deleteKey, setDeleteKey] = useState('')
     const [filmToDelete, setFilmToDelete] = useState('')
 
+    const { REACT_APP_APIURL } = process.env;
+
     const focusList = () => {
         setTimeout(() => {
         DOMRef.current.scrollIntoView()
@@ -22,7 +24,7 @@ function AdvancedFilmList(props) {
         ,100)      
       } 
     
-      const { REACT_APP_APIURL } = process.env;
+      
 
 //const data = await fetch(`${REACT_APP_APIURL}/adv-get`, {
 

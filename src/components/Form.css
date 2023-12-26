@@ -1,3 +1,5 @@
+
+
 .botoneria {
     display: flex;
     justify-content: flex-end;
@@ -115,6 +117,8 @@
 
 .busquedaAvanzada {
     
+    display: flex;
+    flex-direction: column;
     position: relative;
     top: 5px;
     /*visibility: hidden;*/
@@ -122,10 +126,21 @@
     /*flex-direction: column;*/
     width: 90%;
     align-items: center;
+    text-align: center;
+    font-size: large;
     border-radius: 10px;
     border-style: groove;
-    padding: 1%;
+    padding: 1% 10%;
     margin : 2px 5%;
+}
+
+.busquedaAvanzada label{
+    margin-top: 5%;
+}
+
+.busquedaAvanzada button {
+    
+    min-width: 100px;
 }
 
 .editarFicha form {

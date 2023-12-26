@@ -82,3 +82,13 @@
     text-align: justify;
     background-color: rgba(231, 228, 228, 0.2);
 }
+
+table tr td, table tr td {
+    font-weight: 100;
+    background-color:rgba(110,230,240, 0.1) !important;
+}
+
+table th, table th {
+    font-weight: 100;
+    background-color:rgba(210,230,240, 0.1) !important;
+}

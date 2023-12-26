@@ -107,9 +107,14 @@ def get_films_by_field_contains(field, contains):
         all_films_contains_director_case = Films.query.filter(getattr(Films,('director1')).contains(contains) | getattr(Films,('director2')).contains(contains) | getattr(Films,('director3')).contains(contains) | getattr(Films,('director4')).contains(contains)).order_by(Films.ccNumber).all()
         results = films_schema.dump(all_films_contains_director_case)
     else:
-        ###general case
-        all_films_contains = Films.query.filter(getattr(Films,field).contains(contains)).order_by(Films.ccNumber).all()
-        results = films_schema.dump(all_films_contains)
+        ###idem for directors genre.
+        if (field == 'director1Genre'):
+            all_films_contains_directorGenre_case = Films.query.filter(getattr(Films,('director1Genre')).contains(contains) | getattr(Films,('director2Genre')).contains(contains) | getattr(Films,('director3Genre')).contains(contains) | getattr(Films,('director4Genre')).contains(contains)).order_by(Films.ccNumber).all()
+            results = films_schema.dump(all_films_contains_directorGenre_case)
+        else:
+            ###general case
+            all_films_contains = Films.query.filter(getattr(Films,field).contains(contains)).order_by(Films.ccNumber).all()
+            results = films_schema.dump(all_films_contains)
     return jsonify(results)
 
 @app.route('/adv-get/<field1>/<contains1>/<field2>/<contains2>/', methods = ['GET'])
@@ -127,6 +132,35 @@ def get_films_by_multiple_field_contains(field1, contains1, field2, contains2):
     ###all_films_contains2 = all_films_contains1.filter(getattr(all_films_contains1, field2).contains(contains2)).all()
     results = films_schema.dump(all_films_contains1)
     return jsonify(results)
+
+@app.route('/adv-get/<field1>/<contains1>/<field2>/<contains2>/<field3>/<contains3>/<field4>/<contains4>/<field5>/<contains5>/<field6>/<contains6>/<field7>/<contains7>/<field8>/<contains8>/', methods = ['GET'])
+def get_films_by_multiple_field_contains(field1, contains1, field2, contains2, field3, contains3, field4, contains4, field5, contains5, field6, contains6, field7, contains7, field8, contains8):
+    if (contains1 == ' '):
+        contains1 = '%'
+    if (contains2 == ' '):
+        contains2 = '%'
+    if (contains3 == ' '):
+        contains3 = '%'
+    if (contains4 == ' '):
+        contains4 = '%'
+    if (contains5 == ' '):
+        contains5 = '%'
+    if (contains6 == ' '):
+        contains6 = '%'
+    if (contains7 == ' '):
+        contains7 = '%'
+    if (contains8 == ' '):
+        contains8 = '%'    
+
+    all_films_contains1 = Films.query.filter(getattr(Films,field1).contains(contains1), getattr(Films,field2).contains(contains2), getattr(Films,field3).contains(contains3), getattr(Films,field4).contains(contains4), getattr(Films,field5).contains(contains5), getattr(Films,field6).contains(contains6), getattr(Films,field7).contains(contains7), getattr(Films,field8).contains(contains8)).order_by(Films.ccNumber).all()
+    ###all_films_contains2 = Films.filter()
+    """ for film in all_films_contains1:
+        if film(getattr(Films,field2).contains(contains2)):
+            all_films_contains2.append(film) """
+    ###all_films_contains2 = all_films_contains1.filter(getattr(all_films_contains1, field2).contains(contains2)).all()
+    results = films_schema.dump(all_films_contains1)
+    return jsonify(results)
+
 
 """     if(field == 'director'):
         all_films_director_contains = Films.query.filter(Films.director.contains(contains)).order_by(Films.ccNumber).all()

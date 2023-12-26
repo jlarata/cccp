@@ -4,6 +4,8 @@ import './FilmList.css'
 
 //asd
 
+const { REACT_APP_APIURL } = process.env;
+
 function FilmList(props) {
 
     const [films, setFilms] = useState([])
@@ -61,7 +63,8 @@ function FilmList(props) {
     useEffect(() => {
 
         // setEmptyDirectors(); aparentemente todo esto ya no sería necesario dado que estoy usando props
-        const { REACT_APP_APIURL } = process.env;
+        
+        console.log(REACT_APP_APIURL)
 
         const fetchData = async () => {
             const data = await fetch(`${REACT_APP_APIURL}/get`, {

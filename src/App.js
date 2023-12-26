@@ -11,7 +11,7 @@ import _ from 'lodash';
 // import { FrasesSobreGatos } from './components/FrasesSobreGatos';
 
 
-
+const { REACT_APP_APIURL } = process.env;
 
 function App() {
 
@@ -27,6 +27,18 @@ function App() {
   const [contains1, setContains1] = useState(null)
   const [field2, setField2] = useState(null)
   const [contains2, setContains2] = useState(null)
+  const [field3, setField3] = useState(null)
+  const [contains3, setContains3] = useState(null)
+  const [field4, setField4] = useState(null)
+  const [contains4, setContains4] = useState(null)
+  const [field5, setField5] = useState(null)
+  const [contains5, setContains5] = useState(null)
+  const [field6, setField6] = useState(null)
+  const [contains6, setContains6] = useState(null)
+  const [field7, setField7] = useState(null)
+  const [contains7, setContains7] = useState(null)
+  const [field8, setField8] = useState(null)
+  const [contains8, setContains8] = useState(null)
 
   const [advFilmsList, setAdvFilmsList] = useState(false)
   const [advFilmsListMultiple, setAdvFilmsListMultiple] = useState(false)
@@ -42,6 +54,9 @@ function App() {
   );
 
   useEffect(() => {
+
+    console.log(REACT_APP_APIURL)
+
     
     //saqué todo el fetch de acá y lo mandé al componente filmsList. no solo no tenia sentido
     //sino que además se arreglaron algunos bugs en la carga.
@@ -144,17 +159,29 @@ function App() {
     setAdvFilmsList({contains:contains}, {field:field})
   }
 
-  function abreAdvancedFilmsListMultiple(field1, contains1, field2, contains2) {
-    console.log("campos: "+field1+", "+field2)
+  function abreAdvancedFilmsListMultiple(field1, contains1, field2, contains2, field3, contains3, field4, contains4, field5, contains5, field6, contains6, field7, contains7, field8, contains8) {
+    console.log("campos: "+field1+", "+field2+", "+field3+", "+field4+", "+field5+", "+field6+", "+field7+", "+field8)
     /* if(contains1 === null) {
       contains = ''
     } */
     setField1(field1)
     setField2(field2)
+    setField3(field3)
+    setField4(field4)
+    setField5(field5)
+    setField6(field6)
+    setField7(field7)
+    setField8(field8)
     setContains1(contains1)
     setContains2(contains2)
-    console.log("valores: "+contains1+", "+contains2)
-    setAdvFilmsListMultiple({contains1:contains1}, {field1:field1}, {contains2:contains2}, {field2:field2})
+    setContains3(contains3)
+    setContains4(contains4)
+    setContains5(contains5)
+    setContains6(contains6)
+    setContains7(contains7)
+    setContains8(contains8)
+    console.log("valores: "+contains1+", "+contains2+", "+contains3+", "+contains4+", "+contains5+", "+contains6+", "+contains7+", "+contains8)
+    setAdvFilmsListMultiple({contains1:contains1}, {field1:field1}, {contains2:contains2}, {field2:field2}, {contains3:contains3}, {field3:field3}, {contains4:contains4}, {field4:field4}, {contains5:contains5}, {field5:field5}, {contains6:contains6}, {field6:field6}, {contains7:contains7}, {field7:field7}, {contains8:contains8}, {field8:field8})
   }
 
   
@@ -212,7 +239,7 @@ function App() {
       {advancedEditedFilm ? <AdvancedForm /*film = {advancedEditedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm}*/ cierraAdvancedForm = {cierraAdvancedForm} abreAdvancedFilmsList={abreAdvancedFilmsList} abreAdvancedFilmsListMultiple={abreAdvancedFilmsListMultiple} /> : null }
       
       { advFilmsList ? <AdvancedFilmList contains = {contains} field = {field} cierraAdvancedFilmsList = {cierraAdvancedFilmsList} /> : null }
-      { advFilmsListMultiple ? <AdvancedFilmListMultiple contains1 = {contains1} contains2 = {contains2} field1 = {field1} field2 = {field2} cierraAdvancedFilmsListMultiple = {cierraAdvancedFilmsListMultiple} /> : null }
+      { advFilmsListMultiple ? <AdvancedFilmListMultiple contains1 = {contains1} contains2 = {contains2} contains3 = {contains3} contains4 = {contains4} contains5 = {contains5} contains6 = {contains6} contains7 = {contains7} contains8 = {contains8} field1 = {field1} field2 = {field2} field3 = {field3} field4 = {field4} field5 = {field5} field6 = {field6} field7 = {field7} field8 = {field8} cierraAdvancedFilmsListMultiple = {cierraAdvancedFilmsListMultiple} /> : null }
 
       
 

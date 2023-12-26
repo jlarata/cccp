@@ -29,7 +29,7 @@ function AdvancedFilmList(props) {
 
       useEffect(() => {
         
-        fetch(`${REACT_APP_APIURL}/adv-get/${props.field1}/${props.contains1}/${props.field2}/${props.contains2}/`, {
+        fetch(`${REACT_APP_APIURL}/adv-get/${props.field1}/${props.contains1}/${props.field2}/${props.contains2}/${props.field3}/${props.contains3}/${props.field4}/${props.contains4}/${props.field5}/${props.contains5}/${props.field6}/${props.contains6}/${props.field7}/${props.contains7}/${props.field8}/${props.contains8}/`, {
             'method':'GET',
             headers: {
             'Content-Type':'application/json'
@@ -99,6 +99,89 @@ function AdvancedFilmList(props) {
 
         <div className="films-list"
          ref={DOMRef}>
+
+        <div className="infoBusqueda"><p>se buscaron films con los siguientes criterios </p>
+            
+            <table className="table">
+                <tbody>
+                {(props.contains1 != ' ') ? 
+                    <tr>
+                        <th> cc # </th>
+                        <td> {props.contains1} </td> 
+                    </tr>
+                :   <tr>
+                        <th> cc # </th>
+                        <td> cualquiera </td> 
+                    </tr>}
+                {(props.contains2 != ' ') ? 
+                    <tr>
+                        <th> título </th>
+                        <td> {props.contains2} </td> 
+                    </tr>
+                :   <tr>
+                        <th> título </th>
+                        <td> cualquiera </td> 
+                    </tr>}
+                {(props.contains3 != ' ') ? 
+                    <tr>
+                        <th> año </th>
+                        <td> {props.contains3} </td> 
+                    </tr>
+                :   <tr>
+                        <th> año </th>
+                        <td> cualquiera </td> 
+                    </tr>}
+                {(props.contains4 != ' ') ? 
+                    <tr>
+                        <th> origen </th>
+                        <td> {props.contains4} </td> 
+                    </tr>
+                :   <tr>
+                        <th> origen </th>
+                        <td> cualquiera </td> 
+                    </tr>}
+                {(props.contains5 != ' ') ? 
+                    <tr>
+                        <th> dirección </th>
+                        <td> {props.contains5} </td> 
+                    </tr>
+                :   <tr>
+                        <th> dirección </th>
+                        <td> cualquiera </td> 
+                    </tr>}
+                {(props.contains6 != ' ') ? 
+                    <tr>
+                        <th> género </th>
+                        <td> {props.contains6} </td> 
+                    </tr>
+                :   <tr>
+                        <th> género </th>
+                        <td> cualquiera </td> 
+                    </tr>}
+                {(props.contains7 != ' ') ? 
+                    <tr>
+                        <th> Anfitrión </th>
+                        <td> {props.contains7} </td> 
+                    </tr>
+                :   <tr>
+                        <th> Anfitrión </th>
+                        <td> cualquiera </td> 
+                    </tr>}
+                {(props.contains8 != ' ') ? 
+                    <tr>
+                        <th> fecha </th>
+                        <td> {props.contains8} </td> 
+                    </tr>
+                :   <tr>
+                        <th> fecha </th>
+                        <td> cualquiera </td> 
+                    </tr>}
+                
+                </tbody>
+            </table>
+            
+            
+        <p>se encontraron {films.length} resultados</p></div>
  
         <div className="all-films-list">
             <button className="btn btn-danger"
