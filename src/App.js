@@ -53,26 +53,7 @@ function App() {
     []
   ); */
 
-  const handleEndScroll = () => {
-    setTimeout (() => {
-      setIsScrolling(false)
-    }, 1000)
-  }
-
-
-  useEffect(() => {
-
-    console.log(REACT_APP_APIURL)
-
-    window.addEventListener('scroll', hideButtonGoTop)
- 
-  }, [])
-
-  const hideButtonGoTop = () => {
-    //console.log("scroll scroll scroll");
-      setIsScrolling(true);
-      handleEndScroll();
-  }
+  
 
   const editFilm = (film) => {
     setEditedFilm(film)
@@ -173,14 +154,13 @@ function App() {
     setAllFilmsList(true)
   }
 
-  const [isScrolling, setIsScrolling] = useState(false);
  /*  const [scrollTop, setScrollTop] = useState(0);
   
   const handleScroll = (e) => {
     setScrollTop(e.currentTarget.scrollTop);
   } */
 
-  const buttonTopRef = useRef(null);
+  
  
   return (
 
@@ -189,12 +169,12 @@ function App() {
     <div className='general-container'>
     <div className=''>
       <Header></Header>
-      <div ref={buttonTopRef}>
-        {isScrolling ? null : <ButtonGoTop/>}
-      </div>
+
       
             {/* <Examplefunctions></Examplefunctions> */}
   
+      <ButtonGoTop/>
+
 
       <div className='bodyContainer'>
       <div className="all-films-list">

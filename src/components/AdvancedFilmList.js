@@ -125,6 +125,7 @@ function AdvancedFilmList(props) {
         }
     } */
     
+    console.log('parala lakaaa')
 
     return (
 
@@ -178,8 +179,6 @@ function AdvancedFilmList(props) {
                         <div className='filmInfo'>
                             
                             <h3>cc# {film.ccNumber}
-                            {console.log(film.title)} 
-                            {console.log(film.imgUrl)}
                             {/* , id# {film.id} */}
                             </h3>
                             
