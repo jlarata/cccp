@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from "react";
 import APIService from "./APIService";
 import './FilmList.css'
+import { SortBy } from "react-lodash";
 
 
 
@@ -19,17 +20,28 @@ function AdvancedFilmList(props) {
 
     const focusList = () => {
         setTimeout(() => {
-        DOMRef.current.scrollIntoView()
+        DOMRef.current.scrollIntoView({ block: "start", behavior: "smooth" })
         }
-        ,100)      
+        ,1000)      
       } 
-
 
 
 //const data = await fetch(`${REACT_APP_APIURL}/adv-get`, {
 
+    const [sortState, setSortState] = useState('none');
+
+    useEffect(() => {
+        console.log(sortState)
+        blabla(sortState);
+        console.log(sortState)
+        
+    }, [sortState])
+
+    
+
 
       useEffect(() => {
+        
         
         fetch(`${REACT_APP_APIURL}/adv-get/${props.field}/${props.contains}`, {
             'method':'GET',
@@ -43,7 +55,9 @@ function AdvancedFilmList(props) {
         // .then(document.getElementById("TopOfAdvFilmList").scrollIntoView(true))
         .catch(error => console.log(error))
         
+        
     }, [REACT_APP_APIURL, props.contains, props.field])
+
 
     
 
@@ -93,6 +107,21 @@ function AdvancedFilmList(props) {
         props.cierraAdvancedFilmsList()
     }
 
+    
+    const sortMethods = {
+        none: { method: (a, b) => null },
+        scoreAscending: { method : (a, b) => (a.score > b.score ? -1 : 1) },
+        scoreDescending: { method : (a, b) => (a.score > b.score ? 1 : -1)},
+    }
+
+    const sortByMethod = (method) => {
+        setSortState(method)
+        //films.sort(sortMethods[sortState].method)
+    }  
+
+    const blabla = (sortState) => {
+        films.sort(sortMethods[sortState].method)
+    }
 
     return (
 
@@ -101,11 +130,22 @@ function AdvancedFilmList(props) {
             
             {/* <h5>búsqueda avanzada</h5> */}
 
-        <div className="films-list"
-        ref={DOMRef}>
+        <div className="films-list">
         
-        <div className="infoBusqueda"><p>se buscaron films que en el campo {props.field} contengan total o parcialmente el valor {props.contains}</p>
-        <p>se encontraron {films.length} resultados</p></div>
+        <div className="infoBusqueda" ref={DOMRef}>
+            <p>se buscaron films que en el campo {props.field} contengan total o parcialmente el valor {props.contains}</p>
+            <p>se encontraron {films.length} resultados</p>
+
+        <select defaultValue={'none'} onChange={(e) => sortByMethod(e.target.value)}>
+            <option value="none" disabled>ordenar por</option>
+            <option value="scoreAscending">Puntaje más bajo</option>
+            <option value="scoreDescending">Puntaje más alto</option>
+      </select>
+      
+        </div>
+
+        
+
  
         <div className="all-films-list">
             <button className="btn btn-danger"
@@ -176,6 +216,9 @@ function AdvancedFilmList(props) {
 
                 );
             })}
+            
+            
+
             <div className="all-films-list" id="TopOfAdvFilmList">
             <button className="btn btn-danger"
             onClick={cierraAdvancedFilmsList}
