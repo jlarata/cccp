@@ -1,8 +1,6 @@
 import React, {useState, useEffect, useRef} from "react";
 import APIService from "./APIService";
 import './FilmList.css'
-import { SortBy } from "react-lodash";
-
 
 
 function AdvancedFilmList(props) {
@@ -15,30 +13,9 @@ function AdvancedFilmList(props) {
     const [deleteConfirm, setDeleteConfirm] = useState(false)
     const [deleteKey, setDeleteKey] = useState('')
     const [filmToDelete, setFilmToDelete] = useState('')
-
-    const { REACT_APP_APIURL } = process.env;
-
-    const focusList = () => {
-        setTimeout(() => {
-        DOMRef.current.scrollIntoView({ block: "start", behavior: "smooth" })
-        }
-        ,1000)      
-      } 
-
-
-//const data = await fetch(`${REACT_APP_APIURL}/adv-get`, {
-
     const [sortState, setSortState] = useState('none');
 
-    useEffect(() => {
-        console.log(sortState)
-        blabla(sortState);
-        console.log(sortState)
-        
-    }, [sortState])
-
-    
-
+    const { REACT_APP_APIURL } = process.env;
 
       useEffect(() => {
         
@@ -54,14 +31,18 @@ function AdvancedFilmList(props) {
         .then(focusList())
         // .then(document.getElementById("TopOfAdvFilmList").scrollIntoView(true))
         .catch(error => console.log(error))
-        
-        
-    }, [REACT_APP_APIURL, props.contains, props.field])
+    }, [])
 
 
-    
+    const focusList = () => {
+        setTimeout(() => {
+        DOMRef.current.scrollIntoView({ block: "start", behavior: "smooth" })
+        }
+        ,1000)      
+      } 
 
-     const editFilm = (film) => {
+
+    const editFilm = (film) => {
         props.editFilm(film)
         cierraAdvancedFilmsList()
         
@@ -110,18 +91,33 @@ function AdvancedFilmList(props) {
     
     const sortMethods = {
         none: { method: (a, b) => null },
-        scoreAscending: { method : (a, b) => (a.score > b.score ? -1 : 1) },
-        scoreDescending: { method : (a, b) => (a.score > b.score ? 1 : -1)},
+        scoreAscending: { method : (a, b) => (a.score > b.score ? 1 : -1) },
+        scoreDescending: { method : (a, b) => (a.score > b.score ? -1 : 1)},
+        yearAscending: { method : (a, b) => (a.year > b.year ? 1 : -1) },
+        yearDescending: { method : (a, b) => (a.year > b.year ? -1 : 1)},
+        originDescending: { method : (a, b) => (a.origin.toLowerCase() > b.origin.toLowerCase() ? 1 : (a.origin.toLowerCase() < b.origin.toLowerCase() ? -1 : 0))}
     }
 
     const sortByMethod = (method) => {
         setSortState(method)
-        //films.sort(sortMethods[sortState].method)
-    }  
+        // blabla(sortState)
+    } 
+    
 
-    const blabla = (sortState) => {
+    /* const blabla = (sortState) => {
         films.sort(sortMethods[sortState].method)
-    }
+    } */
+/* 
+    const hasMultipleDirectors = (film) => {
+        if (film.director4 !=='') {
+            setCantidadDeDirectores('4')
+        } else if (film.director3 !=='') {
+            setCantidadDeDirectores('3')
+        } else if (film.director2 !=='') {
+            setCantidadDeDirectores('2')
+        }
+    } */
+    
 
     return (
 
@@ -134,18 +130,18 @@ function AdvancedFilmList(props) {
         
         <div className="infoBusqueda" ref={DOMRef}>
             <p>se buscaron films que en el campo {props.field} contengan total o parcialmente el valor {props.contains}</p>
-            <p>se encontraron {films.length} resultados</p>
+            <p>se encontraron {films.length} resultados, ordenados por #CC</p>
 
         <select defaultValue={'none'} onChange={(e) => sortByMethod(e.target.value)}>
             <option value="none" disabled>ordenar por</option>
+            <option value="yearAscending">Año más bajo</option>
+            <option value="yearDescending">Año más alto</option>
             <option value="scoreAscending">Puntaje más bajo</option>
             <option value="scoreDescending">Puntaje más alto</option>
+            <option value="originDescending">Origen</option>
       </select>
       
         </div>
-
-        
-
  
         <div className="all-films-list">
             <button className="btn btn-danger"
@@ -153,35 +149,41 @@ function AdvancedFilmList(props) {
             >Descartar búsqueda</button>
             </div>
 
-            {films && films.map(film => {
+            
+            {films.sort(sortMethods[sortState].method) && films.map(film => {
+
+            // hasMultipleDirectors(film)
                 
                 //revisar form.js
-                function hasMoreDirectors() {
-                    if (film.director4 !=='') {
-                        return <span>, {film.director2}, ({film.director2Genre}), {film.director3}, ({film.director3Genre}), {film.director4}, ({film.director4Genre})</span>;
-                    } else if (film.director3 !=='') {
-                        return <span>, {film.director2}, ({film.director2Genre}), {film.director3}, ({film.director3Genre})</span>;
-                    } else if (film.director2 !=='') {
-                        return <span>, {film.director2}, ({film.director2Genre})</span>;
+                 function hasMoreDirectors() {
+                        if (film.director4 !=='') {
+                            return <span>, {film.director2}({film.director2Genre}), {film.director3}({film.director3Genre}), {film.director4}({film.director4Genre})</span>;
+                        } else if (film.director3 !=='') {
+                            return <span>, {film.director2}({film.director2Genre}), {film.director3}({film.director3Genre})</span>;
+                        } else if (film.director2 !=='') {
+                            return <span>, {film.director2}({film.director2Genre})</span>;
+                        } 
                     } 
-                }
-
+               
                 return (
-                    
                     
                     <div key={film.id} className='film'>
                         <div className='filmInfo'>
-                            <h3>cc# {film.ccNumber}, id# {film.id}</h3>
+                            
+                            <h3>cc# {film.ccNumber}
+                            {/* , id# {film.id} */}
+                            </h3>
                             
                         </div>
                         <div className='filmPoster'><img src={film.imgUrl} alt="no hay poster"></img></div>
                         <div className='filmInfo'>
-                            <h2>{film.title}</h2>   
-                            <p>dirigida por {film.director1}, ({film.director1Genre}) {hasMoreDirectors()} </p>
-                            
-                            
-
-                            <p>{film.year}</p>
+                            <h2>{film.title}</h2>
+                            <p>{film.director1} ({film.director1Genre}) {hasMoreDirectors()} | ({film.year}) 
+                            {/* {(cantidadDeDirectores > 1) ? <span>, {film.director2}, ({film.director2Genre}) </span> : null }
+                            {(cantidadDeDirectores > 2) ? <span>, {film.director3}, ({film.director3Genre}) </span> : null }
+                            {(cantidadDeDirectores > 3) ? <span>, {film.director4}, ({film.director4Genre}) </span> : null } */}
+                            </p>
+                            <p>{film.origin}</p>
                             <p>puntaje final: {film.score}</p>
                             <p>invitó {film.host}</p>
                             <p>{film.date}</p></div>
