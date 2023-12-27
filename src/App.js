@@ -1,13 +1,13 @@
 import './App.css';
 import { Header } from './components/Header';
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef/*, useMemo*/ } from 'react';
 import Form from './components/Form';
 import FilmList from './components/FilmList';
 import AdvancedForm from './components/AdvancedForm.js';
 import AdvancedFilmList from './components/AdvancedFilmList.js';
 import AdvancedFilmListMultiple from './components/AdvancedFilmListMultiple.js';
 import ButtonGoTop from './components/ButtonGoTop';
-import _ from 'lodash';
+//import _ from 'lodash';
 // import { FrasesSobreGatos } from './components/FrasesSobreGatos';
 
 
@@ -47,11 +47,18 @@ function App() {
 
   // esto  no va mas xq no dejé métodos acá const { REACT_APP_APIURL } = process.env;
   
-  const handleEndScroll = useMemo(
+  /* const handleEndScroll = useMemo(
     () =>
     _.debounce(() => setIsScrolling(false), 1000),
     []
-  );
+  ); */
+
+  const handleEndScroll = () => {
+    setTimeout (() => {
+      setIsScrolling(false)
+    }, 1000)
+  }
+
 
   useEffect(() => {
 

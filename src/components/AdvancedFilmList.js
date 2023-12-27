@@ -34,11 +34,8 @@ function AdvancedFilmList(props) {
       }
 
 
-      useEffect(() => {
-        
-        
+      useEffect(() => {   
           fetchData() 
-          .catch(console.error);
           focusList()
 
     }, [])
@@ -187,7 +184,7 @@ function AdvancedFilmList(props) {
                             </h3>
                             
                         </div>
-                        {film.imgUrl == '' ? <div className='noPoster'>asdasdasdasd</div> : <div className='filmPoster'><img src={film.imgUrl} alt="no hay poster"></img></div>}
+                        {film.imgUrl === '' ? <div className='noPoster'>asdasdasdasd</div> : <div className='filmPoster'><img src={film.imgUrl} alt="no hay poster"></img></div>}
                         
                         <div className='filmInfo'>
                             <h2>{film.title}</h2>
