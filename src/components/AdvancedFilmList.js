@@ -17,20 +17,30 @@ function AdvancedFilmList(props) {
 
     const { REACT_APP_APIURL } = process.env;
 
-      useEffect(() => {
-        
-        
-        fetch(`${REACT_APP_APIURL}/adv-get/${props.field}/${props.contains}`, {
+    const fetchData = async () => {
+        const data = await fetch(`${REACT_APP_APIURL}/adv-get/${props.field}/${props.contains}`, {
             'method':'GET',
             headers: {
             'Content-Type':'application/json'
             }
         })
-        .then(resp => resp.json())
-        .then(resp => setFilms(resp))
-        .then(focusList())
-        // .then(document.getElementById("TopOfAdvFilmList").scrollIntoView(true))
-        .catch(error => console.log(error))
+        if(data.ok) {
+          const dataJson = await data.json();
+          setFilms(dataJson);
+          console.log('ok');}
+        else {
+          console.log('not ok')
+        }
+      }
+
+
+      useEffect(() => {
+        
+        
+          fetchData() 
+          .catch(console.error);
+          focusList()
+
     }, [])
 
 
@@ -171,11 +181,14 @@ function AdvancedFilmList(props) {
                         <div className='filmInfo'>
                             
                             <h3>cc# {film.ccNumber}
+                            {console.log(film.title)} 
+                            {console.log(film.imgUrl)}
                             {/* , id# {film.id} */}
                             </h3>
                             
                         </div>
-                        <div className='filmPoster'><img src={film.imgUrl} alt="no hay poster"></img></div>
+                        {film.imgUrl == '' ? <div className='noPoster'>asdasdasdasd</div> : <div className='filmPoster'><img src={film.imgUrl} alt="no hay poster"></img></div>}
+                        
                         <div className='filmInfo'>
                             <h2>{film.title}</h2>
                             <p>{film.director1} ({film.director1Genre}) {hasMoreDirectors()} | ({film.year}) 

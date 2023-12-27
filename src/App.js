@@ -57,39 +57,15 @@ function App() {
 
     console.log(REACT_APP_APIURL)
 
-    
-    //saqué todo el fetch de acá y lo mandé al componente filmsList. no solo no tenia sentido
-    //sino que además se arreglaron algunos bugs en la carga.
-    /* const fetchData = async () => {
-      const data = await fetch(`${REACT_APP_APIURL}`, {
-        'method':'GET',
-        headers: {
-        'Content-Type':'application/json'
-          }
-        }
-      )
-      if(data.ok) {
-        const dataJson = await data.json();
-        setFilms(dataJson);
-        console.log('ok');}
-      else {
-        console.log('not ok')
-      }
-      
-    } 
-    fetchData() 
-      .catch(console.error); */
-    const hideButtonGoTop = () => {
-        //console.log("scroll scroll scroll");
-          setIsScrolling(true);
-          handleEndScroll();
-      }
-    
     window.addEventListener('scroll', hideButtonGoTop)
  
   }, [])
 
-  
+  const hideButtonGoTop = () => {
+    //console.log("scroll scroll scroll");
+      setIsScrolling(true);
+      handleEndScroll();
+  }
 
   const editFilm = (film) => {
     setEditedFilm(film)

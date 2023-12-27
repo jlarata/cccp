@@ -12,6 +12,8 @@
 .filmPoster img {
     max-width: 200px;
     max-height: 300px;
+    min-width: 100px;
+    min-height: 150px;
     width: auto;
     height: auto;
     border-style: groove;
@@ -91,4 +93,11 @@ table tr td, table tr td {
 table th, table th {
     font-weight: 100;
     background-color:rgba(210,230,240, 0.1) !important;
+}
+
+.noPoster {
+    height: 200px;
+    width: 150px;
+    background-image: url('../img/posternotfound.png');
+    background-size: cover;
 }
