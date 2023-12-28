@@ -6,6 +6,14 @@ export default class APIService {
         return alert(aviso)
     }
 
+    static SuperSearchFilm(contains){
+        return fetch(`${REACT_APP_APIURL}/simp-get/${contains}/`, {
+        'method':'GET',
+        headers: {
+        'Content-Type':'application/json'
+        }
+        })
+        }
 
     static UpdateFilm(id, body) {
         return fetch(`${REACT_APP_APIURL}/update/${id}`, {

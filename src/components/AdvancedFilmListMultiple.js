@@ -29,6 +29,20 @@ function AdvancedFilmList(props) {
 
       useEffect(() => {
         
+        props.contains ?
+        
+        APIService.SuperSearchFilm(props.contains)
+        .then(resp => resp.json())
+        .then(resp => setFilms(resp))
+        .then(focusList())
+        // .then(document.getElementById("TopOfAdvFilmList").scrollIntoView(true))
+        .catch(error => console.log(error))
+        
+        :
+    
+        //props.cierraFormSimplified()
+        //console.log("buscando solo "+ props.contains)
+
         fetch(`${REACT_APP_APIURL}/adv-get/${props.field1}/${props.contains1}/${props.field2}/${props.contains2}/${props.field3}/${props.contains3}/${props.field4}/${props.contains4}/${props.field5}/${props.contains5}/${props.field6}/${props.contains6}/${props.field7}/${props.contains7}/${props.field8}/${props.contains8}/`, {
             'method':'GET',
             headers: {
@@ -36,14 +50,14 @@ function AdvancedFilmList(props) {
             }
         })
         
-       
         .then(resp => resp.json())
         .then(resp => setFilms(resp))
         .then(focusList())
         // .then(document.getElementById("TopOfAdvFilmList").scrollIntoView(true))
         .catch(error => console.log(error))
         
-    }, [REACT_APP_APIURL, props.contains1, props.contains2, props.contains3, props.contains4, props.contains5, props.contains6, props.contains7, props.contains8, props.field1, props.field2, props.field3, props.field4, props.field5, props.field6, props.field7, props.field8])
+
+    }, [])
 
     const confirmarEliminar = (film) => {
         setFilmToDelete(film.id)
@@ -101,6 +115,16 @@ function AdvancedFilmList(props) {
         <div className="films-list"
          ref={DOMRef}>
 
+        {props.contains ?
+        <div className="infoBusqueda"><p>Se buscaron films que en cualquier campo contenga total o parcialmente el campo {props.contains} </p>        
+        
+            {films.length === 1 ?
+                <p>Se encontró solo un resultado</p>
+            :
+                <p>Se encontraron {films.length} resultados</p>
+            }
+             </div>
+        :
         <div className="infoBusqueda"><p>Se buscaron films con los siguientes criterios </p>
             
             <table className="table">
@@ -183,6 +207,9 @@ function AdvancedFilmList(props) {
             
             
         <p>Se encontraron {films.length} resultados</p></div>
+        }
+
+        
  
         <div className="all-films-list">
             <button className="btn btn-danger"

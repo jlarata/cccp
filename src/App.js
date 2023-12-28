@@ -7,6 +7,7 @@ import AdvancedForm from './components/AdvancedForm.js';
 import AdvancedFilmList from './components/AdvancedFilmList.js';
 import AdvancedFilmListMultiple from './components/AdvancedFilmListMultiple.js';
 import ButtonGoTop from './components/ButtonGoTop';
+import FormSimplified from './components/FormSimplified';
 //import _ from 'lodash';
 // import { FrasesSobreGatos } from './components/FrasesSobreGatos';
 
@@ -19,6 +20,7 @@ function App() {
   const [editedFilm, setEditedFilm] = useState(null)
   const [allFilmsList, setAllFilmsList] = useState(false)
   const [advancedEditedFilm, setAdvancedEditedFilm] = useState(null)
+  const [formSimplified, setFormSimplified] = useState(null)
 
   const [field, setField] = useState(null)
   const [contains, setContains] = useState(null)
@@ -42,17 +44,6 @@ function App() {
 
   const [advFilmsList, setAdvFilmsList] = useState(false)
   const [advFilmsListMultiple, setAdvFilmsListMultiple] = useState(false)
-
-
-
-  // esto  no va mas xq no dejé métodos acá const { REACT_APP_APIURL } = process.env;
-  
-  /* const handleEndScroll = useMemo(
-    () =>
-    _.debounce(() => setIsScrolling(false), 1000),
-    []
-  ); */
-
   
 
   const editFilm = (film) => {
@@ -102,6 +93,10 @@ function App() {
     setAdvancedEditedFilm(null)
   }
 
+  const cierraFormSimplified = () => {
+    setFormSimplified(null)
+  }
+
   const cierraFilmsList = () => {
     setAllFilmsList(false)
     
@@ -123,11 +118,12 @@ function App() {
     setAdvFilmsList({contains:contains}, {field:field})
   }
 
-  function abreAdvancedFilmsListMultiple(field1, contains1, field2, contains2, field3, contains3, field4, contains4, field5, contains5, field6, contains6, field7, contains7, field8, contains8) {
+  function abreAdvancedFilmsListMultiple(contains, field1, contains1, field2, contains2, field3, contains3, field4, contains4, field5, contains5, field6, contains6, field7, contains7, field8, contains8) {
     console.log("campos: "+field1+", "+field2+", "+field3+", "+field4+", "+field5+", "+field6+", "+field7+", "+field8)
     /* if(contains1 === null) {
       contains = ''
     } */
+    setContains(contains)
     setField1(field1)
     setField2(field2)
     setField3(field3)
@@ -144,8 +140,8 @@ function App() {
     setContains6(contains6)
     setContains7(contains7)
     setContains8(contains8)
-    console.log("valores: "+contains1+", "+contains2+", "+contains3+", "+contains4+", "+contains5+", "+contains6+", "+contains7+", "+contains8)
-    setAdvFilmsListMultiple({contains1:contains1}, {field1:field1}, {contains2:contains2}, {field2:field2}, {contains3:contains3}, {field3:field3}, {contains4:contains4}, {field4:field4}, {contains5:contains5}, {field5:field5}, {contains6:contains6}, {field6:field6}, {contains7:contains7}, {field7:field7}, {contains8:contains8}, {field8:field8})
+    console.log("valor: "+contains+"; valores: "+contains1+", "+contains2+", "+contains3+", "+contains4+", "+contains5+", "+contains6+", "+contains7+", "+contains8)
+    setAdvFilmsListMultiple({contains:contains}, {contains1:contains1}, {field1:field1}, {contains2:contains2}, {field2:field2}, {contains3:contains3}, {field3:field3}, {contains4:contains4}, {field4:field4}, {contains5:contains5}, {field5:field5}, {contains6:contains6}, {field6:field6}, {contains7:contains7}, {field7:field7}, {contains8:contains8}, {field8:field8})
   }
 
   
@@ -202,13 +198,15 @@ function App() {
       {advancedEditedFilm ? <AdvancedForm /*film = {advancedEditedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm}*/ cierraAdvancedForm = {cierraAdvancedForm} abreAdvancedFilmsList={abreAdvancedFilmsList} abreAdvancedFilmsListMultiple={abreAdvancedFilmsListMultiple} /> : null }
       
       { advFilmsList ? <AdvancedFilmList contains = {contains} field = {field} editFilm = {editFilm} cierraAdvancedFilmsList = {cierraAdvancedFilmsList} /> : null }
-      { advFilmsListMultiple ? <AdvancedFilmListMultiple editFilm = {editFilm} contains1 = {contains1} contains2 = {contains2} contains3 = {contains3} contains4 = {contains4} contains5 = {contains5} contains6 = {contains6} contains7 = {contains7} contains8 = {contains8} field1 = {field1} field2 = {field2} field3 = {field3} field4 = {field4} field5 = {field5} field6 = {field6} field7 = {field7} field8 = {field8} cierraAdvancedFilmsListMultiple = {cierraAdvancedFilmsListMultiple} /> : null }
+      { advFilmsListMultiple ? <AdvancedFilmListMultiple editFilm = {editFilm} contains={contains} contains1 = {contains1} contains2 = {contains2} contains3 = {contains3} contains4 = {contains4} contains5 = {contains5} contains6 = {contains6} contains7 = {contains7} contains8 = {contains8} field1 = {field1} field2 = {field2} field3 = {field3} field4 = {field4} field5 = {field5} field6 = {field6} field7 = {field7} field8 = {field8} cierraAdvancedFilmsListMultiple = {cierraAdvancedFilmsListMultiple} /> : null }
+
+      <div className="all-films-list">
+            <FormSimplified contains = {contains} abreAdvancedFilmsListMultiple = {abreAdvancedFilmsListMultiple} cierraFormSimplified = {cierraFormSimplified}></FormSimplified>
+            </div>
+      
 
       
-
       
-      
-      {/* <FrasesSobreGatos></FrasesSobreGatos> */}
         </div>
       </div>
     </div>
