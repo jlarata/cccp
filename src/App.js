@@ -69,6 +69,12 @@ function App() {
     setAdvancedEditedFilm({title:'', imgUrl:'', ccNumber:'', year:'', origin:'', director1:'', director1Genre:'', director2:'', director2Genre:'', director3:'', director3Genre:'', director4:'', director4Genre:'', score:'', host:'', date:''})
   }
 
+  const openFormSimplified = () =>
+  setFormSimplified(true)
+
+  const closeFormSimplified = () =>
+  setFormSimplified(null)
+
   const insertedFilm = (film) => {
     const new_films = [...films, film]
     setFilms(new_films)
@@ -187,12 +193,18 @@ function App() {
             </div>
 
       {editedFilm ? <Form film = {editedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm} cierraFormsList ={cierraFormsList} /> : null }
-            
+
       <div className="all-films-list">
+            <h4
+            onClick={openFormSimplified}
+            >buscar ficha</h4>
+            </div>
+
+      {/* <div className="all-films-list">
             <h4
             onClick={openAdvancedForm}
             >buscar ficha</h4>
-            </div>
+            </div> */}
 
       
       {advancedEditedFilm ? <AdvancedForm /*film = {advancedEditedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm}*/ cierraAdvancedForm = {cierraAdvancedForm} abreAdvancedFilmsList={abreAdvancedFilmsList} abreAdvancedFilmsListMultiple={abreAdvancedFilmsListMultiple} /> : null }
@@ -200,9 +212,11 @@ function App() {
       { advFilmsList ? <AdvancedFilmList contains = {contains} field = {field} editFilm = {editFilm} cierraAdvancedFilmsList = {cierraAdvancedFilmsList} /> : null }
       { advFilmsListMultiple ? <AdvancedFilmListMultiple editFilm = {editFilm} contains={contains} contains1 = {contains1} contains2 = {contains2} contains3 = {contains3} contains4 = {contains4} contains5 = {contains5} contains6 = {contains6} contains7 = {contains7} contains8 = {contains8} field1 = {field1} field2 = {field2} field3 = {field3} field4 = {field4} field5 = {field5} field6 = {field6} field7 = {field7} field8 = {field8} cierraAdvancedFilmsListMultiple = {cierraAdvancedFilmsListMultiple} /> : null }
 
-      <div className="all-films-list">
+      {formSimplified ? <div className="all-films-list">
             <FormSimplified contains = {contains} abreAdvancedFilmsListMultiple = {abreAdvancedFilmsListMultiple} cierraFormSimplified = {cierraFormSimplified}></FormSimplified>
             </div>
+       : null }
+
       
 
       
