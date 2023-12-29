@@ -1,11 +1,12 @@
 .general-container {
     background-color: #cccccc;
     background-image: linear-gradient(#dd8b8b, #0a3180);
-    min-height: 104vh;
+    min-height: 100vh;
     display: block;
     flex-direction: column;
     align-items: center;    
     border-radius: 10px;
+    padding-bottom: 20%;
 }
 .bodyContainer {
     display: flex;
@@ -41,4 +42,70 @@
 
 .films-list {
     margin: 2% 5%;
+}
+
+
+.formulario-simple {
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    animation-name: aparicionDiv;
+    animation-duration: 2s;
+    position: relative;
+}
+
+.formulario-opciones {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 35px;
+    /*justify-content: space-around;*/
+    animation-name: aparicionOpciones;
+    animation-duration: 3s;
+    position: relative;
+    top: 20px;
+}
+
+
+.formulario-fila {
+    display: flex;
+    flex-direction: row;
+    align-items: first baseline;
+    gap: 13px;
+}
+
+.form-simple {
+    background-color: rgba(210, 215, 211, .3) !important;
+    height: 20px;
+    
+}
+
+@keyframes aparicionDiv {
+    from {
+        top: -20px;
+        opacity: 0;
+    }
+    to {
+        top: 0px;
+        opacity: 1;
+    }
+}
+
+@keyframes aparicionOpciones {
+    0% {
+        top: 0px;
+        opacity: 0;
+    }
+    50% {
+        top: 0px;
+        opacity: 0;
+        gap: 5px;
+    }
+    100% {
+        top: 20px;
+        opacity: 1;
+        gap: 35px;
+    }
 }

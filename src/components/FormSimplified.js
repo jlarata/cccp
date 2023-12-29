@@ -1,47 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from "react-bootstrap";
-import './Form.css'
-import APIService from "./APIService";
+import '../App.css'
 
 
 function FormSimplified(props) {
 
 
-
     const [contains, setContains] = useState('')
-    const [isrender, setIsRender] = useState(false)
-
-    const[ccNumber, setCcNumber] = useState('')
-    const[title, setTitle] = useState('')
-    const[year, setYear] = useState('')
-    const[origin, setOrigin] = useState('')
-    const[director1, setDirector1] = useState('')
-    const[director1Genre, setDirector1Genre] = useState('')
-    const[host, setHost] = useState('')
-    const[date, setDate] = useState('')
-
-    /* const searchFilm = () => {
-        APIService.SuperSearchFilm(contains)
-            console.log('se activo el searchfilm')
-            */
-            
-            /* .then((resp) => {
-            if (resp) {
-                props.insertedFilm(resp); alert('ficha creada con eeexito')
-            } else { alert('error, probablemente llenaste mal un campo, burro') }
-            }) */
-
-            /*
-        .catch(error => console.log(error))
-
-    props.cierraFormSimplified()
-    //openAdvancedFilmListByMultiple()
-    } */
+    const DOMRef = useRef(null)
+    const [ccNumber, setCcNumber] = useState('')
+    const [title, setTitle] = useState('')
+    const [year, setYear] = useState('')
+    const [origin, setOrigin] = useState('')
+    const [director1, setDirector1] = useState('')
+    const [director1Genre, setDirector1Genre] = useState('')
+    const [host, setHost] = useState('')
+    const [date, setDate] = useState('')
 
     useEffect(() => {
-        setIsRender(true)
-
+        focusList()
         setCcNumber(' ')
         setTitle(' ')
         setYear(' ')
@@ -50,30 +28,55 @@ function FormSimplified(props) {
         setDirector1Genre(' ')
         setHost(' ')
         setDate(' ')
+        
     }, [])
 
-    
+
+    const focusList = () => {
+        setTimeout(() => {
+            DOMRef.current.scrollIntoView({ block: "start", behavior: "smooth" })
+        }
+            , 100)
+    }
+
+    const openAdvancedForm = () => {
+        props.openAdvancedForm()
+        props.cierraFormSimplified()
+    }
 
     const openAdvancedFilmListByMultipleSimplified = () => {
         props.abreAdvancedFilmsListMultiple(contains)
-        props.cierraFormSimplified() 
+        props.cierraFormSimplified()
+    }
+
+    const cierraFormSimplified = () => {
+        props.cierraFormSimplified()
     }
 
     return (
+        <div>
             <div className="formulario-simple">
-                <div>
-                    <input type="text" className="form-control"
-                    onChange={(e) => setContains(e.target.value)}
-                    /> 
-                </div>
-                <div>
+                <div className="formulario-fila">
+                    <input type="text" className="form-control form-simple"
+                        onChange={(e) => setContains(e.target.value)}
+                    />
                     <Button type="button"
-                    onClick={openAdvancedFilmListByMultipleSimplified}
-                    className="btn btn-secondary btn-outline-dark btn-sm"
-                    >buscar</Button> 
+                        onClick={openAdvancedFilmListByMultipleSimplified}
+                        className="btn btn-primary btn-outline btn-sm"
+                    >🔎︎</Button>
                 </div>
             </div>
-           )
+            <div className="formulario-opciones"
+            ref={DOMRef}>
+                <button className="btn btn-secondary btn-outline-dark btn-sm"
+                    onClick={openAdvancedForm}
+                >búsqueda avanzada</button>
+                <button className="btn btn-secondary btn-outline-dark btn-sm"
+                    onClick={cierraFormSimplified}
+                >cancelar</button>
+            </div>
+        </div>
+    )
 }
 
 

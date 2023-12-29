@@ -213,7 +213,7 @@ function App() {
       { advFilmsListMultiple ? <AdvancedFilmListMultiple editFilm = {editFilm} contains={contains} contains1 = {contains1} contains2 = {contains2} contains3 = {contains3} contains4 = {contains4} contains5 = {contains5} contains6 = {contains6} contains7 = {contains7} contains8 = {contains8} field1 = {field1} field2 = {field2} field3 = {field3} field4 = {field4} field5 = {field5} field6 = {field6} field7 = {field7} field8 = {field8} cierraAdvancedFilmsListMultiple = {cierraAdvancedFilmsListMultiple} /> : null }
 
       {formSimplified ? <div className="all-films-list">
-            <FormSimplified contains = {contains} abreAdvancedFilmsListMultiple = {abreAdvancedFilmsListMultiple} cierraFormSimplified = {cierraFormSimplified}></FormSimplified>
+            <FormSimplified contains = {contains} abreAdvancedFilmsListMultiple = {abreAdvancedFilmsListMultiple} cierraFormSimplified = {cierraFormSimplified} openAdvancedForm={openAdvancedForm} ></FormSimplified>
             </div>
        : null }
 

@@ -34,3 +34,15 @@
         background-size: 98%;
     }
 }
+
+@media (min-width: 769px)
+{
+    .goTopContainer {
+        left: 5%;
+        top: 90%;
+    }
+    .goTop {
+        height: 47px;
+        background-size: 98%;
+    }
+}
