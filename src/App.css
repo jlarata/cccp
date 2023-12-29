@@ -1,6 +1,6 @@
 .general-container {
     background-color: #cccccc;
-    background-image: linear-gradient(#dd8b8b, #0a3180);
+    background-image: linear-gradient(rgb(221, 139, 139), rgb(157, 193, 235));
     min-height: 100vh;
     display: block;
     flex-direction: column;
@@ -93,6 +93,66 @@
     background-color: rgba(210, 215, 211, .3) !important;
     height: 20px;
     
+}
+
+.all-films-list > h4 {
+    border-top: solid;
+    border-bottom: solid;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-left: 5%;
+    padding-right: 5%;
+    border-radius: 10px;
+    cursor: pointer;
+    resize: horizontal;
+    filter: blur(0px);
+    position: relative;
+    animation-name: opcionesIniciales;
+    animation-duration: 2s;
+    transition: .5s, ease;
+    
+}
+
+@keyframes opcionesIniciales {
+    from {
+        left: -50px;
+        opacity: 0;
+    }
+    to {
+        left: 0px;
+        opacity: 1;
+    }
+}
+
+.title {
+    color: rgb(49, 2, 110);
+    font-size: xx-large;
+    border-bottom: solid;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-left: 5%;
+    padding-right: 5%;
+    border-radius: 10px;
+    resize: horizontal;
+    filter: blur(0px);
+    position: relative;
+    animation-name: tituloInicial;
+    animation-duration: 1.7s;    
+}
+
+@keyframes tituloInicial {
+    0% {
+        right: -50px;
+        opacity: 0;
+    }
+    40% {
+        right: -50px;
+        opacity: 0;
+    }
+    100% {
+        right: 0px;
+        opacity: 1;
+    }
 }
 
 @keyframes aparicionDiv {

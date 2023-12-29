@@ -120,8 +120,8 @@ function AdvancedForm(props) {
 
             <div /*id='nuevaFicha'*/ className='busquedaAvanzada'>
 
-                <p className="nuevasOpciones"
-                >formulario de búsqueda avanzada
+                <p className="infoBusqueda">
+                Formulario de búsqueda avanzada
                 </p>
 
                 <p className="nuevasOpciones"
@@ -295,9 +295,6 @@ function AdvancedForm(props) {
                 >cerrar formulario</p>
             </div>
         </div>
-
-
-
     )
 }
 

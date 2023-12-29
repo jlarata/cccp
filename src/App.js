@@ -179,6 +179,12 @@ function App() {
 
 
       <div className='bodyContainer'>
+
+      <div className="all-films-list">
+            <p className='title'
+            >CCApp</p>
+            </div>
+
       <div className="all-films-list">
             <h4
             onClick={abreFilmsList}
