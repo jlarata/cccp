@@ -8,15 +8,8 @@ const scrollToTop = () => {
 
 function ButtonGoTop() {
 
+  
   const [isScrolling, setIsScrolling] = useState(false);
-
-
-  const handleEndScroll = () => {
-    setTimeout(() => {
-      setIsScrolling(false)
-    }, 1000)
-  }
-
 
   useEffect(() => {
 
@@ -24,13 +17,17 @@ function ButtonGoTop() {
 
   }, [])
 
+  const handleEndScroll = () => {
+    setTimeout(() => {
+      setIsScrolling(false)
+    }, 1000)
+  }
+
   const hideButtonGoTop = () => {
     //console.log("scroll scroll scroll");
     setIsScrolling(true);
     handleEndScroll();
   }
-
-
 
   return (
 

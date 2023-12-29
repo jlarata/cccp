@@ -238,7 +238,7 @@ function AdvancedFilmList(props) {
                             <option value="scoreDescending">Puntaje más alto</option>
                             <option value="originDescending">Origen</option>
                         </select>
-                        </div>
+                    </div>
                 }
 
 
@@ -267,17 +267,19 @@ function AdvancedFilmList(props) {
 
                         <div key={film.id} className='film'>
                             <div className='filmInfo'>
-                                <h3>cc# {film.ccNumber}, id# {film.id}</h3>
+
+                                <h3>cc# {film.ccNumber}
+                                    {/* , id# {film.id} */}
+                                </h3>
 
                             </div>
-                            <div className='filmPoster'><img src={film.imgUrl} alt="no hay poster"></img></div>
+                            {film.imgUrl === '' ? <div className='noPoster'>asdasdasdasd</div> : <div className='filmPoster'><img src={film.imgUrl} alt="no hay poster"></img></div>}
+
                             <div className='filmInfo'>
                                 <h2>{film.title}</h2>
-                                <p>dirigida por {film.director1}, ({film.director1Genre}) {hasMoreDirectors()} </p>
-
-
-
-                                <p>{film.year}</p>
+                                <p>{film.director1} ({film.director1Genre}) {hasMoreDirectors()} | ({film.year})
+                                </p>
+                                <p>{film.origin}</p>
                                 <p>puntaje final: {film.score}</p>
                                 <p>invitó {film.host}</p>
                                 <p>{film.date}</p></div>
@@ -294,9 +296,6 @@ function AdvancedFilmList(props) {
                                     >eliminar</button>
                                 </div>
                             </div>
-
-
-
                         </div>
                     );
                 })}

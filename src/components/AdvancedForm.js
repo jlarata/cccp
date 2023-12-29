@@ -63,7 +63,7 @@ function AdvancedForm(props) {
     }
 
     const openAdvancedFilmListByMultiple = () => {
-        props.abreAdvancedFilmsListMultiple('ccNumber', ccNumber, 'title', title, 'year', year, 'origin', origin, 'director1', director1, 'director1Genre', director1Genre, 'host', host, 'date', date)
+        props.abreAdvancedFilmsListMultiple(contains,'ccNumber', ccNumber, 'title', title, 'year', year, 'origin', origin, 'director1', director1, 'director1Genre', director1Genre, 'host', host, 'date', date)
         props.cierraAdvancedForm()
     }
 
