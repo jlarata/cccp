@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/jlarata.github.io/cccp/static/css/main.55bf98c9.css",
+    "main.js": "/jlarata.github.io/cccp/static/js/main.f8036fe0.js",
+    "static/js/787.75519fa6.chunk.js": "/jlarata.github.io/cccp/static/js/787.75519fa6.chunk.js",
+    "index.html": "/jlarata.github.io/cccp/index.html",
+    "main.55bf98c9.css.map": "/jlarata.github.io/cccp/static/css/main.55bf98c9.css.map",
+    "main.f8036fe0.js.map": "/jlarata.github.io/cccp/static/js/main.f8036fe0.js.map",
+    "787.75519fa6.chunk.js.map": "/jlarata.github.io/cccp/static/js/787.75519fa6.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.55bf98c9.css",
+    "static/js/main.f8036fe0.js"
+  ]
+}
