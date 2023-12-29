@@ -6,11 +6,25 @@
     gap: 2%;
 }
 
-.opcionDeBusqueda {
+.opcionesDeBusqueda {
     display: flex;
     align-items: center;
-    
     gap: 10px;
+    padding: 10px 0px;
+}
+
+.opcionDeBusqueda {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+
+
+.buttonContainer button {
+    border: solid black 1px;
+    max-width: 35px;
 }
 
 .agregaDirector {
@@ -130,17 +144,12 @@
     font-size: large;
     border-radius: 10px;
     border-style: groove;
-    padding: 1% 10%;
+    padding: 10% 10%;
     margin : 2px 5%;
 }
 
 .busquedaAvanzada label{
     margin-top: 5%;
-}
-
-.busquedaAvanzada button {
-    
-    min-width: 100px;
 }
 
 .editarFicha form {

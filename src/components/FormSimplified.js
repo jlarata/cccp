@@ -68,12 +68,12 @@ function FormSimplified(props) {
             </div>
             <div className="formulario-opciones"
             ref={DOMRef}>
-                <button className="btn btn-secondary btn-outline-dark btn-sm"
+                <p className="nuevasOpciones"
                     onClick={openAdvancedForm}
-                >búsqueda avanzada</button>
-                <button className="btn btn-secondary btn-outline-dark btn-sm"
+                >búsqueda avanzada</p>
+                <p className="nuevasOpciones"
                     onClick={cierraFormSimplified}
-                >cancelar</button>
+                >cancelar</p>
             </div>
         </div>
     )
