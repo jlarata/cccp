@@ -210,6 +210,31 @@
     }
 }
 
+.botoneria {
+    align-self: flex-end;
+    justify-content: flex-end;    
+    
+}
+
+.editButton {
+    width: 36px;
+    height: 36px;
+    background-image: url('./img/editicon.png');
+    background-position: center;
+    background-size: 24px;
+    background-repeat: no-repeat;
+}
+
+.deleteButton {
+    width: 36px;
+    height: 36px;
+    background-image: url('./img/deleteicon.png');
+    background-position: center;
+    background-size: 24px;
+    background-repeat: no-repeat;
+}
+
+
 @media (max-width: 768px)
 {
     .cc-number {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import APIService from "./APIService";
 
+
 //asd
 
 const { REACT_APP_APIURL } = process.env;
@@ -159,15 +160,18 @@ function FilmList(props) {
                             <p>{film.date}</p></div>
                         <div className='botoneria'>
                             <div className="col">
-                                <button className='btn btn-primary'
+                                <button className='btn btn-primary btn-outline-dark editButton'
                                     onClick={() => editFilm(film)}
-                                >editar</button>
+                                >
+                                </button>
+                                
                             </div>
                             <div className="col">
-                                <button className='btn btn-danger'
+                                <button className='btn btn-danger btn-outline-dark deleteButton'
                                     onClick={() => confirmarEliminar(film)}
                                 // onClick={() => deleteFilm(film)}
-                                >eliminar</button>
+                                >
+                                </button>
                             </div>
 
                         </div>
