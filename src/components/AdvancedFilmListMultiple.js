@@ -121,6 +121,19 @@ function AdvancedFilmList(props) {
         // blabla(sortState)
     }
 
+    const promedioAnio = () => {
+        let promedioYear = 0
+
+        {films.map(film => { 
+            return(
+                promedioYear = promedioYear+film.year
+            )
+        })}
+        return (
+            <p>promedio anual: {promedioYear/films.length}</p>
+        )
+    }
+
     return (
 
         <div className="all-films-list">
@@ -238,6 +251,8 @@ function AdvancedFilmList(props) {
                             <option value="scoreDescending">Puntaje más alto</option>
                             <option value="originDescending">Origen</option>
                         </select>
+
+                        {promedioAnio()}
                     </div>
                 }
 

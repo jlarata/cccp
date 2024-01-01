@@ -37,7 +37,6 @@ function AdvancedFilmList(props) {
       useEffect(() => {   
           fetchData() 
           focusList()
-
     }, [])
 
 
@@ -125,6 +124,21 @@ function AdvancedFilmList(props) {
         }
     } */
     
+    const promedioAnio = () => {
+        let promedioYear = 0
+
+        {films.map(film => { 
+            return(
+                promedioYear = promedioYear+film.year
+            )
+        })}
+        return (
+            <p>promedio anual: {promedioYear/films.length}</p>
+        )
+    }
+
+
+
     console.log('parala lakaaa')
 
     return (
@@ -148,7 +162,7 @@ function AdvancedFilmList(props) {
             <option value="scoreDescending">Puntaje más alto</option>
             <option value="originDescending">Origen</option>
       </select>
-      
+      {promedioAnio()}
         </div>
  
         <div className="all-films-list">
@@ -158,6 +172,7 @@ function AdvancedFilmList(props) {
             </div>
 
             
+
             {films.sort(sortMethods[sortState].method) && films.map(film => {
 
             // hasMultipleDirectors(film)
