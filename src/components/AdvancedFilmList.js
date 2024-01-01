@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from "react";
 import APIService from "./APIService";
 import './FilmList.css'
+import { SortBy } from "react-lodash";
 
 
 function AdvancedFilmList(props) {
@@ -126,20 +127,54 @@ function AdvancedFilmList(props) {
     
     const promedioAnio = () => {
         let promedioYear = 0
+        let promedioNota = 0
+        let unos = 0
+        let years = []
 
         {films.map(film => { 
+            
+            years.push(film.year)
+            if(film.score !== 1)
+            {
             return(
-                promedioYear = promedioYear+film.year
-            )
+                promedioYear = promedioYear+film.year,
+                promedioNota = promedioNota + film.score
+            )} else {
+                return(
+                    promedioYear = promedioYear+film.year,
+                    unos = unos +1
+                )
+            }
         })}
-        return (
-            <p>promedio anual: {promedioYear/films.length}</p>
+
+        
+        const yearsAmount = {};
+        years.forEach(function (x) {
+            yearsAmount[x] = (yearsAmount[x] || 0) + 1;
+        });
+        
+
+         /* yearsAmount.sort(function (a, b) {
+            if (a > b)
+            {return 1;}
+            if (a < b)
+            {return -1;}
+            return 0; 
+        }); */
+         console.log("el siguiente es un objeto, en el que cada año fue transformado en propiedad que se corresponde a un valor numérico ")
+        console.log(yearsAmount)
+
+        return ( 
+            <div>
+                <p> fueron eliminadas de la cuenta {unos} películas por no haber subido nota</p>
+            <p>promedio año: {promedioYear/films.length}</p>
+            <p>promedio nota: {promedioNota/(films.length-unos)}</p>
+            </div>
+
         )
+        
     }
 
-
-
-    console.log('parala lakaaa')
 
     return (
 

@@ -123,14 +123,29 @@ function AdvancedFilmList(props) {
 
     const promedioAnio = () => {
         let promedioYear = 0
+        let promedioNota = 0
+        let unos = 0
 
         {films.map(film => { 
+            
+            if(film.score !== 1)
+            {
             return(
-                promedioYear = promedioYear+film.year
-            )
+                promedioYear = promedioYear+film.year,
+                promedioNota = promedioNota + film.score
+            )} else {
+                return(
+                    promedioYear = promedioYear+film.year,
+                    unos = unos +1
+                )
+            }
         })}
-        return (
-            <p>promedio anual: {promedioYear/films.length}</p>
+        return ( 
+            <div>
+                <p> fueron eliminadas de la cuenta {unos} películas por no haber subido nota</p>
+            <p>promedio año: {promedioYear/films.length}</p>
+            <p>promedio nota: {promedioNota/(films.length-unos)}</p></div>
+            
         )
     }
 
