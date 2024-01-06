@@ -278,7 +278,7 @@ function Form(props) {
                         {
                             props.film.id ? <Button
                                 onClick={updateFilm}
-                                className="btn btn-primary mt-3"
+                                className="btn btn-primary mt-3 update-button"
                             >actualizar ficha</Button>
                                 :
                                 <Button

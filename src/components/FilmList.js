@@ -119,14 +119,14 @@ function FilmList(props) {
 
 
     return (
-        <div className="films-list" ref={DOMRef}>
+        <div className="all-films-list" ref={DOMRef}>
 
 
 
             <div className="all-films-list">
                 <button className="btn btn-danger"
                     onClick={cierraFilmsList}
-                >cierra la lista</button>
+                >cerrar</button>
             </div>
 
             {films && films.map(film => {
@@ -134,47 +134,42 @@ function FilmList(props) {
                 return (
                     <div key={film.id} className='film'>
                         
-                            <h5 className="cc-number">CC# {film.ccNumber}
-                                {/* , id# {film.id} */}
-                            </h5>
+                            {/* <h5 className="cc-number">CC# {film.ccNumber}</h5> */}
+                            {/* , id# {film.id} */}
+                        <button className='btn editButton'
+                                    onClick={() => editFilm(film)}
+                                >
+                        </button>
                         
-                        {film.imgUrl === '' ? <div className='noPoster'>asdasdasdasd</div> : <div className='filmPoster'><img src={film.imgUrl} alt="no hay poster"></img></div>}
-
+                        {film.imgUrl === '' ? <div className='noPoster'>
+                            <p className="score-row"><span className="score">{film.score}</span></p>
+                            </div> : <div className='filmPoster'>
+                                <p className="score-row"><span className="score">{film.score}</span></p><img src={film.imgUrl} alt="no hay poster"></img></div>}
+                        
+                            
+                        
                         <div className='filmInfo'>
                             <h2>{film.title}</h2>
                             <p>{film.director1}
-                                {film.director1Genre ? <span>({film.director1Genre}) </span> : null}
+                                {film.director1Genre ? <span> ({film.director1Genre}) </span> : <span> </span>}
                                 {film.director2 ? <span>, {film.director2}</span> : null}
                                 {film.director2Genre ? <span>({film.director2Genre}) </span> : null}
                                 {film.director3 ? <span>, {film.director3}</span> : null}
                                 {film.director3Genre ? <span>({film.director3Genre}) </span> : null}
                                 {film.director4 ? <span>, {film.director4}</span> : null}
                                 {film.director4Genre ? <span>({film.director4Genre}) </span> : null}
-                                  | ({film.year})
+                                  | {film.year} | {film.origin}
                             </p>
-
-
-                            <p>{film.origin}</p>
-                            <p>puntaje final: {film.score}</p>
-                            <p>invitó {film.host}</p>
-                            <p>{film.date}</p></div>
-                        <div className='botoneria'>
-                            <div className="col">
-                                <button className='btn btn-primary btn-outline-dark editButton'
-                                    onClick={() => editFilm(film)}
-                                >
-                                </button>
-                                
+                            
+                            <div className="cc-info">
+                                <p>CC# {film.ccNumber} | By {film.host} | {film.date}</p>
                             </div>
-                            <div className="col">
-                                <button className='btn btn-danger btn-outline-dark deleteButton'
+                        </div>
+                        <button className='btn-outline-dark deleteButton'
                                     onClick={() => confirmarEliminar(film)}
                                 // onClick={() => deleteFilm(film)}
                                 >
-                                </button>
-                            </div>
-
-                        </div>
+                        </button>
                     </div>
                 );
             })}
@@ -190,11 +185,17 @@ function FilmList(props) {
 
             </div> : null}
 
+
             <div className="all-films-list">
+                <button className="btn btn-danger"
+                    onClick={cierraFilmsList}
+                >cerrar</button>
+            </div>
+            {/* <div className="all-films-list">
                 <h5
                     onClick={cierraFilmsList}
                 >cerrar todas las fichas</h5>
-            </div>
+            </div> */}
         </div>
 
     )

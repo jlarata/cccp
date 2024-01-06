@@ -107,13 +107,10 @@ function AdvancedFilmList(props) {
 
     const sortByMethod = (method) => {
         setSortState(method)
-        // blabla(sortState)
     } 
     
-
-    /* const blabla = (sortState) => {
-        films.sort(sortMethods[sortState].method)
-    } */
+/*INFO UTIL PARA LAS STATS: promedio año, promedio nota, lista ordenada de origenes (por consola), etc*/
+    
 /* 
     const hasMultipleDirectors = (film) => {
         if (film.director4 !=='') {
@@ -125,7 +122,7 @@ function AdvancedFilmList(props) {
         }
     } */
     
-    const promedioAnio = () => {
+    /* const promedioAnio = () => {
         let promedioYear = 0
         let promedioNota = 0
         let unos = 0
@@ -153,15 +150,7 @@ function AdvancedFilmList(props) {
             yearsAmount[x] = (yearsAmount[x] || 0) + 1;
         });
         
-
-         /* yearsAmount.sort(function (a, b) {
-            if (a > b)
-            {return 1;}
-            if (a < b)
-            {return -1;}
-            return 0; 
-        }); */
-         console.log("el siguiente es un objeto, en el que cada año fue transformado en propiedad que se corresponde a un valor numérico ")
+        console.log("el siguiente es un objeto, en el que cada año fue transformado en propiedad que se corresponde a un valor numérico ")
         console.log(yearsAmount)
 
         return ( 
@@ -173,7 +162,7 @@ function AdvancedFilmList(props) {
 
         )
         
-    }
+    } */
 
 
     return (
@@ -197,93 +186,71 @@ function AdvancedFilmList(props) {
             <option value="scoreDescending">Puntaje más alto</option>
             <option value="originDescending">Origen</option>
       </select>
-      {promedioAnio()}
+      {/* {promedioAnio()} */}
         </div>
  
         <div className="all-films-list">
             <button className="btn btn-danger"
             onClick={cierraAdvancedFilmsList}
-            >Descartar búsqueda</button>
+            >cerrar</button>
             </div>
 
             
 
             {films.sort(sortMethods[sortState].method) && films.map(film => {
 
-            // hasMultipleDirectors(film)
-                
-                //revisar form.js
-                 function hasMoreDirectors() {
-                        if (film.director4 !=='') {
-                            return <span>, {film.director2}({film.director2Genre}), {film.director3}({film.director3Genre}), {film.director4}({film.director4Genre})</span>;
-                        } else if (film.director3 !=='') {
-                            return <span>, {film.director2}({film.director2Genre}), {film.director3}({film.director3Genre})</span>;
-                        } else if (film.director2 !=='') {
-                            return <span>, {film.director2}({film.director2Genre})</span>;
-                        } 
-                    } 
+  
                
                 return (
                     
                     <div key={film.id} className='film'>
-                        <div className='filmInfo'>
-                            
-                            <h3>cc# {film.ccNumber}
-                            {/* , id# {film.id} */}
-                            </h3>
-                            
-                        </div>
-                        {film.imgUrl === '' ? <div className='noPoster'>asdasdasdasd</div> : <div className='filmPoster'><img src={film.imgUrl} alt="no hay poster"></img></div>}
                         
-                        <div className='filmInfo'>
-                            <h2>{film.title}</h2>
-                            <p>{film.director1} ({film.director1Genre}) {hasMoreDirectors()} | ({film.year}) 
-                            {/* {(cantidadDeDirectores > 1) ? <span>, {film.director2}, ({film.director2Genre}) </span> : null }
-                            {(cantidadDeDirectores > 2) ? <span>, {film.director3}, ({film.director3Genre}) </span> : null }
-                            {(cantidadDeDirectores > 3) ? <span>, {film.director4}, ({film.director4Genre}) </span> : null } */}
-                            </p>
-                            <p>{film.origin}</p>
-                            <p>puntaje final: {film.score}</p>
-                            <p>invitó {film.host}</p>
-                            <p>{film.date}</p></div>
-                        <div className='botoneria'>
-                            <div className="col">
-                                <button className='btn btn-primary'
-                                    onClick={() => editFilm(film)}
-                                    >editar</button>
-                            </div>
-                            <div className="col">
-                                <button className='btn btn-danger'
-                                onClick={() => confirmarEliminar(film)}
-                                // onClick={() => deleteFilm(film)}
-                                >eliminar</button>
-                            </div>
-                            
-
-                            {/* {deleteConfirm ?
-                             <span>
-                                <label htmlFor='confirmar' className="form-label">¿qué vehículo participa en el cc?</label>
-                                <input type="text" className="form-control"
-                                    onChange={(e) => setDeleteKey(e.target.value)}>
-                                <div className="col">
-                                <button className='btn btn-danger'
-                                onClick={() => deleteFilm(film)}
-                                >eliminar</button>
-                            </div>
-                                </input>
-                            </span> : null } */}
-                        </div>
+                    {/* <h5 className="cc-number">CC# {film.ccNumber}</h5> */}
+                    {/* , id# {film.id} */}
+                <button className='btn editButton'
+                            onClick={() => editFilm(film)}
+                        >
+                </button>
+                
+                {film.imgUrl === '' ? <div className='noPoster'>
+                    <p className="score-row"><span className="score">{film.score}</span></p>
+                    </div> : <div className='filmPoster'>
+                        <p className="score-row"><span className="score">{film.score}</span></p><img src={film.imgUrl} alt="no hay poster"></img></div>}
+                
+                    
+                
+                <div className='filmInfo'>
+                    <h2>{film.title}</h2>
+                    <p>{film.director1}
+                        {film.director1Genre ? <span> ({film.director1Genre}) </span> : <span> </span>}
+                        {film.director2 ? <span>, {film.director2}</span> : null}
+                        {film.director2Genre ? <span>({film.director2Genre}) </span> : null}
+                        {film.director3 ? <span>, {film.director3}</span> : null}
+                        {film.director3Genre ? <span>({film.director3Genre}) </span> : null}
+                        {film.director4 ? <span>, {film.director4}</span> : null}
+                        {film.director4Genre ? <span>({film.director4Genre}) </span> : null}
+                          | {film.year} | {film.origin}
+                    </p>
+                    
+                    <div className="cc-info">
+                        <p>CC# {film.ccNumber} | By {film.host} | {film.date}</p>
                     </div>
-
-                );
-            })}
+                </div>
+                <button className='btn-outline-dark deleteButton'
+                            onClick={() => confirmarEliminar(film)}
+                        // onClick={() => deleteFilm(film)}
+                        >
+                </button>
+            </div>
+        );
+    })}
             
             
 
             <div className="all-films-list" id="TopOfAdvFilmList">
             <button className="btn btn-danger"
             onClick={cierraAdvancedFilmsList}
-            >Descartar búsqueda</button>
+            >cerrar</button>
             </div>
             
         </div>
