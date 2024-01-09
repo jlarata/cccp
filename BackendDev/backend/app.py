@@ -161,6 +161,12 @@ def get_films_by_multiple_field_contains(field1, contains1, field2, contains2, f
     results = films_schema.dump(all_films_contains1)
     return jsonify(results)
 
+@app.route('/simp-get/<contains>/', methods = ['GET'])
+def get_films_by_multiple_field_simp_contains(contains):
+    all_films_contains = Films.query.filter(getattr(Films, 'ccNumber' | 'imgUrl' | 'title' | 'year' | 'origin' | 'director1' | 'host' | 'date').contains(contains)).order_by(Films.ccNumber).all()
+    results = films_schema.dump(all_films_contains)
+    return jsonify(results)
+
 
 """     if(field == 'director'):
         all_films_director_contains = Films.query.filter(Films.director.contains(contains)).order_by(Films.ccNumber).all()

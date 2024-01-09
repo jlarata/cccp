@@ -9,6 +9,7 @@ function AdvancedFilmList(props) {
 
     //const [field, setField] = useState(null)
     //const [contains, setContains] = useState(null)
+    const [edited, SetEdited] = useState(false)
     const [films, setFilms] = useState([])
     const DOMRef = useRef(null)
     const [deleteConfirm, setDeleteConfirm] = useState(false)
@@ -59,7 +60,7 @@ function AdvancedFilmList(props) {
                 .catch(error => console.log(error))
 
 
-    }, [])
+    }, [props.edited])
 
     const confirmarEliminar = (film) => {
         setFilmToDelete(film.id)
@@ -92,7 +93,7 @@ function AdvancedFilmList(props) {
 
     const editFilm = (film) => {
         props.editFilm(film)
-        cierraAdvancedFilmsListMultiple()
+        // cierraAdvancedFilmsListMultiple()
 
     }
 

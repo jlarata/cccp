@@ -16,6 +16,7 @@ const { REACT_APP_APIURL } = process.env;
 
 function App() {
 
+  const [edited, setEdited] = useState(false)
   const [films, setFilms] = useState([])
   const [editedFilm, setEditedFilm] = useState(null)
   const [allFilmsList, setAllFilmsList] = useState(false)
@@ -48,8 +49,10 @@ function App() {
 
   const editFilm = (film) => {
     setEditedFilm(film)
-    
   }
+
+ 
+
   const updatedData = (film) => {
     const new_film = films.map(my_film => {
       if(my_film.id === film.id) {
@@ -59,6 +62,7 @@ function App() {
       }
     })
     setFilms(new_film)
+    setEdited(!edited)
   }
 
   const openForm = () => {
@@ -190,7 +194,7 @@ function App() {
             onClick={abreFilmsList}
             >ver todas las fichas</h4>
             </div>
-      {allFilmsList ? <FilmList films = {films} editFilm = {editFilm} deleteFilm = {deleteFilm} cierraFilmsList = {cierraFilmsList} /> : null}
+      {allFilmsList ? <FilmList films = {films} edited={edited} editFilm = {editFilm} deleteFilm = {deleteFilm} cierraFilmsList = {cierraFilmsList} /> : null}
       
       <div className="all-films-list">
             <h4
@@ -213,10 +217,10 @@ function App() {
             </div> */}
 
       
-      {advancedEditedFilm ? <AdvancedForm /*film = {advancedEditedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm}*/ cierraAdvancedForm = {cierraAdvancedForm} abreAdvancedFilmsList={abreAdvancedFilmsList} abreAdvancedFilmsListMultiple={abreAdvancedFilmsListMultiple} /> : null }
+      {advancedEditedFilm ? <AdvancedForm /*film = {advancedEditedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm}*/ cierraAdvancedForm = {cierraAdvancedForm} abreAdvancedFilmsList={abreAdvancedFilmsList} abreAdvancedFilmsListMultiple={abreAdvancedFilmsListMultiple} setFilms = {setFilms} /> : null }
       
-      { advFilmsList ? <AdvancedFilmList contains = {contains} field = {field} editFilm = {editFilm} cierraAdvancedFilmsList = {cierraAdvancedFilmsList} /> : null }
-      { advFilmsListMultiple ? <AdvancedFilmListMultiple editFilm = {editFilm} contains={contains} contains1 = {contains1} contains2 = {contains2} contains3 = {contains3} contains4 = {contains4} contains5 = {contains5} contains6 = {contains6} contains7 = {contains7} contains8 = {contains8} field1 = {field1} field2 = {field2} field3 = {field3} field4 = {field4} field5 = {field5} field6 = {field6} field7 = {field7} field8 = {field8} cierraAdvancedFilmsListMultiple = {cierraAdvancedFilmsListMultiple} /> : null }
+      { advFilmsList ? <AdvancedFilmList edited={edited} contains = {contains} field = {field} editFilm = {editFilm} cierraAdvancedFilmsList = {cierraAdvancedFilmsList} /> : null }
+      { advFilmsListMultiple ? <AdvancedFilmListMultiple edited={edited} editFilm = {editFilm} contains={contains} contains1 = {contains1} contains2 = {contains2} contains3 = {contains3} contains4 = {contains4} contains5 = {contains5} contains6 = {contains6} contains7 = {contains7} contains8 = {contains8} field1 = {field1} field2 = {field2} field3 = {field3} field4 = {field4} field5 = {field5} field6 = {field6} field7 = {field7} field8 = {field8} cierraAdvancedFilmsListMultiple = {cierraAdvancedFilmsListMultiple} /> : null }
 
       {formSimplified ? <div className="all-films-list">
             <FormSimplified contains = {contains} abreAdvancedFilmsListMultiple = {abreAdvancedFilmsListMultiple} cierraFormSimplified = {cierraFormSimplified} openAdvancedForm={openAdvancedForm} ></FormSimplified>

@@ -8,6 +8,7 @@ const { REACT_APP_APIURL } = process.env;
 
 function FilmList(props) {
 
+    const [edited, SetEdited] = useState(false)
     const [films, setFilms] = useState([])
     const [deleteConfirm, setDeleteConfirm] = useState(false)
     const [deleteKey, setDeleteKey] = useState('')
@@ -61,34 +62,29 @@ function FilmList(props) {
     }
 
     useEffect(() => {
-
-        // setEmptyDirectors(); aparentemente todo esto ya no sería necesario dado que estoy usando props
-
-        console.log(REACT_APP_APIURL)
-
-        const fetchData = async () => {
-            const data = await fetch(`${REACT_APP_APIURL}/get`, {
-                'method': 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-            )
-            if (data.ok) {
-                const dataJson = await data.json();
-                setFilms(dataJson);
-                console.log('ok');
-            }
-            else {
-                console.log('not ok')
-            }
-
-        }
         fetchData()
             .catch(console.error);
         focusList()
-    }, [])
+    }, [props.edited])
 
+    const fetchData = async () => {
+        const data = await fetch(`${REACT_APP_APIURL}/get`, {
+            'method': 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        )
+        if (data.ok) {
+            const dataJson = await data.json();
+            setFilms(dataJson);
+            console.log('ok');
+        }
+        else {
+            console.log('not ok')
+        }
+
+    }
 
     /* aparentemente todo esto ya no sería necesario dado que estoy usando props
         const setEmptyDirectors = () => {
@@ -102,7 +98,7 @@ function FilmList(props) {
 
     const editFilm = (film) => {
         props.editFilm(film)
-        cierraFilmsList()
+        // cierraFilmsList()
 
     }
 

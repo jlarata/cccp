@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from "react-bootstrap";
 import './Form.css'
@@ -7,8 +7,8 @@ import APIService from "./APIService";
 
 function Form(props) {
 
-
-
+    const [edited, setEdited] = useState(false)
+    const DOMRef = useRef(null)
     const [ccNumber, setCcNumber] = useState('')
     const [title, setTitle] = useState('')
     const [imgUrl, setImgUrl] = useState('')
@@ -26,6 +26,10 @@ function Form(props) {
     const [score, setScore] = useState('')
     const [host, setHost] = useState('')
     const [date, setDate] = useState('')
+
+    useEffect(() => {
+        focusList()
+    }, [])
 
     useEffect(() => {
         setCcNumber(props.film.ccNumber)
@@ -65,7 +69,7 @@ function Form(props) {
             .then((resp) => {
                 if (resp) {
                     props.updatedData(resp); alert('Ficha editada con éeexito')
-                    props.cierraFormsList()
+                    props.cierraFormsList();
                 } else { alert('error, probablemente llenaste mal un campo, burro') }
                 })
             .catch(error => console.log(error))
@@ -121,11 +125,19 @@ function Form(props) {
         props.cierraFormsList()
     }
 
+    const focusList = () => {
+        setTimeout(() => {
+        DOMRef.current.scrollIntoView({ block: "start", behavior: "smooth" })
+        }
+        ,1000)      
+      } 
+
     return (
 
         <div>
 
-            <div className="all-films-list">
+            <div className="all-films-list"
+            ref={DOMRef}>
                 <button className="btn btn-danger"
                     onClick={cierraFormsList}
                 >cancelar</button>
