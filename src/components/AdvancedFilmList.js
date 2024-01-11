@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from "react";
 import APIService from "./APIService";
 import './FilmList.css'
+import Loading from "./Loading";
 import { SortBy } from "react-lodash";
 
 
@@ -16,8 +17,16 @@ function AdvancedFilmList(props) {
     const [deleteKey, setDeleteKey] = useState('')
     const [filmToDelete, setFilmToDelete] = useState('')
     const [sortState, setSortState] = useState('none');
+    const [isLoading, setLoading] = useState(true)
+
 
     const { REACT_APP_APIURL } = process.env;
+
+
+    useEffect(() => {   
+        fetchData() 
+        
+  }, [props.edited])
 
     const fetchData = async () => {
         const data = await fetch(`${REACT_APP_APIURL}/adv-get/${props.field}/${props.contains}`, {
@@ -29,17 +38,15 @@ function AdvancedFilmList(props) {
         if(data.ok) {
           const dataJson = await data.json();
           setFilms(dataJson);
-          console.log('ok');}
+          setLoading(false);
+          console.log('ok polilla');}
         else {
           console.log('not ok')
         }
       }
 
 
-      useEffect(() => {   
-          fetchData() 
-          focusList()
-    }, [props.edited])
+      
 
 
     const focusList = () => {
@@ -165,6 +172,10 @@ function AdvancedFilmList(props) {
         
     } */
 
+    if (isLoading) {
+        return <Loading/>
+    }
+    focusList();
 
     return (
 

@@ -16,6 +16,8 @@
     
 }
 
+
+
 .film {
     /*background-color: gray;*/
     display: flex;
@@ -163,6 +165,9 @@
     align-items: center;
 }
 
+.all-films-list .btn {
+    margin-top: 1.5%;
+}
 
 .all-films-list > h4 {
     border-top: solid;

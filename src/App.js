@@ -8,6 +8,7 @@ import AdvancedFilmList from './components/AdvancedFilmList.js';
 import AdvancedFilmListMultiple from './components/AdvancedFilmListMultiple.js';
 import ButtonGoTop from './components/ButtonGoTop';
 import FormSimplified from './components/FormSimplified';
+import Loading from './components/Loading';
 //import _ from 'lodash';
 // import { FrasesSobreGatos } from './components/FrasesSobreGatos';
 
@@ -180,7 +181,8 @@ function App() {
             {/* <Examplefunctions></Examplefunctions> */}
   
       <ButtonGoTop/>
-
+      {/* <Loading/> */}
+      
 
       <div className='bodyContainer'>
 

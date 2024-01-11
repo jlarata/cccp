@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import APIService from "./APIService";
+import Loading from "./Loading";
 
 
 //asd
@@ -13,15 +14,33 @@ function FilmList(props) {
     const [deleteConfirm, setDeleteConfirm] = useState(false)
     const [deleteKey, setDeleteKey] = useState('')
     const [filmToDelete, setFilmToDelete] = useState('')
-    // const [cantidadDeDirectores, setCantidadDeDirectores] = useState('')
+    const [isLoading, setLoading] = useState(true)
+   
+    useEffect(() => {
+        fetchData()
+        .catch(console.error);
+        
+    }, [props.edited])
 
-    /*  aparentemente todo esto ya no sería necesario dado que estoy usando props
-       const[director2, setDirector2] = useState('')
-        const[director2Genre, setDirector2Genre] = useState('')
-        const[director3, setDirector3] = useState('')
-        const[director3Genre, setDirector3Genre] = useState('')
-        const[director4, setDirector4] = useState('')
-        const[director4Genre, setDirector4Genre] = useState('') */
+    const fetchData = async () => {
+        const data = await fetch(`${REACT_APP_APIURL}/get`, {
+            'method': 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        )
+        if (data.ok) {
+            const dataJson = await data.json();
+            setFilms(dataJson);
+            setLoading(false);
+            console.log('ok');
+        }
+        else {
+            console.log('not ok')
+        }
+
+    }
 
     const confirmarEliminar = (film) => {
         setFilmToDelete(film.id)
@@ -61,30 +80,7 @@ function FilmList(props) {
             , 100)
     }
 
-    useEffect(() => {
-        fetchData()
-            .catch(console.error);
-        focusList()
-    }, [props.edited])
-
-    const fetchData = async () => {
-        const data = await fetch(`${REACT_APP_APIURL}/get`, {
-            'method': 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-        )
-        if (data.ok) {
-            const dataJson = await data.json();
-            setFilms(dataJson);
-            console.log('ok');
-        }
-        else {
-            console.log('not ok')
-        }
-
-    }
+    
 
     /* aparentemente todo esto ya no sería necesario dado que estoy usando props
         const setEmptyDirectors = () => {
@@ -113,7 +109,11 @@ function FilmList(props) {
     }
 
 
-
+    if (isLoading) {
+        return <Loading/>
+    }
+    focusList();
+    
     return (
         <div className="all-films-list" ref={DOMRef}>
 
@@ -193,9 +193,11 @@ function FilmList(props) {
                 >cerrar todas las fichas</h5>
             </div> */}
         </div>
-
+        
     )
+    
 }
+
 
 
 

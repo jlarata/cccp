@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import APIService from "./APIService";
 import './FilmList.css'
+import Loading from "./Loading";
 
 
 
@@ -16,27 +17,21 @@ function AdvancedFilmList(props) {
     const [deleteKey, setDeleteKey] = useState('')
     const [filmToDelete, setFilmToDelete] = useState('')
     const [sortState, setSortState] = useState('none');
-
-
-    const focusList = () => {
-        setTimeout(() => {
-            DOMRef.current.scrollIntoView()
-        }
-            , 100)
-    }
-
-    const { REACT_APP_APIURL } = process.env;
-
-    //const data = await fetch(`${REACT_APP_APIURL}/adv-get`, {
-
+    const [isLoading, setLoading] = useState(true)
 
     useEffect(() => {
+        props.contains ? fetchSuperData() : fetchData()
+        .catch(console.error);
+    }, [props.edited])
+
+    /* useEffect(() => {
 
         props.contains ?
 
             APIService.SuperSearchFilm(props.contains)
                 .then(resp => resp.json())
                 .then(resp => setFilms(resp))
+                .then(console.log('ok advanced'))
                 .then(focusList())
                 // .then(document.getElementById("TopOfAdvFilmList").scrollIntoView(true))
                 .catch(error => console.log(error))
@@ -60,7 +55,54 @@ function AdvancedFilmList(props) {
                 .catch(error => console.log(error))
 
 
-    }, [props.edited])
+    }, [props.edited]) */
+
+
+    const fetchSuperData = async () => {
+        const data = await APIService.SuperSearchFilm(props.contains)
+        if (data.ok) {
+            const dataJson = await data.json();
+            setFilms(dataJson);
+            setLoading(false);
+            console.log('ok advanced múltiple');
+        }
+        else {
+            console.log('not ok')
+        } 
+    }
+
+    const fetchData = async () => {
+        const data = await fetch(`${REACT_APP_APIURL}/adv-get/${props.field1}/${props.contains1}/${props.field2}/${props.contains2}/${props.field3}/${props.contains3}/${props.field4}/${props.contains4}/${props.field5}/${props.contains5}/${props.field6}/${props.contains6}/${props.field7}/${props.contains7}/${props.field8}/${props.contains8}/`, {
+            'method': 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        if (data.ok) {
+            const dataJson = await data.json();
+            setFilms(dataJson);
+            setLoading(false);
+            console.log('ok advanced simplified');
+        }
+        else {
+            console.log('not ok')
+        }  
+    }
+
+    const focusList = () => {
+        setTimeout(() => {
+            DOMRef.current.scrollIntoView()
+        }
+            , 100)
+    }
+
+    const { REACT_APP_APIURL } = process.env;
+
+    //const data = await fetch(`${REACT_APP_APIURL}/adv-get`, {
+
+
+    
 
     const confirmarEliminar = (film) => {
         setFilmToDelete(film.id)
@@ -150,6 +192,12 @@ function AdvancedFilmList(props) {
             
         )
     } */
+
+    if (isLoading) {
+        return <Loading/>
+    }
+
+    focusList();
 
     return (
 
