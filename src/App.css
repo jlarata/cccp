@@ -372,6 +372,12 @@
     padding: 5%;
     text-align: justify;
     background-color: rgba(231, 228, 228, 0.2);
-    align-items: center;
+    align-items: flex-start;
+    
+}
+
+.infoBusqueda > select{
+    margin-top: 2%;
+    align-self: center;
     
 }

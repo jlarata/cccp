@@ -163,6 +163,7 @@ function AdvancedFilmList(props) {
         setSortState(method)
     }
 
+
     /*INFO UTIL PARA LAS STATS: promedio año, promedio nota, lista ordenada de origenes (por consola), etc*/
 
     /* const promedioAnio = () => {
@@ -209,12 +210,16 @@ function AdvancedFilmList(props) {
                 ref={DOMRef}>
 
                 {props.contains ?
-                    <div className="infoBusqueda"><p>Se buscaron films que en cualquier campo contenga total o parcialmente el campo {props.contains} </p>
+                    <div className="infoBusqueda"><p>Se buscaron films que en cualquier campo contenga total o parcialmente el valor {props.contains} </p>
 
-                        {films.length === 1 ?
-                            <p>Se encontró solo un resultado</p>
+                        {films.length === 0 ?
+                            <span>No se encontró ningún resultado. Probá de nuevo por favor (a veces el servidor falla, no es culpa del diseñador que es un tipazo)</span>
                             :
-                            <p>Se encontraron {films.length} resultados</p>
+                            films.length === 1 ?
+                                <span>Se encontró solo un resultado</span>
+                                :
+                                <span>Se encontraron {films.length} resultados</span>
+                
                         }
                         <select defaultValue={'none'} onChange={(e) => sortByMethod(e.target.value)}>
                             <option value="none" disabled>ordenar por</option>
@@ -398,11 +403,18 @@ function AdvancedFilmList(props) {
 
                 </div> : null}
 
-                <div className="all-films-list" id="TopOfAdvFilmList">
+
+                {films.length !== 0 ?
+                    <div className="all-films-list" id="TopOfAdvFilmList">
                     <button className="btn btn-danger"
                         onClick={cierraAdvancedFilmsListMultiple}
                     >cerrar</button>
                 </div>
+                :
+                null}
+                        
+
+                
 
             </div>
 

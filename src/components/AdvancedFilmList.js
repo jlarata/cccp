@@ -187,8 +187,19 @@ function AdvancedFilmList(props) {
         <div className="films-list">
         
         <div className="infoBusqueda" ref={DOMRef}>
-            <p>se buscaron films que en el campo {props.field} contengan total o parcialmente el valor {props.contains}</p>
-            <p>se encontraron {films.length} resultados, ordenados por #CC</p>
+            <p>Se buscaron films que en el campo {props.field} contengan total o parcialmente el valor {props.contains}</p>
+            
+            {films.length === 0 ?
+                            <span>No se encontró ningún resultado. Probá de nuevo por favor (a veces el servidor falla, no es culpa del diseñador que es un tipazo)</span>
+                            :
+                            films.length === 1 ?
+                                <span>Se encontró solo un resultado</span>
+                                :
+                                <span>Se encontraron {films.length} resultados</span>
+                
+            }
+
+            
 
         <select defaultValue={'none'} onChange={(e) => sortByMethod(e.target.value)}>
             <option value="none" disabled>ordenar por</option>
@@ -259,11 +270,14 @@ function AdvancedFilmList(props) {
             
             
 
-            <div className="all-films-list" id="TopOfAdvFilmList">
-            <button className="btn btn-danger"
-            onClick={cierraAdvancedFilmsList}
-            >cerrar</button>
-            </div>
+            {films.length !== 0 ?
+                    <div className="all-films-list" id="TopOfAdvFilmList">
+                    <button className="btn btn-danger"
+                        onClick={cierraAdvancedFilmsList}
+                    >cerrar</button>
+                </div>
+                :
+                null}
             
         </div>
         
