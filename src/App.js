@@ -1,6 +1,6 @@
 import './App.css';
 import { Header } from './components/Header';
-import { useState, useEffect, useRef/*, useMemo*/ } from 'react';
+import { useState, setState, useEffect, useRef/*, useMemo*/ } from 'react';
 import Form from './components/Form';
 import FilmList from './components/FilmList';
 import AdvancedForm from './components/AdvancedForm.js';
@@ -8,7 +8,6 @@ import AdvancedFilmList from './components/AdvancedFilmList.js';
 import AdvancedFilmListMultiple from './components/AdvancedFilmListMultiple.js';
 import ButtonGoTop from './components/ButtonGoTop';
 import FormSimplified from './components/FormSimplified';
-import Loading from './components/Loading';
 //import _ from 'lodash';
 // import { FrasesSobreGatos } from './components/FrasesSobreGatos';
 
@@ -47,12 +46,38 @@ function App() {
   const [advFilmsList, setAdvFilmsList] = useState(false)
   const [advFilmsListMultiple, setAdvFilmsListMultiple] = useState(false)
   
+  const resetStates = () => {
+  setEdited(false)
+  setFilms([])
+  setEditedFilm(null)
+  setAllFilmsList(false)
+  setAdvancedEditedFilm(null)
+  setFormSimplified(null)
+  setField(null)
+  setContains(null)
+  setField1(null)
+  setContains1(null)
+  setField2(null)
+  setContains2(null)
+  setField3(null)
+  setContains3(null)
+  setField4(null)
+  setContains4(null)
+  setField5(null)
+  setContains5(null)
+  setField6(null)
+  setContains6(null)
+  setField7(null)
+  setContains7(null)
+  setField8(null)
+  setContains8(null)
+  setAdvFilmsList(false)
+  setAdvFilmsListMultiple(false)
+  }
 
   const editFilm = (film) => {
     setEditedFilm(film)
-  }
-
- 
+  } 
 
   const updatedData = (film) => {
     const new_film = films.map(my_film => {
@@ -95,7 +120,6 @@ function App() {
     setFilms(new_films)
   } 
 
-
   const cierraFormsList = () => {
     setEditedFilm(null)
   }
@@ -122,10 +146,10 @@ function App() {
   }
   
   function abreAdvancedFilmsList(field, contains) {
-    console.log(field)
+    //test console.log(field)
     setField(field)
     setContains(contains)
-    console.log(contains)
+    //test console.log(contains)
     setAdvFilmsList({contains:contains}, {field:field})
   }
 
@@ -151,43 +175,26 @@ function App() {
     setContains6(contains6)
     setContains7(contains7)
     setContains8(contains8)
-    console.log("valor: "+contains+"; valores: "+contains1+", "+contains2+", "+contains3+", "+contains4+", "+contains5+", "+contains6+", "+contains7+", "+contains8)
+    //test console.log("valor: "+contains+"; valores: "+contains1+", "+contains2+", "+contains3+", "+contains4+", "+contains5+", "+contains6+", "+contains7+", "+contains8)
     setAdvFilmsListMultiple({contains:contains}, {contains1:contains1}, {field1:field1}, {contains2:contains2}, {field2:field2}, {contains3:contains3}, {field3:field3}, {contains4:contains4}, {field4:field4}, {contains5:contains5}, {field5:field5}, {contains6:contains6}, {field6:field6}, {contains7:contains7}, {field7:field7}, {contains8:contains8}, {field8:field8})
   }
-
-  
 
   const abreFilmsList = () => {
     setAllFilmsList(true)
   }
-
- /*  const [scrollTop, setScrollTop] = useState(0);
-  
-  const handleScroll = (e) => {
-    setScrollTop(e.currentTarget.scrollTop);
-  } */
-
-  
- 
+   
   return (
-
-    //react fragment
-    
+  
     <div className='general-container'>
     <div className=''>
-      <Header></Header>
-
+      <Header></Header>  
+      <ButtonGoTop/>      
       
-            {/* <Examplefunctions></Examplefunctions> */}
-  
-      <ButtonGoTop/>
-      {/* <Loading/> */}
-      
-
       <div className='bodyContainer'>
 
       <div className="all-films-list">
             <p className='title'
+            onClick={resetStates}
             >CCApp</p>
             </div>
 

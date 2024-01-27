@@ -94,7 +94,7 @@ function AdvancedFilmList(props) {
         setTimeout(() => {
             DOMRef.current.scrollIntoView()
         }
-            , 100)
+            , 10)
     }
 
     const { REACT_APP_APIURL } = process.env;

@@ -34,7 +34,7 @@ function FilmList(props) {
             const dataJson = await data.json();
             setFilms(dataJson);
             setLoading(false);
-            console.log('ok');
+            //test console.log('ok');
         }
         else {
             console.log('not ok')
@@ -77,7 +77,7 @@ function FilmList(props) {
         setTimeout(() => {
             DOMRef.current.scrollIntoView()
         }
-            , 100)
+            , 10)
     }
 
     

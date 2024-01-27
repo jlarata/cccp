@@ -53,7 +53,7 @@ function AdvancedFilmList(props) {
         setTimeout(() => {
         DOMRef.current.scrollIntoView({ block: "start", behavior: "smooth" })
         }
-        ,1000)      
+        ,10)      
       } 
 
 
