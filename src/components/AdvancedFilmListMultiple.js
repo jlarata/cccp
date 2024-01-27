@@ -101,9 +101,6 @@ function AdvancedFilmList(props) {
 
     //const data = await fetch(`${REACT_APP_APIURL}/adv-get`, {
 
-
-    
-
     const confirmarEliminar = (film) => {
         setFilmToDelete(film.id)
         setDeleteConfirm(true)

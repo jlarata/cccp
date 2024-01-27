@@ -2,6 +2,7 @@ import './App.css';
 import { Header } from './components/Header';
 import { useState, setState, useEffect, useRef/*, useMemo*/ } from 'react';
 import Form from './components/Form';
+import LastFilm from './components/LastFilm.js';
 import FilmList from './components/FilmList';
 import AdvancedForm from './components/AdvancedForm.js';
 import AdvancedFilmList from './components/AdvancedFilmList.js';
@@ -20,6 +21,7 @@ function App() {
   const [films, setFilms] = useState([])
   const [editedFilm, setEditedFilm] = useState(null)
   const [allFilmsList, setAllFilmsList] = useState(false)
+  const [showLastFilm, setShowLastFilm] = useState(false)
   const [advancedEditedFilm, setAdvancedEditedFilm] = useState(null)
   const [formSimplified, setFormSimplified] = useState(null)
 
@@ -51,6 +53,7 @@ function App() {
   setFilms([])
   setEditedFilm(null)
   setAllFilmsList(false)
+  setShowLastFilm(false)
   setAdvancedEditedFilm(null)
   setFormSimplified(null)
   setField(null)
@@ -132,6 +135,10 @@ function App() {
     setFormSimplified(null)
   }
 
+  const cierraLastFilm = () => {
+    setShowLastFilm(false)
+    
+  }
   const cierraFilmsList = () => {
     setAllFilmsList(false)
     
@@ -179,6 +186,10 @@ function App() {
     setAdvFilmsListMultiple({contains:contains}, {contains1:contains1}, {field1:field1}, {contains2:contains2}, {field2:field2}, {contains3:contains3}, {field3:field3}, {contains4:contains4}, {field4:field4}, {contains5:contains5}, {field5:field5}, {contains6:contains6}, {field6:field6}, {contains7:contains7}, {field7:field7}, {contains8:contains8}, {field8:field8})
   }
 
+  const abreLastFilm = () => {
+    setShowLastFilm(true)
+  }
+
   const abreFilmsList = () => {
     setAllFilmsList(true)
   }
@@ -197,6 +208,14 @@ function App() {
             onClick={resetStates}
             >CCApp</p>
             </div>
+
+      <div className="all-films-list">
+            <h4
+            onClick={abreLastFilm}
+            >ver última ficha</h4>
+            </div>
+      {showLastFilm ? <LastFilm films = {films} edited={edited} editFilm = {editFilm} cierraLastFilm = {cierraLastFilm} /> : null}
+
 
       <div className="all-films-list">
             <h4
