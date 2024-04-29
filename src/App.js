@@ -1,6 +1,7 @@
 import './App.css';
+import './loginAndRegister.css';
 import { Header } from './components/Header';
-import { useState, setState, useEffect, useRef/*, useMemo*/ } from 'react';
+import { useState, setState, useEffect, useRef/*, useMemo*/, React } from 'react';
 import Form from './components/Form';
 import LastFilm from './components/LastFilm.js';
 import FilmList from './components/FilmList';
@@ -9,13 +10,36 @@ import AdvancedFilmList from './components/AdvancedFilmList.js';
 import AdvancedFilmListMultiple from './components/AdvancedFilmListMultiple.js';
 import ButtonGoTop from './components/ButtonGoTop';
 import FormSimplified from './components/FormSimplified';
+import httpClient from './httpClient.js';
+
+import LogInPage from './LogInPage.js'
+import Register from './Register.js';
 //import _ from 'lodash';
 // import { FrasesSobreGatos } from './components/FrasesSobreGatos';
 
 
 const { REACT_APP_APIURL } = process.env;
 
+
 function App() {
+
+  const [user, setUser] = useState(null);
+  
+  const logoutUser = async () => {
+    await httpClient.post(`${REACT_APP_APIURL}/logout`);
+    window.location.href = "/";
+    };
+
+  useEffect(() => {
+  (async () => {
+    try {
+      const resp = await httpClient.get(`${REACT_APP_APIURL}/@me`);
+      setUser(resp.data);
+    } catch (error) {
+      console.log("Not authenticated nop");
+    }
+  })();
+}, []);
 
   const [edited, setEdited] = useState(false)
   const [films, setFilms] = useState([])
@@ -193,12 +217,54 @@ function App() {
   const abreFilmsList = () => {
     setAllFilmsList(true)
   }
-   
-  return (
+
   
+   
+  return (  
+
     <div className='general-container'>
     <div className=''>
       <Header></Header>  
+
+
+
+
+
+      <div>
+             
+      {user != null ? (
+        <div class="cajaLogin">
+          <div class="cajaCampos"><p>{user.email}</p>
+          {user.lvl === 42 ? <p>admin</p> : <p> user</p>}
+          {/* <h2>Logged in</h2>
+          <h3>ID: {user.id}</h3>
+          <h3>Email: {user.email}</h3>
+          <h3>Autorización de nivel: {user.lvl}</h3>
+          {user.lvl === 42 ? <p>code a</p> : <p> code b</p>} */}
+
+          <button class="btn btn-outline-primary" onClick={logoutUser}>Logout</button>
+          </div>
+        </div>
+      ) : (
+        <div class="cajaLogin">
+          <div class="tituloCampos">
+            <p>No estás logueadx</p>
+            <div>
+              <div>{<LogInPage/>}</div>
+              <div>{<Register/>}</div>
+            {/* <a href="/register">
+            <button>Register</button>
+            </a> */}
+            </div>
+            </div>
+        </div>
+      )}
+    </div>
+
+
+
+
+
       <ButtonGoTop/>      
       
       <div className='bodyContainer'>
@@ -224,11 +290,15 @@ function App() {
             </div>
       {allFilmsList ? <FilmList films = {films} edited={edited} editFilm = {editFilm} deleteFilm = {deleteFilm} cierraFilmsList = {cierraFilmsList} /> : null}
       
-      <div className="all-films-list">
-            <h4
+      {user && user.lvl === 42 ? 
+        <div className="all-films-list">
+          <h4
             onClick={openForm}
-            >insertar nueva ficha</h4>
-            </div>
+            >insertar nueva ficha
+          </h4>
+        </div>
+      : null}
+      
 
       {editedFilm ? <Form film = {editedFilm} updatedData = {updatedData} insertedFilm = {insertedFilm} cierraFormsList ={cierraFormsList} /> : null }
 

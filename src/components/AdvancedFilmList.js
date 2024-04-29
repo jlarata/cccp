@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from "react";
 import APIService from "./APIService";
 import './FilmList.css'
 import Loading from "./Loading";
+import httpClient from "../httpClient";
 import { SortBy } from "react-lodash";
 
 
@@ -18,6 +19,7 @@ function AdvancedFilmList(props) {
     const [filmToDelete, setFilmToDelete] = useState('')
     const [sortState, setSortState] = useState('none');
     const [isLoading, setLoading] = useState(true)
+    const [user, setUser] = useState()
 
 
     const { REACT_APP_APIURL } = process.env;
@@ -43,6 +45,15 @@ function AdvancedFilmList(props) {
         else {
           console.log('not ok')
         }
+
+        try {
+                const resp = await httpClient.get(`${REACT_APP_APIURL}/@me`);
+                setUser(resp.data);
+            }
+        catch (error)
+            {
+            console.log("Not authenticated nop");
+            }
       }
 
 
@@ -230,11 +241,15 @@ function AdvancedFilmList(props) {
                         
                     {/* <h5 className="cc-number">CC# {film.ccNumber}</h5> */}
                     {/* , id# {film.id} */}
-                <button className='btn editButton'
-                            onClick={() => editFilm(film)}
+
+                    {user && user.lvl === 42 ? 
+                            
+                        <button className='btn editButton'
+                        onClick={() => editFilm(film)}
                         >
-                </button>
-                
+                        </button>
+                    : null}
+
                 {film.imgUrl === '' ? <div className='noPoster'>
                     <p className="score-row"><span className="score">{film.score}</span></p>
                     </div> : <div className='filmPoster'>
@@ -259,11 +274,17 @@ function AdvancedFilmList(props) {
                         <p>CC# {film.ccNumber} | By {film.host} | {film.date}</p>
                     </div>
                 </div>
-                <button className='btn-outline-dark deleteButton'
+
+                {user && user.lvl === 42 ? 
+                            
+                            <button className='btn-outline-dark deleteButton'
                             onClick={() => confirmarEliminar(film)}
-                        // onClick={() => deleteFilm(film)}
-                        >
-                </button>
+                             // onClick={() => deleteFilm(film)}
+                             >
+                            </button>
+                        : null}
+
+                
             </div>
         );
     })}

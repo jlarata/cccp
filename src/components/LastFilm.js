@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import APIService from "./APIService";
 import Loading from "./Loading";
+import httpClient from "../httpClient";
 
 
 const { REACT_APP_APIURL } = process.env;
@@ -9,6 +10,9 @@ function LastFilm(props) {
 
     const [edited, SetEdited] = useState(false)
     const [films, setFilms] = useState([])
+    const [user, setUser] = useState()
+
+
     // por ahora estos quedan afuera. ¿queremos que se pueda eliminar desde last-film component?
     //const [deleteConfirm, setDeleteConfirm] = useState(false)
     //const [deleteKey, setDeleteKey] = useState('')
@@ -38,6 +42,14 @@ function LastFilm(props) {
         else {
             console.log('not ok')
         }
+        
+            
+              try {
+                const resp = await httpClient.get(`${REACT_APP_APIURL}/@me`);
+                setUser(resp.data);
+              } catch (error) {
+                console.log("Not authenticated nop");
+              }
 
     }
 
@@ -66,6 +78,8 @@ function LastFilm(props) {
     }
 
     focusList();
+
+    
     return (
         <div className="all-films-list" ref={DOMRef}>
 
@@ -77,10 +91,19 @@ function LastFilm(props) {
 
                     <div key={films.id} className='film'>
                         
-                        <button className='btn editButton'
+                        {user && user.lvl === 42 ? 
+                            
+                            <button className='btn editButton'
                                     onClick={() => editFilm(films)}
                                 >
                         </button>
+                            
+                        : null}
+
+                        {/* <button className='btn editButton'
+                                    onClick={() => editFilm(films)}
+                                >
+                        </button> */}
                         
                         {films.imgUrl === '' ?
                             <div className='noPoster'>
