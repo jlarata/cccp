@@ -17,7 +17,7 @@ function LogInPage(){
         password,
       });
 
-      window.location.href = "/";
+      window.location.href = "/cccp";
       }
       catch (error) { // decia error: any pero tiraba error de js a ts... creo
       if (error.response.status === 401) {

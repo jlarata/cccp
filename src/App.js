@@ -25,21 +25,7 @@ function App() {
 
   const [user, setUser] = useState(null);
   
-  const logoutUser = async () => {
-    await httpClient.post(`${REACT_APP_APIURL}/logout`);
-    window.location.href = "/";
-    };
-
-  useEffect(() => {
-  (async () => {
-    try {
-      const resp = await httpClient.get(`${REACT_APP_APIURL}/@me`);
-      setUser(resp.data);
-    } catch (error) {
-      console.log("Not authenticated nop");
-    }
-  })();
-}, []);
+  
 
   const [edited, setEdited] = useState(false)
   const [films, setFilms] = useState([])
@@ -72,6 +58,22 @@ function App() {
   const [advFilmsList, setAdvFilmsList] = useState(false)
   const [advFilmsListMultiple, setAdvFilmsListMultiple] = useState(false)
   
+  const logoutUser = async () => {
+    await httpClient.post(`${REACT_APP_APIURL}/logout`);
+    window.location.href = "/cccp";
+    };
+
+  useEffect(() => {
+  (async () => {
+    try {
+      const resp = await httpClient.get(`${REACT_APP_APIURL}/@me`);
+      setUser(resp.data);
+    } catch (error) {
+      console.log("Not authenticated nop");
+    }
+  })();
+}, []);
+
   const resetStates = () => {
   setEdited(false)
   setFilms([])
