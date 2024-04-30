@@ -9,7 +9,7 @@ function LogInPage(){
     const [password, setPassword] = useState("");
     
     const logInUser = async () => {
-    console.log(email, password);
+    //console.log(email, password);
 
     try {
       const resp = await httpClient.post(`${REACT_APP_APIURL}/login`, {
@@ -28,9 +28,9 @@ function LogInPage(){
 
 
     return (
-        <div class="cajaCampos">
-        <form class="formCampos">
-          <div class="formCampo">
+        <div className="cajaCampos">
+        <form className="formCampos">
+          <div className="formCampo">
             <label>Email: </label>
             <input
               type="text"
@@ -38,7 +38,7 @@ function LogInPage(){
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div class="formCampo">
+          <div className="formCampo">
             <label>Password: </label>
             <input
               type="password"
@@ -46,7 +46,7 @@ function LogInPage(){
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div><button class="btn btn-outline-success" type="button" onClick={() => logInUser()}>
+          <div><button className="btn btn-outline-success" type="button" onClick={() => logInUser()}>
             Loguear
           </button></div>
           

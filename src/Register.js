@@ -23,9 +23,9 @@ function Register(){
       };
       
       return (
-        <div class="cajaCampos">
-        <form class="formCampos">
-              <div class="formCampo">
+        <div className="cajaCampos">
+        <form className="formCampos">
+              <div className="formCampo">
                 <label>Email: </label>
                 <input
                   type="text"
@@ -33,7 +33,7 @@ function Register(){
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <div class="formCampo">
+              <div className="formCampo">
                 <label>Password: </label>
                 <input
                   type="password"

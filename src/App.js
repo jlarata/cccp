@@ -11,7 +11,6 @@ import AdvancedFilmListMultiple from './components/AdvancedFilmListMultiple.js';
 import ButtonGoTop from './components/ButtonGoTop';
 import FormSimplified from './components/FormSimplified';
 import httpClient from './httpClient.js';
-
 import LogInPage from './LogInPage.js'
 import Register from './Register.js';
 //import _ from 'lodash';
@@ -24,9 +23,6 @@ const { REACT_APP_APIURL } = process.env;
 function App() {
 
   const [user, setUser] = useState(null);
-  
-  
-
   const [edited, setEdited] = useState(false)
   const [films, setFilms] = useState([])
   const [editedFilm, setEditedFilm] = useState(null)
@@ -63,16 +59,17 @@ function App() {
     window.location.href = "/cccp";
     };
 
-  useEffect(() => {
-  (async () => {
-    try {
-      const resp = await httpClient.get(`${REACT_APP_APIURL}/@me`);
-      setUser(resp.data);
-    } catch (error) {
-      console.log("Not authenticated nop");
-    }
-  })();
-}, []);
+
+    useEffect(() => {
+      (async () => {
+        try {
+          const resp = await httpClient.get(`${REACT_APP_APIURL}/@me`);
+          setUser(resp.data);
+        } catch (error) {
+          console.log("Not authenticated nop");
+        }
+      })();
+    }, []);
 
   const resetStates = () => {
   setEdited(false)
@@ -235,8 +232,8 @@ function App() {
       <div>
              
       {user != null ? (
-        <div class="cajaLogin">
-          <div class="cajaCampos"><p>{user.email}</p>
+        <div className="cajaLogin">
+          <div className="cajaCampos"><p>{user.email}</p>
           {user.lvl === 42 ? <p>admin</p> : <p> user</p>}
           {/* <h2>Logged in</h2>
           <h3>ID: {user.id}</h3>
@@ -244,12 +241,12 @@ function App() {
           <h3>Autorización de nivel: {user.lvl}</h3>
           {user.lvl === 42 ? <p>code a</p> : <p> code b</p>} */}
 
-          <button class="btn btn-outline-primary" onClick={logoutUser}>Logout</button>
+          <button className="btn btn-outline-primary" onClick={logoutUser}>Logout</button>
           </div>
         </div>
       ) : (
-        <div class="cajaLogin">
-          <div class="tituloCampos">
+        <div className="cajaLogin">
+          <div className="tituloCampos">
             <p>No estás logueadx</p>
             <div>
               <div>{<LogInPage/>}</div>
