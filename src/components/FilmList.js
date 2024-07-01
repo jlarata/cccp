@@ -14,7 +14,7 @@ function FilmList(props) {
     const [films, setFilms] = useState([])
     const [deleteConfirm, setDeleteConfirm] = useState(false)
     const [deleteKey, setDeleteKey] = useState('')
-    const [sortState, setSortState] = useState('none')
+    const [sortState, setSortState] = useState('ccNumberDescending')
     const [filmToDelete, setFilmToDelete] = useState('')
     const [isLoading, setLoading] = useState(true)
     const [user, setUser] = useState()
@@ -113,7 +113,7 @@ function FilmList(props) {
 
 
     const sortMethods = {
-        none: { method: (a, b) => null },
+        // none: { method: (a, b) => null },
         ccNumberAscending: { method : (a, b) => (a.ccNumber > b.ccNumber ? 1 : -1) },
         ccNumberDescending: { method : (a, b) => (a.ccNumber > b.ccNumber ? -1 : 1) },
         scoreAscending: { method : (a, b) => (a.score > b.score ? 1 : -1) },
