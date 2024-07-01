@@ -14,6 +14,7 @@ function FilmList(props) {
     const [films, setFilms] = useState([])
     const [deleteConfirm, setDeleteConfirm] = useState(false)
     const [deleteKey, setDeleteKey] = useState('')
+    const [sortState, setSortState] = useState('none')
     const [filmToDelete, setFilmToDelete] = useState('')
     const [isLoading, setLoading] = useState(true)
     const [user, setUser] = useState()
@@ -111,7 +112,22 @@ function FilmList(props) {
     }
 
 
+    const sortMethods = {
+        none: { method: (a, b) => null },
+        ccNumberAscending: { method : (a, b) => (a.ccNumber > b.ccNumber ? 1 : -1) },
+        ccNumberDescending: { method : (a, b) => (a.ccNumber > b.ccNumber ? -1 : 1) },
+        scoreAscending: { method : (a, b) => (a.score > b.score ? 1 : -1) },
+        scoreDescending: { method : (a, b) => (a.score > b.score ? -1 : 1)},
+        yearAscending: { method : (a, b) => (a.year > b.year ? 1 : -1) },
+        yearDescending: { method : (a, b) => (a.year > b.year ? -1 : 1)},
+        dateAscending: { method : (a, b) => (a.date > b.date ? 1 : -1) },
+        dateDescending: { method : (a, b) => (a.date > b.date ? -1 : 1)},
+        originDescending: { method : (a, b) => (a.origin.toLowerCase() > b.origin.toLowerCase() ? 1 : (a.origin.toLowerCase() < b.origin.toLowerCase() ? -1 : 0))}
+    }
 
+    const sortByMethod = (method) => {
+        setSortState(method)
+    } 
 
     //revisar form.js
 
@@ -125,6 +141,9 @@ function FilmList(props) {
         return <Loading/>
     }
     focusList();
+
+    
+
     
     return (
         <div className="all-films-list" ref={DOMRef}>
@@ -133,11 +152,26 @@ function FilmList(props) {
 
             <div className="all-films-list">
                 <button className="btn btn-danger"
-                    onClick={cierraFilmsList}
-                >cerrar</button>
+                        onClick={cierraFilmsList}
+                        >cerrar
+                </button>
+
+                <select defaultValue={'none'} onChange={(e) => sortByMethod(e.target.value)}>
+                    <option value="none" disabled>ordenar por</option>
+                    <option value="ccNumberAscending">primer #CC</option>
+                    <option value="ccNumberDescending">último #CC</option>
+                    <option value="yearAscending">Año más bajo (del film)</option>
+                    <option value="yearDescending">Año más alto(del film)</option>
+                    <option value="scoreAscending">Puntaje más bajo</option>
+                    <option value="scoreDescending">Puntaje más alto</option>
+                    <option value="dateAscending">Fecha más baja (del visionado)</option>
+                    <option value="dateDescending">Fecha más alta(del visionado)</option>
+                    <option value="originDescending">Origen</option>
+                </select>
+
             </div>
 
-            {films && films.map(film => {
+            {films.sort(sortMethods[sortState].method) && films.map(film => {
 
                 return (
                     <div key={film.id} className='film'>

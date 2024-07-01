@@ -121,6 +121,8 @@ function AdvancedFilmList(props) {
         scoreDescending: { method : (a, b) => (a.score > b.score ? -1 : 1)},
         yearAscending: { method : (a, b) => (a.year > b.year ? 1 : -1) },
         yearDescending: { method : (a, b) => (a.year > b.year ? -1 : 1)},
+        dateAscending: { method : (a, b) => (a.date > b.date ? 1 : -1) },
+        dateDescending: { method : (a, b) => (a.date > b.date ? -1 : 1)},
         originDescending: { method : (a, b) => (a.origin.toLowerCase() > b.origin.toLowerCase() ? 1 : (a.origin.toLowerCase() < b.origin.toLowerCase() ? -1 : 0))}
     }
 
@@ -218,6 +220,8 @@ function AdvancedFilmList(props) {
             <option value="yearDescending">Año más alto</option>
             <option value="scoreAscending">Puntaje más bajo</option>
             <option value="scoreDescending">Puntaje más alto</option>
+            <option value="dateAscending">Fecha más baja (del visionado)</option>
+            <option value="dateDescending">Fecha más alta(del visionado)</option>
             <option value="originDescending">Origen</option>
       </select>
       {/* {promedioAnio()} */}
