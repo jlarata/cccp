@@ -4,6 +4,8 @@ import { Button } from "react-bootstrap";
 import './Form.css'
 import APIService from "./APIService";
 
+const { REACT_APP_APIURL } = process.env;
+
 
 function Form(props) {
 
@@ -27,8 +29,14 @@ function Form(props) {
     const [host, setHost] = useState('')
     const [date, setDate] = useState('')
 
+    const [films, setFilms] = useState([])
+    const [isLoading, setLoading] = useState(true)
+
+
+
     useEffect(() => {
-        focusList()
+        focusList();
+        fetchData();
     }, [])
 
     useEffect(() => {
@@ -62,6 +70,25 @@ function Form(props) {
 
         props.cierraFormsList()
 
+    }
+
+    const fetchData = async () => {
+        const data = await fetch(`${REACT_APP_APIURL}/get-last`, {
+            'method': 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        )
+        if (data.ok) {
+            const dataJson = await data.json();
+            setFilms(dataJson);
+            setLoading(false);
+            //test console.log('ok');
+        }
+        else {
+            console.log('not ok')
+        }
     }
 
     const updateFilm = () => {
@@ -157,7 +184,7 @@ function Form(props) {
                         <label htmlFor='ccNumber' className="form-label">ccNum</label>
                         <input type="number" className="form-control"
                             value={ccNumber}
-                            placeholder={"enter ccnum"}
+                            placeholder={'sugerido: '+(films.ccNumber+1)}
                             onChange={(e) => setCcNumber(e.target.value)}
                         />
 
@@ -275,11 +302,24 @@ function Form(props) {
                             placeholder={"enter final cc score"}
                             onChange={(e) => setScore(e.target.value)}></input>
 
-                        <label htmlFor='host' className="form-label">invitó</label>
+                        <label htmlFor='host' className="form-label">Invitó:</label>
+                        <select type="submit" className="form-control"
+                            value={host}
+                            onChange={(e) => setHost(e.target.value)}>
+                            <option value="Andrea">Andrea</option>
+                            <option value="Antuña">Antuña</option>
+                            <option value="Ariel">Ariel</option>
+                            <option value="Axel">Axel</option>
+                            <option value="Lucía">Lucía</option>
+                            <option value="Mery">Mery</option>
+                            <option value="Sergio">Sergio</option>
+                        </select>
+
+                        {/* <label htmlFor='host' className="form-label">invitó</label>
                         <input type="text" className="form-control"
                             value={host}
                             placeholder={"enter host"}
-                            onChange={(e) => setHost(e.target.value)}></input>
+                            onChange={(e) => setHost(e.target.value)}></input> */}
 
                         <label htmlFor='date' className="form-label">fecha de visionado</label>
                         <input type="date" className="form-control"
