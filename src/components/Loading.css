@@ -5,13 +5,12 @@
     text-align: center;
     z-index: 1;
 }
-.loading {
+.lod {
     position: fixed;
     left: 50%;
     top: 50%;
     margin-right: -50%;
     background-color: rgba(220, 53, 69, 0.0);
-    background-image: url("../img/loadingScreenIcon.png");
     opacity: 0.9;
     background-size: contain;
     background-repeat: no-repeat;
@@ -20,6 +19,22 @@
     animation: meri-spinner 1.2s linear infinite;
     transform: translate(-50%, -50%);
 }
+.loading0 {
+  background-image: url("../img/loadingScreenIcon01.png");
+}
+.loading1 {
+  background-image: url("../img/loadingScreenIcon02.png");
+}
+.loading2 {
+  background-image: url("../img/loadingScreenIcon03.png");
+}
+.loading3 {
+  background-image: url("../img/loadingScreenIcon04.png");
+}
+.loading4 {
+  background-image: url("../img/loadingScreenIcon05.png");
+}
+
 
 .legend-box {
     margin-top: 1vh;
